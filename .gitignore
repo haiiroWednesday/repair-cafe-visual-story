@@ -1,0 +1,6 @@
+node_modules/
+__pycache__/
+*.blend1
+shots/
+log_*.txt
+*-local.html

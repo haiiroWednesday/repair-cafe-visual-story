@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Repair Teapot</title>
+<style>
+{{FONTS}}
+/* Layout: a long-form essay on the left, the pop-up teapot café pinned on the right and following the reading.
+   One committed light look; every colour set explicitly. */
+:root{
+  --ground:#F7F4EF; --paper:#FFFDFA; --ink:#1F2B50; --text:#2B3355; --soft:#666C84; --rose:#B8566A; --rose2:#F4DCE0; --gold:#B08D57; --blue2:#E6EEF5; --rule:rgba(31,43,80,.12);
+  --title:'Roffelia','Playfair Display',Georgia,serif; --body:'Newsreader',Georgia,serif;
+  --hdr:60px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--body)}
+body.lock{overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+.ph{background:repeating-linear-gradient(-45deg,rgba(184,86,106,.06) 0 7px,transparent 7px 14px);outline:1px dashed rgba(184,86,106,.42);border-radius:3px;padding:0 3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1px solid var(--rule);background:var(--paper);padding:9px 16px;font:500 15px var(--body);color:var(--ink);white-space:nowrap}
+.btn:hover{border-color:var(--gold)}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#FFFDFA}
+.btn.rose{background:var(--rose);border-color:var(--rose);color:#FFFDFA}
+.btn:focus-visible,a:focus-visible,.hot:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* header: name on the left, one action on the right, reading progress along the bottom edge */
+.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;height:var(--hdr);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 max(24px,env(safe-area-inset-right,0px)) 0 max(24px,env(safe-area-inset-left,0px));background:rgba(247,244,239,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--ground)}
+.site .name{font:400 25px var(--title);color:var(--ink);text-decoration:none}
+.site .where{font:500 14px var(--body);color:var(--soft);margin-left:auto;white-space:nowrap}
+#progress{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--rose)}
+
+/* two columns */
+.story{display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);gap:0;max-width:1600px;margin:0 auto}
+.essay{padding:56px 48px 120px max(48px,env(safe-area-inset-left,0px));min-width:0}
+.sceneCol{position:relative;min-width:0}
+#scene{position:sticky;top:calc(var(--hdr) + env(safe-area-inset-top,0px));height:calc(100vh - var(--hdr) - env(safe-area-inset-top,0px));overflow:hidden;background:radial-gradient(70% 70% at 50% 55%,#FFFFFF 0%,#F3EFE8 70%,#ECE6DC 100%)}
+#stage{display:block;width:100%;height:100%;outline:none;touch-action:pan-y}
+#scene.full{position:fixed;inset:0;z-index:40;height:100%;top:0}
+#scene.full #stage{touch-action:none}
+#sceneLabel{position:absolute;left:20px;bottom:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;pointer-events:none}
+#sceneLabel > *{pointer-events:auto}
+#sceneLabel .lab{background:rgba(255,253,250,.92);border:1px solid var(--rule);border-radius:999px;padding:7px 14px;font:500 14px var(--body);color:var(--text)}
+#sceneLabel .lab b{font-weight:600;color:var(--ink)}
+#loading{position:absolute;inset:0;display:grid;place-items:center;font:italic 400 20px var(--title);color:var(--soft)}
+#closeExplore{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));display:none}
+#exploreHint{position:absolute;left:50%;top:calc(18px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:none;background:rgba(255,253,250,.95);border-radius:999px;padding:8px 16px;font:500 14px var(--body);box-shadow:0 6px 18px rgba(31,43,80,.1);white-space:nowrap}
+#scene.full #closeExplore,#scene.full #exploreHint{display:inline-flex}
+#scene.full #sceneLabel{display:none}
+
+/* hotspots (explore only) and their note */
+.hot{position:absolute;z-index:3;transform:translate(-50%,-50%);border:0;background:none;padding:8px;display:none}
+#scene.full .hot{display:block}
+.hot i{display:block;width:16px;height:16px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 3px var(--rose),0 0 0 8px rgba(184,86,106,.16)}
+.hot span{position:absolute;left:50%;bottom:calc(100% + 2px);transform:translateX(-50%);font:500 13px var(--body);color:var(--ink);background:var(--paper);border-radius:6px;padding:4px 9px;white-space:nowrap;box-shadow:0 4px 12px rgba(31,43,80,.14);opacity:0;transition:opacity .15s;pointer-events:none}
+.hot:hover span,.hot:focus-visible span{opacity:1}
+#note{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(360px,calc(100% - 32px));max-height:70%;overflow:auto;background:var(--paper);border-radius:14px;box-shadow:0 18px 44px rgba(31,43,80,.18);padding:18px 20px 16px;z-index:5}
+#note .tag{font:600 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--rose)}
+#note h4{font:500 22px/1.15 var(--title);color:var(--ink);margin:6px 0 10px}
+#note p{font:400 15px/1.5 var(--body);margin:8px 0}
+#note img{width:100%;height:auto;border-radius:8px}
+#note .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+/* the essay */
+.kicker{font:600 12px var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--rose)}
+.hero h1{font:400 clamp(40px,4.6vw,62px)/1.08 var(--title);color:var(--ink);margin:14px 0 16px;text-wrap:balance}
+.hero .dek{font:italic 400 21px/1.45 var(--body);color:var(--soft);margin:0 0 22px}
+.byline{display:flex;gap:10px;flex-wrap:wrap;font:500 14px var(--body);color:var(--soft);padding:14px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:34px}
+.byline span+span::before{content:"·";margin-right:10px;color:var(--gold)}
+.essay p{font:400 19px/1.65 var(--body);margin:0 0 22px;max-width:62ch}
+.essay p.lead::first-letter{float:left;font:400 72px/0.8 var(--title);color:var(--rose);padding:8px 10px 0 0}
+.essay section{padding-top:40px;scroll-margin-top:calc(var(--hdr) + 20px)}
+.essay h2{font:400 36px/1.12 var(--title);color:var(--ink);margin:10px 0 18px;text-wrap:balance}
+.essay h2 em{color:var(--rose)}
+.orn{display:block;width:100%;height:14px;margin:30px 0 4px}
+figure{margin:28px 0 30px}
+figure img{display:block;width:100%;height:auto;border-radius:6px;background:var(--blue2)}
+figure.tall img{width:auto;max-width:100%;max-height:78vh;margin:0 auto}
+figcaption{display:grid;gap:4px;margin-top:10px;font:400 15px/1.5 var(--body);color:var(--text)}
+figcaption .credit{font:italic 400 13px var(--body);color:var(--soft)}
+.slot{aspect-ratio:4/3;border-radius:6px;display:grid;place-items:center;background:repeating-linear-gradient(-45deg,#F6ECEE 0 12px,#FFFDFA 12px 24px);font:italic 400 20px var(--title);color:var(--rose)}
+.recon{display:inline-block;font:600 11px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--soft);border:1px solid var(--rule);border-radius:999px;padding:3px 9px;margin-bottom:8px}
+
+/* the clock door: opens with a button, or straight away for readers who skip the animation */
+.door{position:relative;border-radius:10px;overflow:hidden;background:#F6ECEE;margin:24px 0}
+.door .panel{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:14px;background:linear-gradient(180deg,#FBF2F3,#F3E4E7);transform-origin:left center;transition:transform 1.1s cubic-bezier(.6,.05,.3,1),opacity 1.1s;z-index:2}
+.door .panel svg{width:140px;height:auto}
+.door.open .panel{transform:perspective(900px) rotateY(-100deg);opacity:0;pointer-events:none}
+.door.instant .panel{transition:none}
+.door .inside{padding:20px 22px 6px}
+.door .inside p{font-size:18px}
+.door .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.linkbtn{background:none;border:0;padding:4px 2px;font:500 15px var(--body);color:var(--soft);text-decoration:underline;text-underline-offset:3px}
+
+/* extras at the end, clearly outside the essay */
+.extras{margin-top:56px;padding-top:28px;border-top:1px solid var(--rule)}
+.extras h3{font:400 26px var(--title);color:var(--ink);margin:6px 0 6px}
+.extras > p{font-size:16px;color:var(--soft)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.xcard{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:12px;display:grid;gap:8px;align-content:start;text-align:left}
+.xcard img{width:100%;height:120px;object-fit:cover;border-radius:6px}
+.xcard b{font:500 17px/1.2 var(--title);color:var(--ink)}
+.xcard span{font:400 14px/1.45 var(--body);color:var(--soft)}
+.sources{margin-top:40px;font:400 14px/1.6 var(--body);color:var(--soft)}
+
+#lb{position:fixed;inset:0;z-index:60;background:rgba(25,22,30,.88);display:none;place-items:center;padding:4vh 4vw}
+#lb.on{display:grid}#lb img{max-width:100%;max-height:86vh;border-radius:6px}#lb .btn{position:fixed;top:calc(18px + env(safe-area-inset-top,0px));right:18px}
+#noGL{display:none;padding:30px;font:italic 400 18px var(--title);color:var(--soft)}
+
+@media (max-width: 900px){
+  :root{--hdr:52px}
+  .site .where{display:none}
+  .site .name{font-size:20px;white-space:nowrap}
+  #exploreBtn{padding:7px 12px;font-size:14px}
+  .story{display:flex;flex-direction:column}
+  .sceneCol{order:-1;position:sticky;top:calc(var(--hdr) + env(safe-area-inset-top,0px));z-index:5;height:40vh}
+  #scene{position:relative;top:0;height:40vh;border-bottom:1px solid var(--rule)}
+  #scene.full{position:fixed;height:100%}
+  #sceneLabel{left:12px;bottom:10px}#sceneLabel .lab{font-size:13px;padding:5px 11px}
+  .essay{padding:32px max(18px,env(safe-area-inset-right,0px)) 100px max(18px,env(safe-area-inset-left,0px))}
+  .essay p{font-size:18px}
+  .essay section{scroll-margin-top:calc(var(--hdr) + 40vh + 12px)}
+  #exploreHint{white-space:normal;width:calc(100% - 140px);left:16px;transform:none;text-align:left}
+}
+</style>
+</head>
+<body>
+<header class="site">
+  <a class="name" href="#top">The Repair Teapot</a>
+  <span class="where" id="where">Repair Café Silicon Valley · October 18, 2026</span>
+  <button class="btn" id="exploreBtn" aria-label="Explore the café freely">Explore the café</button>
+  <div id="progress" aria-hidden="true"></div>
+</header>
+
+<main class="story" id="top">
+  <article class="essay" id="essay">
+    <header class="hero" data-view="entrance">
+      <div class="kicker">Repair Café Silicon Valley · San José</div>
+      <h1><span class="ph">Headline placeholder: the one line that names the story</span></h1>
+      <p class="dek"><span class="ph">Dek placeholder: one sentence on what the reader will learn.</span></p>
+      <div class="byline"><span><span class="ph">By author name</span></span><span>Billy DeFrank Center</span><span>Sunday, October 18, 2026</span></div>
+      <p class="lead"><span class="ph">Opening paragraph. Your essay starts here and runs as one continuous piece. As you scroll, the café on the right moves to the place each paragraph is about.</span></p>
+    </header>
+    {{SECTIONS}}
+    <aside class="extras" id="extras">
+      <div class="kicker">Extras, outside the essay</div>
+      <h3>À la carte</h3>
+      <p>Short notes and photos for readers who want more. Each also sits behind a bell when you explore the café.</p>
+      <div class="cards" id="xcards"></div>
+    </aside>
+    <div class="sources"><span class="ph">Sources and credits placeholder: interviews, photographs, data.</span></div>
+  </article>
+  <div class="sceneCol">
+    <div id="scene" aria-label="Illustrated reconstruction of the café">
+      <canvas id="stage" tabindex="-1" aria-hidden="true"></canvas>
+      <div id="loading">Setting the tables…</div>
+      <div id="sceneLabel"><span class="lab" id="sceneNow"><b>Illustrated reconstruction</b> · at the entrance</span></div>
+      <span id="exploreHint">Drag to look around. Tap a pink dot for a note.</span>
+      <button class="btn primary" id="closeExplore">Back to the essay ✕</button>
+      <div id="note" hidden></div>
+    </div>
+  </div>
+</main>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Photograph"><img id="lbImg" alt=""><button class="btn" id="lbClose">Close</button></div>
+<div id="noGL"></div>
+
+<script src="{{THREE}}"></script>
+<script>
+{{LIB}}
+</script>
+<script>
+{{PAINT}}
+</script>
+<script>
+const ASSETS = {{ASSETS}};
+{{APP}}
+</script>
+</body>
+</html>

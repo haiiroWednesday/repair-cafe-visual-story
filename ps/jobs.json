@@ -1,0 +1,4 @@
+[["g_cream", {"colorPaper":"#EFEADB","colorShadow":"#958C7A","colorBack":"#EFEADB","angle":300,"seed":12,"roughness":0.55,"roughnessSize":0.35,"fiber":0.6,"fiberSize":0.35,"wrinkles":0.35,"wrinkleSize":0.28,"drops":0.12}, 1800, 1125],
+ ["g_cream2", {"colorPaper":"#EFEADB","colorShadow":"#958C7A","colorBack":"#EFEADB","angle":300,"seed":77,"roughness":0.55,"roughnessSize":0.35,"fiber":0.6,"fiberSize":0.35,"wrinkles":0.35,"wrinkleSize":0.28,"drops":0.12}, 1800, 1125],
+ ["g_kraft", {"colorPaper":"#C39668","colorShadow":"#6B4826","colorBack":"#C39668","angle":300,"seed":31,"roughness":0.75,"roughnessSize":0.45,"fiber":0.85,"fiberSize":0.45,"wrinkles":0.3,"wrinkleSize":0.35,"drops":0.3}, 1400, 1400],
+ ["navy", {"colorPaper":"#25357F","colorShadow":"#081038","colorBack":"#25357F","angle":120,"seed":9,"roughness":0.35,"roughnessSize":0.3,"fiber":0.35,"fiberSize":0.4,"crumples":0.7,"crumpleCount":9,"wrinkles":0.75,"wrinkleSize":0.42,"drops":0.08}, 1800, 1125]]

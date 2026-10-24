@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Repair Café, on paper</title>
+<style>
+{{FONTS}}
+{{FRAMES}}
+:root{--navy:#23337E;--ink:#1E2A62;--text:#2A3360;--soft:#5E6585;--rust:#C24A23;--gold:#B08D57;--cream:#EFEADB;--title:'Roffelia',Georgia,serif;--body:'Newsreader',Georgia,serif;--tear:110px;color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:#DCD5C4;color:var(--text);font:400 18px/1.62 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.ph{background:rgba(194,74,35,.07);outline:1px dashed rgba(194,74,35,.4);border-radius:2px;padding:0 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+a{color:inherit}
+:focus-visible{outline:2.5px solid var(--rust);outline-offset:3px}
+
+/* top bar: a strip of paper with the sections */
+.bar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:22px;padding:10px max(18px,3vw);background:rgba(240,235,222,.93);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(35,51,126,.16)}
+.bar .name{font:400 24px/1 var(--title);color:var(--navy);text-decoration:none;white-space:nowrap}
+.bar nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.bar nav::-webkit-scrollbar{display:none}
+.bar nav a{font:600 12px var(--body);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--soft);padding:7px 10px;border-radius:2px;white-space:nowrap}
+.bar nav a:hover,.bar nav a[aria-current=true]{color:var(--navy);background:rgba(35,51,126,.07)}
+#prog{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--rust)}
+
+/* spreads: sheets of paper laid one over the next, each torn along its top */
+.sw{position:relative;margin-top:calc(var(--tear) * -.62);filter:drop-shadow(0 -5px 8px rgba(38,30,18,.2))}
+.sw.first{margin-top:0}
+.spread{position:relative;background:var(--cream) center/cover no-repeat;padding:calc(var(--tear) + 30px) 0 110px}
+.sw:not(.first) .spread{-webkit-mask:url(img/tear0_mask.png) top center/100% var(--tear) no-repeat,linear-gradient(#000,#000) 0 calc(var(--tear) - 1px)/100% calc(100% - var(--tear) + 1px) no-repeat;mask:url(img/tear0_mask.png) top center/100% var(--tear) no-repeat,linear-gradient(#000,#000) 0 calc(var(--tear) - 1px)/100% calc(100% - var(--tear) + 1px) no-repeat}
+.sw.t1 .spread{-webkit-mask-image:url(img/tear1_mask.png),linear-gradient(#000,#000);mask-image:url(img/tear1_mask.png),linear-gradient(#000,#000)}
+.sw.t2 .spread{-webkit-mask-image:url(img/tear2_mask.png),linear-gradient(#000,#000);mask-image:url(img/tear2_mask.png),linear-gradient(#000,#000)}
+.rim{position:absolute;left:0;right:0;top:0;height:var(--tear);background:url(img/tear0_rim.png) top center/100% var(--tear) no-repeat;pointer-events:none;z-index:6}
+.t1 .rim{background-image:url(img/tear1_rim.png)}.t2 .rim{background-image:url(img/tear2_rim.png)}
+.first .rim{display:none}
+.cream{background-image:url(img/tx_paper_cream.jpg)}
+.lined{background-image:url(img/tx_paper_lined.jpg)}
+.grid{background-image:url(img/tx_paper_grid.jpg)}
+.grey{background-image:url(img/tx_paper_grey.jpg)}
+.navy{background-image:url(img/tx_paper_navy.jpg);color:#E9E4D6}
+
+.in{max-width:1260px;margin:0 auto;padding:0 max(22px,3vw);display:grid;grid-template-columns:5fr 7fr;gap:clamp(28px,5vw,72px);align-items:center}
+.spread.left .in{grid-template-columns:7fr 5fr}
+.cover .in{grid-template-columns:4fr 8fr}
+.cover h1{font-size:clamp(54px,6.4vw,96px)}
+
+/* type: big two-line titles, small body under thin rules */
+h1,h2{font-variant-ligatures:none;font-feature-settings:'liga' 0;font-family:var(--title);font-weight:400;color:var(--navy);margin:22px 0 22px;text-wrap:balance}
+h1{font-size:clamp(58px,7.4vw,112px);line-height:.94}
+h2{font-size:clamp(44px,5.2vw,78px);line-height:.98}
+.kick{font:600 12px var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--rust)}
+.txt p{margin:0 0 18px;max-width:34em}
+.dek{font:italic 400 clamp(19px,2vw,23px)/1.45 var(--body);color:var(--soft)}
+.by{font:600 12px var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-top:20px}
+.subs{display:grid;grid-template-columns:1fr 1fr;gap:22px;border-top:1px solid rgba(35,51,126,.3);padding-top:18px;margin-top:8px}
+.sub h3{font:600 17px/1.25 var(--body);color:var(--navy);margin:0 0 6px}
+.sub p{font-size:15.5px;line-height:1.55;margin:0}
+.cap{font-size:13.5px !important;line-height:1.45;font-style:italic;color:var(--soft);border-top:1px solid rgba(35,51,126,.22);padding-top:10px;margin-top:22px !important}
+.navy h2,.navy h1{color:#F4EFE1}.navy .kick{color:#F0A57F}.navy .txt p{color:#E4DFD1}.navy .sub h3{color:#F4EFE1}.navy .subs,.navy .cap{border-color:rgba(244,239,225,.3)}.navy .cap{color:#C9C5BA}
+.navy .ph{background:rgba(255,255,255,.06);outline-color:rgba(240,165,127,.55)}
+.fcap{max-width:1260px;margin:18px auto 0;padding:0 max(22px,3vw);font-size:13.5px;font-style:italic;color:var(--soft);text-align:right}
+.fcap span{display:block}
+
+/* the collage stage: every piece is placed by percentages */
+.stage{position:relative;aspect-ratio:var(--ar)}
+.pc{position:absolute;left:var(--l);top:var(--t);width:var(--w);height:auto;transform:rotate(var(--r));z-index:var(--z);user-select:none;-webkit-user-drag:none}
+img.pc{cursor:zoom-in}
+.arrow{overflow:visible;pointer-events:none}
+.polawrap .fr{margin:0;max-width:none;transform:none}.polawrap figcaption{display:none}
+.polawrap .pola{filter:drop-shadow(0 16px 18px rgba(38,30,18,.32))}
+.pull{font-feature-settings:'liga' 0;max-width:820px;margin:56px auto 0;padding:0 max(22px,3vw);text-align:center;font:400 clamp(30px,3.4vw,44px)/1.18 var(--title);color:var(--navy)}
+.pull cite{display:block;margin-top:12px;font:600 12px var(--body);letter-spacing:.16em;text-transform:uppercase;font-style:normal;color:var(--rust)}
+.recon{max-width:1260px;margin:26px auto 0;padding:0 max(22px,3vw);font:600 11.5px var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--navy)}
+.nbBtn{font:600 13px var(--body);letter-spacing:.14em;text-transform:uppercase;border:0;border-radius:999px;padding:13px 22px;background:var(--navy);color:#F4EFE1;cursor:pointer;box-shadow:3px 3px 0 #F2D98E}
+.nbBtn:hover{background:#1A2766}
+.nbLink{font:600 12px var(--body);letter-spacing:.14em;text-transform:uppercase;border:0;background:none;color:var(--rust);padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.nbPv{padding:0;border:0;background:none;cursor:pointer;filter:drop-shadow(0 14px 18px rgba(38,30,18,.28))}.nbPv img{display:block;width:100%}
+.end{position:relative;margin-top:-40px;padding:90px max(22px,3vw) 80px;background:#23337E url(img/tx_paper_navy.jpg) center/cover;color:#D9D4C6;font-size:14px;text-align:center}
+
+#lb{position:fixed;inset:0;z-index:90;background:rgba(20,18,26,.9);display:none;place-items:center;padding:4vh 4vw}#lb.on{display:grid}
+#lb img{max-width:100%;max-height:88vh}#lb button{position:fixed;top:14px;right:16px;font:600 13px var(--body);border:0;border-radius:999px;padding:8px 14px;background:#F2EDE0;color:var(--navy);cursor:pointer}
+
+@media (max-width:820px){
+  :root{--tear:64px}
+  body{font-size:17.5px}
+  .in,.spread.left .in,.cover .in{grid-template-columns:1fr;gap:22px}
+  .stage{order:-1;aspect-ratio:var(--mar)}
+  .pc{left:var(--ml,var(--l));top:var(--mt,var(--t));width:var(--mw,var(--w))}
+  .subs{grid-template-columns:1fr}
+  .spread{padding-bottom:80px}
+  .bar .name{font-size:20px}
+  .fcap{text-align:left}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="mk" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
+<div class="bar"><a class="name" href="#top">Repair Café</a><nav aria-label="Sections">{{NAV}}</nav><div id="prog"></div></div>
+<main>
+{{BODY}}
+</main>
+<div id="lb" role="dialog" aria-modal="true" aria-label="Picture"><img id="lbImg" alt=""><button id="lbX">Close</button></div>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  // first sheet has no torn top
+  document.querySelector('.sw').classList.add('first');
+  // progress and the current section in the bar
+  const links = [...document.querySelectorAll('.bar nav a')], secs = links.map(a => document.querySelector(a.getAttribute('href')));
+  const tick = () => { const h = document.documentElement; $('#prog').style.width = (h.scrollTop / Math.max(1, h.scrollHeight - innerHeight) * 100) + '%';
+    let cur = -1; secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top < innerHeight * .4) cur = i; }); links.forEach((a, i) => a.setAttribute('aria-current', i === cur)); };
+  addEventListener('scroll', tick, { passive: true }); tick();
+  // the marker writing on the polaroid needs its photo
+  document.querySelectorAll('img[data-photo]').forEach(im => { im.src = 'img/' + im.dataset.photo + '.jpg'; });
+  // pictures open larger
+  document.querySelectorAll('img.pc, .pola img').forEach(im => im.addEventListener('click', () => { $('#lbImg').src = im.src; $('#lbImg').alt = im.alt; $('#lb').classList.add('on'); $('#lbX').focus(); }));
+  $('#lbX').onclick = () => $('#lb').classList.remove('on'); $('#lb').onclick = e => { if (e.target.id === 'lb') $('#lb').classList.remove('on'); };
+  addEventListener('keydown', e => { if (e.key === 'Escape') $('#lb').classList.remove('on'); });
+  window.__ok = true;
+})();
+</script>
+</body>
+</html>

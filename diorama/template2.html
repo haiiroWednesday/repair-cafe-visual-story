@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Repair Teapot</title>
+<style>
+{{FONTS}}
+/* One committed look: a porcelain-and-gold café menu laid over a powder-blue tablecloth. Single theme on purpose; every colour is set explicitly. */
+:root{
+  --ground:#ECF1F6; --ground2:#DFE7EF; --paper:#FFFCF7; --ink:#22305C; --soft:#5A6383; --gold:#B8945A; --gold2:#E3CB92; --rose:#B9606F; --rule:rgba(34,48,92,.15);
+  --shadow:0 1px 2px rgba(34,48,92,.07),0 18px 44px rgba(34,48,92,.13);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif; --caps:'Italiana','Cormorant Garamond',Georgia,serif; --body:'Newsreader',Georgia,serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;color:var(--ink);font-family:var(--body);background:var(--ground)}
+body{background:radial-gradient(90% 75% at 44% 50%, #FBFCFD 0%, var(--ground) 52%, var(--ground2) 100%)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(rgba(34,48,92,.09) 1px, transparent 1.3px);background-size:24px 24px;opacity:.6}
+#stage{position:fixed;inset:0;width:100vw;height:100vh;display:block;outline:none}
+button{font:inherit;color:inherit;cursor:pointer}
+.ph{background:repeating-linear-gradient(-45deg,rgba(185,96,111,.07) 0 7px,transparent 7px 14px);outline:1px dashed rgba(185,96,111,.5);border-radius:3px;padding:0 4px}
+.caps{font:400 12px/1.2 var(--caps);letter-spacing:.24em;text-transform:uppercase;color:var(--soft)}
+.corner{position:fixed;width:64px;height:64px;pointer-events:none;z-index:3}
+.corner path{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-linecap:round}
+.c-tl{left:12px;top:12px}.c-tr{right:12px;top:12px;transform:scaleX(-1)}.c-bl{left:12px;bottom:12px;transform:scaleY(-1)}.c-br{right:12px;bottom:12px;transform:scale(-1,-1)}
+
+/* masthead */
+#mast{position:fixed;left:40px;top:34px;z-index:6;pointer-events:none;max-width:460px}
+#mast .caps{display:block}
+#mast h1{font:600 46px/0.98 var(--display);letter-spacing:-.01em;margin:10px 0 10px;text-wrap:balance}
+#mast .date{display:flex;align-items:center;gap:10px;font:italic 500 18px var(--display);color:var(--soft)}
+#mast .date::before{content:"";width:34px;height:1px;background:var(--gold)}
+#mast p{margin:8px 0 0;font:400 15px/1.4 var(--body);color:var(--soft);max-width:360px}
+
+/* the index, set as a menu card */
+#menu{position:fixed;left:34px;top:236px;width:246px;z-index:6;background:var(--paper);border-radius:3px;padding:20px 18px 14px;box-shadow:var(--shadow)}
+#menu::before{content:"";position:absolute;inset:6px;border:1px solid var(--gold2);pointer-events:none}
+#menu h3{margin:0;text-align:center;font:italic 500 32px/1 var(--display)}
+#menu .sub{text-align:center;margin:6px 0 12px}
+#menu .orn{display:block;margin:0 auto 10px;width:90px;height:10px}
+#menu button.it{display:grid;grid-template-columns:30px 1fr;column-gap:6px;align-items:baseline;width:100%;background:none;border:0;padding:7px 6px;text-align:left;border-radius:2px;transition:background .2s}
+#menu button.it:hover{background:rgba(184,148,90,.1)}
+#menu .no{font:400 14px var(--caps);letter-spacing:.1em;color:var(--gold)}
+#menu .nm{font:500 19px/1.1 var(--display);color:var(--ink)}
+#menu .cs{grid-column:2;font:italic 500 15px/1.15 var(--display);color:var(--rose)}
+#menu button.it.on{background:var(--ink)}#menu button.it.on .nm{color:#FFFCF7}#menu button.it.on .cs{color:var(--gold2)}#menu button.it.on .no{color:var(--gold2)}
+#menu .alc{margin-top:10px;padding-top:10px;border-top:1px solid var(--rule);text-align:center}
+#menu .alc button{background:none;border:0;font:italic 500 17px var(--display);color:var(--ink);border-bottom:1px solid var(--gold);padding:2px 2px}
+
+/* the reading card */
+#card{position:fixed;right:34px;top:30px;bottom:100px;width:min(420px,33vw);z-index:7;background:var(--paper);border-radius:3px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;transition:opacity .4s,transform .4s}
+#card::before{content:"";position:absolute;inset:7px;border:1px solid var(--gold2);pointer-events:none;z-index:2}
+#card.hide{opacity:0;transform:translateY(12px);pointer-events:none}
+#card .scroll{overflow:auto;flex:1;padding:26px 54px 12px 30px;position:relative}
+#card .vert{position:absolute;right:18px;top:28px;writing-mode:vertical-rl;font:400 12px var(--caps);letter-spacing:.3em;text-transform:uppercase;color:var(--soft)}
+#card .head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+#card .num{font:500 56px/0.9 var(--display);color:var(--gold)}
+#card .course{font:italic 500 22px var(--display);color:var(--rose)}
+#card h2{font:600 34px/1.02 var(--display);margin:2px 0 14px;text-wrap:balance}
+#card .cap{font:400 16px/1.5 var(--body);margin:12px 0}
+#card .src{font:italic 400 12.5px/1.45 var(--body);color:var(--soft);border-top:1px solid var(--rule);padding-top:9px;margin-top:14px}
+#card .tag{display:inline-block;font:400 11px var(--caps);letter-spacing:.2em;text-transform:uppercase;color:#FFFCF7;background:var(--rose);padding:5px 9px 4px;margin:0 0 12px}
+#card .tag.sup{background:var(--soft)}
+#card .actions{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:8px;padding:12px 20px 18px;border-top:1px solid var(--rule);background:var(--paper)}
+.btn{border-radius:999px;border:1px solid var(--rule);background:var(--paper);padding:9px 16px;font:500 14px var(--body);color:var(--ink);white-space:nowrap}
+.btn:hover{border-color:var(--gold)}
+.btn.primary{background:var(--ink);color:#FFFCF7;border-color:var(--ink)}
+.btn.gold{background:linear-gradient(180deg,#EED9A2,#C9A76A);color:#33270F;border-color:transparent}
+.btn:disabled{opacity:.35;cursor:default}
+.btn:focus-visible,#menu button:focus-visible,.hot:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* photo frames that keep each photo's own shape */
+.frame{position:relative;margin:4px 0 6px}
+.frame img{display:block;width:100%;height:auto;cursor:zoom-in}
+.ticket{background:#E4ECF4;border-radius:8px;padding:11px 11px 0;-webkit-mask:radial-gradient(circle 9px at 0 calc(100% - 42px),#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 9px at 100% calc(100% - 42px),#0000 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 9px at 0 calc(100% - 42px),#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 9px at 100% calc(100% - 42px),#0000 98%,#000) right/51% 100% no-repeat}
+.ticket img{border-radius:4px}
+.ticket .stub{display:flex;align-items:center;justify-content:space-between;height:42px;border-top:1.5px dashed rgba(34,48,92,.3);margin-top:11px;font:400 12px var(--caps);letter-spacing:.18em;color:var(--ink)}
+.ticket .bars{width:78px;height:18px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px);opacity:.8}
+.polaroid{background:#FFFFFF;padding:10px 10px 36px;box-shadow:0 2px 8px rgba(34,48,92,.14);transform:rotate(-1.2deg);width:84%;margin:12px auto 8px}
+.polaroid .lab{position:absolute;left:14px;bottom:8px;font:italic 500 17px var(--display);color:var(--soft)}
+.polaroid .clip{position:absolute;right:18px;top:-15px;width:20px;height:44px;border:2px solid #A4ADBD;border-radius:11px;transform:rotate(14deg)}
+.polaroid .clip::after{content:"";position:absolute;left:3px;top:7px;width:9px;height:27px;border:2px solid #A4ADBD;border-bottom:0;border-radius:8px 8px 0 0}
+.reveal{margin-top:14px;padding:14px 16px;background:linear-gradient(170deg,#FBF1F3,#EEF3FA);border:1px solid var(--rule);animation:rise .6s ease}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+#wire{position:fixed;inset:0;pointer-events:none;z-index:5}
+#wire path{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-dasharray:1 5;stroke-linecap:round}
+#wire circle{fill:var(--paper);stroke:var(--gold);stroke-width:1.6}
+
+/* course bar */
+#bar{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:7;display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:999px;padding:6px 6px 6px 10px;box-shadow:var(--shadow)}
+#cups{display:flex;gap:5px}
+#cups svg{width:22px;height:18px;opacity:.3;transition:opacity .3s}
+#cups svg.done{opacity:.65}#cups svg.on{opacity:1}
+#hint{font:italic 500 16px var(--display);color:var(--soft)}
+#idxBtn{display:none}
+
+/* explore notice */
+#explore{position:fixed;left:50%;top:30px;transform:translateX(-50%);z-index:8;display:none;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--gold2);border-radius:999px;padding:7px 7px 7px 20px;box-shadow:var(--shadow)}
+#explore.on{display:flex}
+#explore span{font:italic 500 18px var(--display);color:var(--ink);white-space:nowrap}
+
+/* discoveries: small gold bells; the name appears on hover or focus */
+.hot{position:fixed;z-index:6;transform:translate(-50%,-50%);border:0;background:none;padding:6px;display:block}
+.hot i{display:block;width:13px;height:13px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 2.5px var(--gold),0 0 0 7px rgba(227,203,146,.35);animation:pulse 2.4s ease-in-out infinite}
+.hot span{position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);font:italic 500 16px var(--display);color:var(--ink);background:var(--paper);border:1px solid var(--gold2);padding:2px 10px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 4px 14px rgba(34,48,92,.12)}
+.hot:hover span,.hot:focus-visible span{opacity:1}
+@keyframes pulse{50%{box-shadow:0 0 0 2.5px var(--gold),0 0 0 11px rgba(227,203,146,.0)}}
+
+/* intro */
+#intro{position:fixed;inset:0;z-index:20;display:grid;place-items:end center;padding:0 16px calc(9vh + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(236,241,246,0) 45%,rgba(236,241,246,.8))}
+#intro .box{position:relative;max-width:500px;text-align:center;background:var(--paper);padding:28px 34px 26px;box-shadow:var(--shadow)}
+#intro .box::before{content:"";position:absolute;inset:7px;border:1px solid var(--gold2);pointer-events:none}
+#intro h1{font:600 38px/1 var(--display);margin:10px 0 10px;text-wrap:balance}
+#intro p{margin:0 0 18px;font:400 15.5px/1.45 var(--body);color:var(--soft)}
+
+#lb{position:fixed;inset:0;z-index:30;background:rgba(22,28,48,.86);display:none;place-items:center;padding:4vh 4vw}
+#lb.on{display:grid}#lb img{max-width:100%;max-height:86vh}#lb .btn{position:fixed;top:calc(18px + env(safe-area-inset-top,0px));right:18px}
+#noGL{display:none;position:fixed;inset:0;overflow:auto;padding:30px 16px;z-index:40;background:var(--ground)}
+
+@media (max-width: 820px){
+  .corner{display:none}
+  #mast{left:12px;right:12px;top:calc(10px + env(safe-area-inset-top,0px));max-width:none;background:rgba(255,252,247,.92);padding:9px 14px 10px;box-shadow:0 6px 20px rgba(34,48,92,.08)}
+  #mast .caps{font-size:10px;letter-spacing:.2em}
+  #mast h1{font-size:24px;margin:4px 0 3px}#mast .date{font-size:14px}#mast .date::before{width:20px}#mast p{display:none}
+  #menu{display:none;left:12px;right:12px;width:auto;top:auto;bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  #menu.open{display:block}
+  #card{left:10px;right:10px;width:auto;top:auto;bottom:calc(78px + env(safe-area-inset-bottom,0px));height:47vh}
+  #card .scroll{padding:18px 40px 8px 20px}#card .vert{right:12px;top:20px;font-size:10px}#card .num{font-size:42px}#card .course{font-size:19px}#card h2{font-size:26px}
+  #card .actions{padding:10px 14px 14px}
+  #bar{left:10px;right:10px;bottom:calc(12px + env(safe-area-inset-bottom,0px));transform:none;justify-content:space-between;gap:6px}
+  #hint{display:none}#idxBtn{display:inline-block}
+  #next .long{display:none}
+  #explore{top:auto;bottom:calc(80px + env(safe-area-inset-bottom,0px));left:10px;right:10px;transform:none;justify-content:space-between;padding-left:16px}
+  #explore span{font-size:15px;white-space:normal}
+  #intro h1{font-size:30px}
+}
+@media (prefers-reduced-motion: reduce){ .hot i{animation:none} .reveal{animation:none} #card{transition:none} }
+</style>
+</head>
+<body>
+<canvas id="stage" tabindex="0" aria-label="A pop-up teapot café. Use the story controls to move through it."></canvas>
+<svg id="wire" aria-hidden="true"><path id="wirePath" d=""/><circle id="wireDot" r="4.5" cx="-20" cy="-20"/></svg>
+<svg class="corner c-tl" viewBox="0 0 64 64" aria-hidden="true"><path d="M4 60 V16 Q4 4 16 4 H60 M11 53 V19 Q11 11 19 11 H53"/></svg>
+<svg class="corner c-tr" viewBox="0 0 64 64" aria-hidden="true"><path d="M4 60 V16 Q4 4 16 4 H60 M11 53 V19 Q11 11 19 11 H53"/></svg>
+<svg class="corner c-bl" viewBox="0 0 64 64" aria-hidden="true"><path d="M4 60 V16 Q4 4 16 4 H60 M11 53 V19 Q11 11 19 11 H53"/></svg>
+<svg class="corner c-br" viewBox="0 0 64 64" aria-hidden="true"><path d="M4 60 V16 Q4 4 16 4 H60 M11 53 V19 Q11 11 19 11 H53"/></svg>
+
+<header id="mast">
+  <span class="caps">Repair Café Silicon Valley</span>
+  <h1><span class="ph">Headline placeholder</span></h1>
+  <div class="date">Sunday, 18 October 2026 · San José</div>
+  <p><span class="ph">One-sentence takeaway goes here.</span></p>
+</header>
+
+<nav id="menu" aria-label="Story index" style="visibility:hidden">
+  <h3>Menu</h3><div class="caps sub">five courses, in order</div>
+  <svg class="orn" viewBox="0 0 90 10" aria-hidden="true"><path d="M0 5 H34 M56 5 H90" stroke="#B8945A" stroke-width="1"/><circle cx="45" cy="5" r="3" fill="none" stroke="#B8945A"/><circle cx="38" cy="5" r="1.2" fill="#B8945A"/><circle cx="52" cy="5" r="1.2" fill="#B8945A"/></svg>
+  <div id="menuItems"></div>
+  <div class="alc"><button id="exAll">à la carte: look around freely</button></div>
+</nav>
+
+<aside id="card" class="hide" aria-live="polite"><div class="scroll" id="cardBody"></div><div class="actions" id="cardActions"></div></aside>
+
+<div id="explore" role="status"><span id="exploreText">Drag to look around. Gold bells open extra notes.</span><button class="btn primary" id="resume">Back to the story</button></div>
+
+<div id="bar" style="visibility:hidden">
+  <button class="btn" id="idxBtn" aria-controls="menu">Menu</button>
+  <button class="btn" id="prev" aria-label="Previous course">‹</button>
+  <div id="cups" aria-hidden="true"></div>
+  <span id="hint">scroll, or press →</span>
+  <button class="btn primary" id="next" aria-label="Next course"><span class="long">Next course </span>›</button>
+</div>
+
+<div id="intro"><div class="box">
+  <span class="caps">A pop-up café in five courses</span>
+  <h1><span class="ph">Headline placeholder</span></h1>
+  <p>Open the book and the café unfolds. Follow the menu from course to course, or stop anywhere to look around.</p>
+  <button class="btn primary" id="open">Open the book</button>
+</div></div>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Photograph"><img id="lbImg" alt=""><button class="btn" id="lbClose">Close</button></div>
+<div id="noGL"></div>
+
+<script src="{{THREE}}"></script>
+<script>
+{{LIB}}
+</script>
+<script>
+{{PAINT}}
+</script>
+<script>
+const ASSETS = {{ASSETS}};
+{{APP}}
+</script>
+</body>
+</html>

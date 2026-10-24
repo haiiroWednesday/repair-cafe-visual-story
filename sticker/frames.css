@@ -1,0 +1,123 @@
+/* ---------- photo frames: each photograph gets its own café object for a frame ---------- */
+.fr{position:relative;margin:34px auto 30px}
+.fr img.ph-img{display:block;width:100%;height:auto;cursor:zoom-in}
+.fr figcaption{font:400 15px/1.5 var(--body);color:var(--text);margin-top:14px}
+.fr figcaption .credit{display:block;font-style:italic;font-size:13px;color:var(--soft)}
+.flo{position:absolute;width:58px;height:58px;pointer-events:none;color:#B08D57}
+.flo.tl{left:-6px;top:-6px}.flo.tr{right:-6px;top:-6px;transform:scaleX(-1)}.flo.bl{left:-6px;bottom:-6px;transform:scaleY(-1)}.flo.br{right:-6px;bottom:-6px;transform:scale(-1,-1)}
+
+/* gilt: a carved gold frame with a cream mat and a little name plaque */
+.gilt .body{position:relative;padding:18px;border-radius:6px;background:linear-gradient(135deg,#F7E7B4 0%,#C9A35E 22%,#F4DC9C 44%,#B48A49 66%,#F2D896 84%,#C39C55 100%);box-shadow:inset 0 0 0 2px rgba(255,250,230,.65),inset 0 0 0 6px rgba(140,100,40,.28),inset 0 0 0 8px rgba(255,245,220,.5),0 26px 40px -24px rgba(31,43,80,.55)}
+.gilt .mat{background:#FFFCF4;padding:12px;box-shadow:inset 0 0 0 1px rgba(176,141,87,.55),inset 0 0 0 5px #FFFCF4,inset 0 0 0 6px rgba(176,141,87,.35)}
+.gilt .plaque{position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);background:linear-gradient(180deg,#F6E2A8,#C49E5B);color:#3A2C12;font:600 11px var(--body);letter-spacing:.2em;text-transform:uppercase;padding:6px 16px;border-radius:3px;box-shadow:0 4px 8px rgba(60,40,10,.25);white-space:nowrap}
+.gilt .flo{color:#8F6A2E;width:66px;height:66px}
+
+/* stamp: a perforated postage stamp with a San José postmark */
+.stampf{max-width:560px}
+.stampf .body{position:relative;padding:15px;background:radial-gradient(circle at 7px 7px,var(--paper) 4.6px,#FFFFFF 5.2px) -7px -7px/14px 14px;filter:drop-shadow(0 14px 18px rgba(31,43,80,.18))}
+.stampf .in{background:#FFFFFF;padding:10px 10px 8px;box-shadow:inset 0 0 0 1px rgba(31,43,80,.12)}
+.stampf .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font:600 11px var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
+.stampf .row b{font:400 26px var(--title);letter-spacing:0;text-transform:none;color:var(--rose)}
+.stampf .pm{position:absolute;right:-34px;top:-30px;width:150px;height:150px;transform:rotate(-12deg);opacity:.85;pointer-events:none}
+
+/* arch: an arched shop window with a scalloped awning and a flower box */
+.arch{max-width:420px}
+.arch .awn{position:relative;height:34px;margin:0 -16px -6px;border-radius:6px 6px 0 0;background:repeating-linear-gradient(90deg,#F2C4CC 0 22px,#FFFDFA 22px 44px);box-shadow:0 6px 10px -6px rgba(31,43,80,.35);z-index:2}
+.arch .awn::after{content:"";position:absolute;left:0;right:0;bottom:-11px;height:12px;background:radial-gradient(circle at 11px 0,#F2C4CC 10.5px,transparent 11px) 0 0/44px 12px,radial-gradient(circle at 33px 0,#FFFDFA 10.5px,transparent 11px) 0 0/44px 12px}
+.arch .win{position:relative;padding:14px;background:#FFFDFA;border-radius:999px 999px 8px 8px;box-shadow:inset 0 0 0 2px rgba(176,141,87,.6),0 20px 34px -22px rgba(31,43,80,.5)}
+.arch .win .glass{border-radius:999px 999px 4px 4px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(31,43,80,.15)}
+.arch .win img.ph-img{aspect-ratio:3/4;object-fit:cover}
+.arch .win::after{content:"";position:absolute;inset:14px;border-radius:999px 999px 4px 4px;pointer-events:none;background:linear-gradient(90deg,transparent 49.6%,rgba(255,253,250,.8) 49.6% 50.4%,transparent 50.4%),linear-gradient(transparent 58%,rgba(255,253,250,.8) 58% 58.8%,transparent 58.8%),linear-gradient(125deg,rgba(255,255,255,.28) 0 18%,transparent 18% 26%,rgba(255,255,255,.18) 26% 30%,transparent 30%)}
+.arch .box{position:relative;height:38px;margin:-4px -12px 0;border-radius:6px;background:#9CC2E6;box-shadow:inset 0 0 0 2px rgba(31,43,80,.18)}
+.arch .box img{position:absolute;left:-4%;width:108%;bottom:14px;pointer-events:none}
+
+/* cameo: an oval gold frame hung from a satin bow */
+.cameo{max-width:360px}
+.cameo .ring{position:relative;padding:14px;border-radius:50%;background:conic-gradient(from 200deg,#F7E7B4,#C49E5B,#F4DC9C,#B48A49,#F2D896,#C49E5B,#F7E7B4);box-shadow:0 22px 34px -22px rgba(31,43,80,.55)}
+.cameo .ring::before{content:"";position:absolute;inset:7px;border-radius:50%;border:1.5px dotted rgba(255,250,230,.9);pointer-events:none;z-index:2}
+.cameo .oval{border-radius:50%;overflow:hidden;background:#F4DCE0;box-shadow:inset 0 0 0 4px #FFFCF4}
+.cameo .oval img.ph-img{aspect-ratio:3/4;object-fit:cover}
+.cameo .bow{position:absolute;left:50%;top:-34px;width:120px;transform:translateX(-50%);z-index:3}
+
+/* plate: the photo served on a porcelain plate, cutlery either side */
+.platef{max-width:520px}
+.platef .table{position:relative;display:grid;grid-template-columns:52px 1fr 52px;align-items:center;gap:6px}
+.platef .cut{width:100%;height:auto;filter:drop-shadow(0 6px 6px rgba(31,43,80,.15))}
+.platef .plate{position:relative;aspect-ratio:1;border-radius:50%;padding:9%;background:radial-gradient(circle,#FFFFFF 63%,#E7EEF6 64%,#FFFFFF 66%,#FFFFFF 70%,#C8A866 70.5%,#FFFFFF 71.5%),#fff;box-shadow:0 18px 26px -16px rgba(31,43,80,.4),inset 0 -6px 14px rgba(31,43,80,.06)}
+.platef .plate::before{content:"";position:absolute;inset:2.5%;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(156,194,230,.75) 0 4deg,transparent 4deg 10deg);-webkit-mask:radial-gradient(circle,transparent 66%,#000 66.5%,#000 69%,transparent 69.5%);mask:radial-gradient(circle,transparent 66%,#000 66.5%,#000 69%,transparent 69.5%)}
+.platef .plate .well{width:100%;height:100%;border-radius:50%;overflow:hidden;box-shadow:0 0 0 3px #fff,0 0 0 4px rgba(200,168,102,.8)}
+.platef .plate .well img.ph-img{width:100%;height:100%;object-fit:cover}
+
+/* ticket: an admission stub with a barcode */
+.ticketf .body{background:#E4ECF4;border-radius:12px;padding:12px 12px 0;-webkit-mask:radial-gradient(circle 10px at 0 calc(100% - 44px),#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 10px at 100% calc(100% - 44px),#0000 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 10px at 0 calc(100% - 44px),#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 10px at 100% calc(100% - 44px),#0000 98%,#000) right/51% 100% no-repeat}
+.ticketf .body img.ph-img{border-radius:6px}
+.ticketf .stub{display:flex;align-items:center;justify-content:space-between;height:44px;border-top:1.5px dashed rgba(31,43,80,.3);margin-top:12px;font:600 11px var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
+.ticketf .bars{width:80px;height:18px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px);opacity:.75}
+
+/* menu card: the final image set into a menu with a double gold rule */
+.menuf .body{position:relative;background:#FFFCF6;padding:30px 30px 22px;box-shadow:0 22px 40px -26px rgba(31,43,80,.5)}
+.menuf .body::before{content:"";position:absolute;inset:10px;border:1.5px solid #C8A866;pointer-events:none}
+.menuf .body::after{content:"";position:absolute;inset:15px;border:.8px solid rgba(200,168,102,.6);pointer-events:none}
+.menuf .head{text-align:center;font:400 34px var(--title);color:var(--ink);margin-bottom:12px}
+.menuf .slot{aspect-ratio:4/3;display:grid;place-items:center;background:repeating-linear-gradient(-45deg,#F4DCE0 0 12px,#FFFDFA 12px 24px);font:400 30px var(--title);color:var(--rose)}
+
+/* cloche: the final photo served under a glass dome on a footed plate */
+.clochef{max-width:440px}
+.clochef .dome{position:relative;margin:0 6%;border-radius:50% 50% 6px 6px/42% 42% 6px 6px;overflow:hidden;box-shadow:inset 0 0 0 3px rgba(255,255,255,.85),0 0 0 1px rgba(31,43,80,.12)}
+.clochef .dome img.ph-img{aspect-ratio:3/4.1;object-fit:cover}
+.clochef .dome::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.42) 0 10%,transparent 10% 16%,rgba(255,255,255,.22) 16% 19%,transparent 19% 80%,rgba(255,255,255,.18) 80% 84%,transparent 84%),radial-gradient(120% 80% at 50% 0,rgba(255,255,255,.25),transparent 60%);box-shadow:inset 0 0 30px rgba(255,255,255,.5)}
+.clochef .knob{position:absolute;left:50%;top:-20px;width:34px;height:34px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF4CC,#D9B66C 55%,#A9813F);box-shadow:0 4px 8px rgba(60,40,10,.3);z-index:2}
+.clochef .plate{height:26px;margin:-6px 0 0;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#FFFFFF 60%,#E7EEF6 72%,#C8A866 73%,#FFFFFF 75%);box-shadow:0 14px 18px -10px rgba(31,43,80,.45)}
+.clochef .foot{width:22%;height:22px;margin:0 auto;background:linear-gradient(180deg,#FFFFFF,#E9E4DD);clip-path:polygon(30% 0,70% 0,100% 100%,0 100%)}
+.clochef .tag{display:block;width:max-content;margin:12px auto 0;background:linear-gradient(180deg,#F6E2A8,#C49E5B);color:#3A2C12;font:600 11px var(--body);letter-spacing:.2em;text-transform:uppercase;padding:6px 16px;border-radius:2px;box-shadow:0 4px 8px rgba(60,40,10,.25)}
+
+/* polaroid: her own frame, taped up and written on */
+.polaf{max-width:520px;transform:rotate(-1.6deg)}
+.pola{position:relative;filter:drop-shadow(0 18px 24px rgba(31,43,80,.28))}
+.pola img.ph-img{display:block;width:100%;height:auto}
+.pola .ink{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+
+/* two little televisions on a café shelf, each playing one shoe photo */
+.tvset{max-width:720px;container-type:inline-size}
+.tvset .shelf2{position:relative;z-index:1;margin-bottom:-.6cqw;display:grid;grid-template-columns:1.12fr 1fr;gap:3cqw;align-items:end;padding:0 3cqw}
+.tv{position:relative;display:grid;justify-items:center}
+.tv .ant{position:relative;height:9cqw;width:40%}
+.tv .ant i{position:absolute;left:50%;bottom:0;width:.5cqw;height:10cqw;background:#B08D57;border-radius:2px;transform-origin:bottom center}
+.tv .ant i:first-child{transform:rotate(-32deg)}.tv .ant i:last-child{transform:rotate(26deg)}
+.tv .ant i::after{content:"";position:absolute;top:-1cqw;left:50%;width:1.6cqw;height:1.6cqw;border-radius:50%;background:#E6C474;transform:translateX(-50%)}
+.tv .ant::after{content:"";position:absolute;left:50%;bottom:-1.2cqw;width:7cqw;height:3cqw;border-radius:50% 50% 0 0;background:#C49E5B;transform:translateX(-50%)}
+.tv .cab{position:relative;width:100%;display:grid;grid-template-columns:1fr 17%;gap:2.2cqw;padding:2.6cqw;border-radius:3.4cqw;background:var(--cab);box-shadow:inset 0 0 0 .6cqw rgba(255,255,255,.5),inset 0 -1.6cqw 2.4cqw rgba(60,30,40,.18),0 2.4cqw 3.6cqw -1.6cqw rgba(31,43,80,.45)}
+.tv.a{--cab:linear-gradient(160deg,#F7D3DA,#E9A9B7)}.tv.b{--cab:linear-gradient(160deg,#D8EEE3,#A9D3C0);margin-bottom:1cqw}
+.tv .scr{position:relative;aspect-ratio:4/3;align-self:center;border-radius:14%/18%;overflow:hidden;background:#1d1b22;box-shadow:0 0 0 1.1cqw #F6EFE6,0 0 0 1.4cqw rgba(176,141,87,.7)}
+.tv .scr img.ph-img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(1.1) contrast(1.05)}
+.tv .crt{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 1px,transparent 1px 3px),radial-gradient(120% 100% at 50% 50%,transparent 55%,rgba(0,0,0,.45) 100%),linear-gradient(125deg,rgba(255,255,255,.32) 0 12%,transparent 12% 20%,rgba(255,255,255,.12) 20% 23%,transparent 23%)}
+.tv .side{display:grid;align-content:start;justify-items:center;gap:1.6cqw;padding-top:.6cqw}
+.tv .knob{width:5.4cqw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF4CC,#D9B66C 55%,#A9813F);box-shadow:0 .4cqw .8cqw rgba(60,40,10,.35)}
+.tv .knob.s{width:4cqw}
+.tv .grille{width:100%;height:9cqw;border-radius:1cqw;background:repeating-linear-gradient(0deg,rgba(60,30,40,.28) 0 .35cqw,transparent .35cqw .9cqw)}
+.tv .ch{font:600 1.5cqw var(--body);letter-spacing:.12em;color:#7A2E3E}
+.tv .feet{display:flex;justify-content:space-between;width:70%}
+.tv .feet i{width:3cqw;height:2.4cqw;background:#B08D57;border-radius:0 0 1cqw 1cqw}
+.tvset .ledge{position:relative;height:3.4cqw;border-radius:.8cqw;background:linear-gradient(180deg,#FFFDFA 0 30%,#EADFD2);box-shadow:inset 0 -.4cqw 0 #C8A866,0 1.8cqw 2.4cqw -1.4cqw rgba(31,43,80,.45)}
+.tvset .ledge::after{content:"";position:absolute;left:2%;right:2%;top:100%;height:2cqw;background:radial-gradient(circle at 50% 0,#FFFDFA 1.1cqw,transparent 1.2cqw) 0 0/2.6cqw 2cqw}
+.tvset .tag{display:block;width:max-content;margin:3cqw auto 0;background:linear-gradient(180deg,#F6E2A8,#C49E5B);color:#3A2C12;font:600 11px var(--body);letter-spacing:.2em;text-transform:uppercase;padding:6px 16px;border-radius:2px;box-shadow:0 4px 8px rgba(60,40,10,.25)}
+
+.lbPola{position:relative;height:86vh;aspect-ratio:3/4;max-width:92vw}.lbPola img{width:100%;height:auto;display:block}.lbPola .ink{position:absolute;inset:0;width:100%;height:100%}
+
+/* the feature photograph: wide, edge-lit by a fine cream rule */
+.feature{max-width:1180px;margin:0 auto}
+.feature .fimg{position:relative}
+.feature .fimg img.ph-img{display:block;width:100%;height:auto;border-radius:4px;box-shadow:0 40px 60px -40px rgba(31,43,80,.6)}
+.feature .fimg::after{content:"";position:absolute;inset:10px;border:1px solid rgba(255,250,235,.6);border-radius:2px;pointer-events:none}
+.feature figcaption{text-align:center}
+
+/* mat: a plain rectangular print on a cream mat with one gold hairline, nothing more */
+.matf .body{position:relative;background:#FFFDF8;padding:14px;box-shadow:0 22px 34px -24px rgba(31,43,80,.5)}
+.matf .body::after{content:"";position:absolute;inset:7px;border:1px solid rgba(200,168,102,.7);pointer-events:none}
+.matf .body img.ph-img{border-radius:1px}
+.cfwrap{max-width:820px;margin:20px auto 10px;text-align:center}
+.cfwrap h2{font:400 clamp(34px,4.6vw,50px)/1.08 var(--title);color:var(--ink);margin:6px 0 8px}
+.cfwrap p.note{font-style:italic;color:var(--soft);font-size:15px;margin:0 auto 14px;max-width:52ch}
+.cfwrap .cfcard{position:relative;background:#f7f2ea;padding:10px;box-shadow:0 26px 46px -30px rgba(31,43,80,.55)}
+.cfwrap .cfcard::before{content:"";position:absolute;inset:6px;border:1px solid rgba(200,168,102,.6);pointer-events:none}
+.cfwrap iframe{display:block;width:100%;height:760px;border:0;background:#f7f2ea}

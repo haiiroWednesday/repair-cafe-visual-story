@@ -1,0 +1,3 @@
+[["t_default", {"colorPaper":"#EFEADB","colorShadow":"#B3AA95","colorBack":"#EFEADB","angle":300,"seed":4,"roughness":0.4,"roughnessSize":0.5,"fiber":0.4,"fiberSize":0.5,"folds":0.5,"wrinkles":1,"wrinkleSize":0.65,"crumples":0,"drops":0.2}, 1200, 750],
+ ["t_creased", {"colorPaper":"#EFEADB","colorShadow":"#A79E88","colorBack":"#EFEADB","angle":60,"seed":49,"roughness":0.4,"roughnessSize":0.25,"fiber":0.4,"fiberSize":0.5,"crumples":1,"crumpleCount":7,"wrinkles":0.6,"wrinkleSize":0.4}, 1200, 750],
+ ["t_navy", {"colorPaper":"#22327A","colorShadow":"#0B1440","colorBack":"#22327A","angle":120,"seed":9,"roughness":0.3,"roughnessSize":0.3,"fiber":0.3,"fiberSize":0.4,"crumples":0.8,"crumpleCount":6,"wrinkles":0.7,"wrinkleSize":0.45}, 1200, 750]]
