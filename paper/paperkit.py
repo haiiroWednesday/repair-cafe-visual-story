@@ -158,14 +158,14 @@ def shard(tex_name, out, w=520, h=420, seed=2, sides=6, alpha_src=None):
     im.putalpha(Image.fromarray((a * 255).astype(np.uint8)))
     shadowed(im, blur=5, off=(2, 4), op=.3).save(os.path.join(OUT, out + '.png'), optimize=True)
 
-def sticker(raw, out, border=10, sat=1.35, con=1.1, maxw=1100):
+def sticker(raw, out, border=10, sat=1.1, con=1.04, maxw=1100):
     """A café render cut out of paper: punchier colour, a white die-cut margin, a fine paper grain, a shadow."""
     im = Image.open(raw).convert('RGBA'); im = im.crop(im.getchannel('A').getbbox())
     im.thumbnail((maxw, maxw), Image.LANCZOS)
     rgb = ImageEnhance.Contrast(ImageEnhance.Color(im.convert('RGB')).enhance(sat)).enhance(con); a = im.getchannel('A')
     p = border * 3; W, H = im.width + 2 * p, im.height + 2 * p
     A = Image.new('L', (W, H), 0); A.paste(a, (p, p)); m = np.array(A) > 40
-    cut = ndimage.binary_dilation(m, iterations=border); cut = ndimage.binary_closing(cut, iterations=border); cut = ndimage.gaussian_filter(cut.astype(np.float32), 1.2) > .5
+    cut = ndimage.distance_transform_edt(~m) <= border * 1.6; cut = ndimage.distance_transform_edt(cut) > border * .6; cut = ndimage.binary_fill_holes(cut); cut = ndimage.gaussian_filter(cut.astype(np.float32), 1.4) > .5
     base = np.zeros((H, W, 4), np.float32); base[cut] = (253, 251, 244, 255)
     g = np.random.default_rng(1).random((H, W)) * 10 - 5; base[..., :3] += g[..., None] * cut[..., None]
     img = Image.fromarray(np.clip(base, 0, 255).astype(np.uint8), 'RGBA')

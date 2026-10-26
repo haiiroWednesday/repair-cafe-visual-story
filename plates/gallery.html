@@ -1,0 +1,155 @@
+<title>Tearoom Plates</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=IM+Fell+English+SC&display=swap">
+<style>
+/* layout: a specimen ledger. A narrow numbered index on the left, each plate laid flat on a tablecloth ground with its card of facts beside it */
+:root{
+  --linen:#EFE6D6; --cloth:#E6DAC4; --card:#FBF6EC; --ink:#2B2420; --ink2:#5E4E42; --ox:#6E2A2A; --green:#2F4A3C; --brass:#B08D57; --rule:rgba(43,36,32,.22);
+  --display:'Fraunces','Iowan Old Style',Georgia,serif; --sc:'IM Fell English SC','Iowan Old Style',Georgia,serif;
+  color-scheme:light;
+}
+html{background:var(--linen)}
+body{background:var(--linen);color:var(--ink);font:400 16px/1.5 var(--display);font-variation-settings:'opsz' 14;padding-block:28px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1320px;margin:0 auto}
+.eyebrow,.sc{font-family:var(--sc);letter-spacing:.08em;color:var(--ox)}
+header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;border-bottom:1px solid var(--rule);padding-bottom:22px}
+h1{font:italic 400 clamp(40px,6vw,76px)/1 var(--display);font-variation-settings:'opsz' 144,'SOFT' 100;margin:6px 0 10px;text-wrap:balance;letter-spacing:-.01em}
+.dek{max-width:60ch;color:var(--ink2);margin:0}
+.tally{font-family:var(--sc);font-size:15px;letter-spacing:.06em;display:flex;gap:18px;flex-wrap:wrap;color:var(--ink2);font-variant-numeric:tabular-nums}
+.tally b{color:var(--ink);font-weight:400}
+.bar{display:flex;gap:0;flex-wrap:wrap;margin:18px 0 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.bar button{background:none;border:0;border-right:1px solid var(--rule);padding:10px 16px;font:15px var(--sc);letter-spacing:.06em;color:var(--ink2);cursor:pointer}
+.bar button[aria-pressed=true]{color:var(--card);background:var(--ox)}
+.bar .st{margin-left:auto;padding:10px 0 10px 16px;font:italic 14px var(--display);color:var(--ink2)}
+.grid{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;margin-top:30px}
+nav ol{list-style:none;margin:0;padding:0;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);counter-reset:n}
+nav li a{display:grid;grid-template-columns:30px 1fr 14px;gap:8px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--rule);color:var(--ink);text-decoration:none;font-size:15px}
+nav li a .no{font:13px var(--sc);color:var(--ox);font-variant-numeric:tabular-nums}
+nav li a .mk{font:13px var(--sc);text-align:right}
+nav li a:hover .nm,nav li a:focus-visible .nm{color:var(--ox)}
+.plate{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;padding:34px 0;border-bottom:1px solid var(--rule);scroll-margin-top:16px}
+.meta{display:flex;flex-direction:column;gap:12px;min-width:0}
+.meta .no{font:14px var(--sc);color:var(--ox);letter-spacing:.1em}
+.meta h2{font:italic 400 34px/1.05 var(--display);font-variation-settings:'opsz' 96,'SOFT' 100;margin:0;text-wrap:balance}
+.meta h3{font:13px var(--sc);letter-spacing:.08em;color:var(--ink2);margin:0 0 2px;font-weight:400}
+.meta p{margin:0;font-size:15.5px}
+.meta .src{font-style:italic;font-size:13.5px;color:var(--ink2)}
+.pick{display:flex;border:1px solid var(--ink);width:max-content;max-width:100%}
+.pick button{background:var(--card);border:0;border-right:1px solid var(--ink);padding:8px 14px;font:15px var(--sc);letter-spacing:.06em;cursor:pointer;color:var(--ink)}
+.pick button:last-child{border-right:0}
+.pick button[aria-pressed=true][data-v=use]{background:var(--green);color:var(--card)}
+.pick button[aria-pressed=true][data-v=maybe]{background:var(--brass);color:var(--ink)}
+.pick button[aria-pressed=true][data-v=skip]{background:var(--ink2);color:var(--card)}
+.pick button:disabled{cursor:default}
+.note{width:100%;min-height:64px;resize:vertical;border:1px solid var(--rule);background:var(--card);font:italic 15px/1.4 var(--display);color:var(--ink);padding:8px 10px}
+button:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--ox);outline-offset:2px}
+.ground{background:var(--cloth);background-image:radial-gradient(rgba(110,42,42,.06) 1px,transparent 1.4px);background-size:14px 14px;padding:22px;display:flex;justify-content:center;align-items:center;min-width:0}
+.ground button{border:0;padding:0;background:none;cursor:zoom-in;display:block;max-width:100%}
+.ground img{display:block;max-width:100%;height:auto}
+.plate.hide{display:none}
+.grp{font:400 15px var(--sc);letter-spacing:.14em;color:var(--ox);margin:36px 0 0;padding:0 0 8px;border-bottom:2px solid var(--ox)}
+.grp:first-child{margin-top:0}
+nav li.gh{font:12.5px var(--sc);letter-spacing:.1em;color:var(--ox);padding:14px 0 4px}
+#lb{position:fixed;inset:0;background:rgba(30,22,18,.88);z-index:50;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px));cursor:zoom-out}
+#lb img{display:block;margin:0 auto;max-width:none;width:min(1560px,100%);height:auto;background:var(--linen)}
+#lb .x{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:max(16px,env(safe-area-inset-right,0px));background:var(--card);border:1px solid var(--ink);font:14px var(--sc);padding:6px 12px;cursor:pointer}
+@media (max-width:980px){.grid{grid-template-columns:minmax(0,1fr)}nav{display:none}.plate{grid-template-columns:minmax(0,1fr)}header{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:no-preference){.ground img{transition:transform .25s}.ground button:hover img{transform:scale(1.01)}}
+
+#lib{margin-top:56px;border-top:1px solid var(--rule);padding-top:28px}
+.pgrp{margin-top:34px}
+.pgrp h2{font:400 15px var(--sc);letter-spacing:.14em;color:var(--ox);margin:0 0 4px;padding-bottom:8px;border-bottom:2px solid var(--ox);display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.pgrp h2 small{font:italic 14px var(--display);letter-spacing:0;color:var(--ink2)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;margin-top:16px}
+.tile{display:flex;flex-direction:column;gap:8px;min-width:0}
+.tile .ground{padding:12px;aspect-ratio:1/1;min-height:0}
+.tile .ground img{max-height:100%;object-fit:contain}
+.tile .ground button{height:100%;display:flex;align-items:center;justify-content:center}
+.tile .tn{font-size:15px;line-height:1.3}
+.tile .pick button{padding:5px 10px;font-size:13.5px}
+.tile.hide{display:none}
+</style>
+<div class="wrap">
+  <header>
+    <div><div class="eyebrow">repair café silicon valley · graphic plates</div>
+      <h1>pick the plates</h1>
+      <p class="dek">Grouped by what they show. Wherever a 3D model already existed, the plate now uses it: the cake, the stand, the glass, the stereo, the heart clock, the needle, the zipper, the lamp socket, and Jazz's cuckoo clock and doll. Mark each one use, maybe or skip. Your marks and notes are saved.</p></div>
+    <div class="tally" id="tally"></div>
+  </header>
+  <div class="bar" role="group" aria-label="Show">
+    <button data-f="all" aria-pressed="true">all</button><button data-f="use" aria-pressed="false">use</button><button data-f="maybe" aria-pressed="false">maybe</button><button data-f="skip" aria-pressed="false">skip</button><button data-f="none" aria-pressed="false">unmarked</button>
+    <span class="st" id="st">Loading your marks…</span>
+  </div>
+  <div class="grid"><nav aria-label="Plates"><ol id="idx"></ol></nav><main id="plates"></main></div>
+  <section id="lib" aria-labelledby="libH"><div class="eyebrow">the 3D and 2.5D pieces</div><h1 id="libH" style="font-size:clamp(34px,4.6vw,56px)">everything already made</h1><p class="dek">Every model, still, pop-up and frame made for the story so far, grouped by subject. Mark the ones you want worked into plates or the essay.</p><div id="pcs"></div></section>
+</div>
+<div id="lb" hidden><button class="x">close</button><img alt=""></div>
+<script>
+const PLATES = /*PLATES*/[];
+const PIECES = /*PIECES*/[];
+const picks = {}; let db = null, can = false, filter = 'all';
+const $ = s => document.querySelector(s);
+const MK = { use: '✓', maybe: '?', skip: '×' };
+function render() {
+  let lastG = '';
+  $('#idx').innerHTML = PLATES.map((p, i) => { const g = p.group !== lastG ? `<li class="gh">${p.group}</li>` : ''; lastG = p.group; return g + `<li><a href="#${p.id}"><span class="no">${String(i + 1).padStart(2, '0')}</span><span class="nm">${p.name}</span><span class="mk" data-mk="${p.id}"></span></a></li>`; }).join('');
+  lastG = '';
+  $('#plates').innerHTML = PLATES.map((p, i) => { const g = p.group !== lastG ? `<h2 class="grp" id="g${i}">${p.group}</h2>` : ''; lastG = p.group; return g + `<section class="plate" id="${p.id}">
+    <div class="meta"><div class="no">plate ${String(i + 1).padStart(2, '0')}</div><h2>${p.name}</h2>
+      <div><h3>what it tells</h3><p>${p.tells}</p></div>
+      <div><h3>from the old set</h3><p>${p.from}</p></div>
+      <p class="src">${p.src}</p>
+      <div class="pick" role="group" aria-label="Mark plate ${i + 1}">${['use', 'maybe', 'skip'].map(v => `<button data-id="${p.id}" data-v="${v}" aria-pressed="false" disabled>${v}</button>`).join('')}</div>
+      <label class="sc" for="n_${p.id}" style="font-size:13px">note</label><textarea class="note" id="n_${p.id}" data-id="${p.id}" placeholder="changes you want" disabled></textarea></div>
+    <div class="ground"><button data-full="img/${p.id}.webp" aria-label="Open ${p.name} full size"><img src="img/${p.id}.webp" width="${p.w}" height="${p.h}" alt="${p.name}: ${p.tells}" loading="lazy"></button></div></section>`; }).join('');
+}
+function renderPieces() {
+  const groups = []; PIECES.forEach(p => { let g = groups.find(x => x.name === p.group); if (!g) groups.push(g = { name: p.group, kind: p.kind, items: [] }); g.items.push(p); });
+  $('#pcs').innerHTML = groups.map(g => `<div class="pgrp"><h2>${g.name}<small>${g.kind} · ${g.items.length}</small></h2><div class="tiles">${g.items.map(p => `<div class="tile" id="${p.id}">
+    <div class="ground"><button data-full="pc/${p.id}.webp" aria-label="Open ${p.name} full size"><img src="pc/${p.id}.webp" width="${p.w}" height="${p.h}" alt="${p.name}" loading="lazy"></button></div>
+    <div class="tn">${p.name}</div><div class="pick" role="group" aria-label="Mark ${p.name}">${['use', 'maybe', 'skip'].map(v => `<button data-id="${p.id}" data-v="${v}" aria-pressed="false" disabled>${v}</button>`).join('')}</div></div>`).join('')}</div></div>`).join('');
+}
+function paint() {
+  const c = { use: 0, maybe: 0, skip: 0, none: 0 };
+  PLATES.forEach(p => {
+    const v = picks[p.id]?.state || ''; c[v || 'none']++;
+    document.querySelectorAll(`.pick button[data-id="${p.id}"]`).forEach(b => { b.setAttribute('aria-pressed', b.dataset.v === v); b.disabled = !can; });
+    const t = document.getElementById('n_' + p.id); if (document.activeElement !== t) t.value = picks[p.id]?.note || ''; t.disabled = !can;
+    const m = document.querySelector(`[data-mk="${p.id}"]`); m.textContent = MK[v] || ''; m.style.color = v === 'use' ? 'var(--green)' : v === 'maybe' ? 'var(--brass)' : 'var(--ink2)';
+    document.getElementById(p.id).classList.toggle('hide', filter !== 'all' && (filter === 'none' ? !!v : v !== filter));
+  });
+  PIECES.forEach(p => { const v = picks[p.id]?.state || ''; c[v || 'none']++;
+    document.querySelectorAll(`.pick button[data-id="${p.id}"]`).forEach(b => { b.setAttribute('aria-pressed', b.dataset.v === v); b.disabled = !can; });
+    document.getElementById(p.id).classList.toggle('hide', filter !== 'all' && (filter === 'none' ? !!v : v !== filter)); });
+  $('#tally').innerHTML = `<span><b>${c.use}</b> use</span><span><b>${c.maybe}</b> maybe</span><span><b>${c.skip}</b> skip</span><span><b>${c.none}</b> unmarked</span>`;
+}
+const timers = {};
+function save(id) {
+  if (!db) return; clearTimeout(timers[id]); $('#st').textContent = 'Saving…';
+  timers[id] = setTimeout(async () => {
+    try { await db.collection('picks').doc(id).set(picks[id]); $('#st').textContent = 'Saved'; }
+    catch (e) { $('#st').textContent = 'Could not save. Your mark shows here but did not reach the page.'; }
+  }, 400);
+}
+render(); renderPieces(); paint();
+document.addEventListener('click', e => {
+  const b = e.target.closest('.pick button');
+  if (b && !b.disabled) { const id = b.dataset.id, v = b.dataset.v; picks[id] = Object.assign({ state: '', note: '' }, picks[id]); picks[id].state = picks[id].state === v ? '' : v; paint(); save(id); return; }
+  const f = e.target.closest('.bar button'); if (f) { filter = f.dataset.f; document.querySelectorAll('.bar button').forEach(x => x.setAttribute('aria-pressed', x === f)); paint(); return; }
+  const g = e.target.closest('[data-full]'); if (g) { $('#lb img').src = g.dataset.full; $('#lb').hidden = false; $('#lb .x').focus(); return; }
+  if (e.target.closest('#lb')) $('#lb').hidden = true;
+});
+addEventListener('keydown', e => { if (e.key === 'Escape') $('#lb').hidden = true; });
+document.addEventListener('input', e => { const t = e.target.closest('.note'); if (!t || !can) return; const id = t.dataset.id; picks[id] = Object.assign({ state: '', note: '' }, picks[id]); picks[id].note = t.value; save(id); });
+(async () => {
+  try {
+    db = await claude.use('db');
+    const user = await claude.use('user'); can = !!(user && await user.canEdit());
+    if (!db) { $('#st').textContent = 'Marks are not available in this view.'; return; }
+    const snap = await db.collection('picks').get(); snap.docs.forEach(d => { picks[d.id] = d.data(); });
+    $('#st').textContent = can ? 'Click use, maybe or skip. Marks save as you go.' : 'Showing the marks so far.';
+    paint();
+  } catch (e) { $('#st').textContent = 'Marks could not load. The plates still show.'; }
+})();
+</script>

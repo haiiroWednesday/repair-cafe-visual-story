@@ -1,0 +1,178 @@
+[
+ {
+  "id": "cake",
+  "name": "seventeen candles",
+  "tells": "The timeline from Amsterdam on 18 Oct 2009 to The Alameda on 18 Oct 2026, one candle a year. The nine years that moved the story are piped onto the tiers. An index card types out the seventeenth candle: the day itself, the tables, and my stereo on bench 2.",
+  "from": "09 seventeen candles and 19 nine cup rings, merged into one cake with every event written out.",
+  "src": "Wikipedia, Repair Café · KQED 2017 · Verde Magazine 2012 · Stanford FILAM · Repair Café International Foundation, July 2026",
+  "group": "the story, start to finish"
+ },
+ {
+  "id": "board",
+  "name": "is it worth an afternoon?",
+  "tells": "The chalkboard and the bill in one. The board shows how a repair gets ordered, with the 1:47 PM ticket pinned. The receipt clipped to the frame lists what stopped the rest in 2019, then what was on bench 2 today.",
+  "from": "03 the order and 07 the bill, combined as you asked.",
+  "src": "Whiteboard and tickets at Repair Café Silicon Valley, Oct 18 2026 · the café's FAQ",
+  "group": "the story, start to finish"
+ },
+ {
+  "id": "menu",
+  "name": "today's menu",
+  "tells": "Sunday's menu of what came to each table, in the owners' own words, served as courses with a ruler of when the orders came in. Everything is free except the stereo, which costs one afternoon. The endings are dessert.",
+  "from": "05 today's menu and 21 the dotted line, combined.",
+  "src": "Repair Café Silicon Valley FAQ · Los Altos Town Crier 2026",
+  "group": "the story, start to finish"
+ },
+ {
+  "id": "aprons",
+  "name": "six jobs, one badge",
+  "tells": "The six aprons are now the tables in our story: check-in, textile, the heart clock, the candelabra, my stereo on the electronics bench, and Jazz from an earlier event. The strip below carries the theme.",
+  "from": "20 the aprons and 10 the portrait wall.",
+  "src": "repaircafesv.org volunteer roles · Los Altos Town Crier 2026 · Stanford FILAM · Farnham Repair Café survey 2020",
+  "group": "the story, start to finish"
+ },
+ {
+  "id": "stand",
+  "name": "the stand of odds",
+  "tells": "How often each kind of thing goes home working, served on three tiers from surest to shakiest: trousers 96%, clothing and bikes above 80%, radios 56%, coffee makers 55%, laptops 45%, printers about 40%. A bow on the stem marks the 63% average, and a note names the coffee maker as the most-brought object.",
+  "from": "02 the tiered stand and 06 poured to the odds, combined so the stand carries the fix rates.",
+  "src": "RepairMonitor analysis 2019, Repair Café International Foundation (13,609 repairs, 67 cafés)",
+  "group": "the odds"
+ },
+ {
+  "id": "why",
+  "name": "why people come",
+  "tells": "One tall layered glass. Each reason is a layer as thick as its score, from milk tea for 'such a waste' at 129 down to espresso for 'could not find a repairer' at 58. Ranks 2 to 5 are a marbled band, marked as not broken out. The Palo Alto quotes hang on tea tags.",
+  "from": "08 over a cup.",
+  "src": "Farnham Repair Café survey 2016, Centre for Sustainable Design · KQED 2017 · Alta 2017 · Verde Magazine 2012",
+  "group": "the odds"
+ },
+ {
+  "id": "bill",
+  "name": "the bill",
+  "tells": "Why 2,177 repairs failed in 2019, printed as a receipt with counts, shares and bars to scale: worn out 46%, no spare part 32%, would not open 10%, ran out of time 7%, no tool or knowledge 5%. Below it, what California's right-to-repair law covers and why a 2003 stereo is not covered.",
+  "from": "07 the bill, with shares, bars and the SB 244 rules added.",
+  "src": "RepairMonitor analysis 2019 · California SB 244 industry advisory, Bureau of Household Goods and Services",
+  "group": "the odds"
+ },
+ {
+  "id": "slices",
+  "name": "a hundred slices",
+  "tells": "Every hundred things carried in, cut by how they went home: 63 fixed, 13 half fixed or sent home with advice, 24 beyond help. One slice is lifted out to show it stands for one thing. A card gives Repair Café Silicon Valley's own counts.",
+  "from": "06 poured to the odds, redrawn as a cake cut into 100 slices.",
+  "src": "RepairMonitor analysis 2019 · Los Altos Town Crier 2026 · the café's FAQ",
+  "group": "the odds"
+ },
+ {
+  "id": "caddies",
+  "name": "the world's caddy",
+  "tells": "Two tea tins filled to the same scale: 62 million tonnes of e-waste in 2022, with the 22.3% documented as recycled, beside 82 million tonnes forecast for 2030. That is 7.8 kg for every person. A tag puts 1.6 million broken things a year through Repair Cafés on the other side.",
+  "from": "New, from the e-waste figures under the old cake.",
+  "src": "UNITAR Global E-waste Monitor 2024 · Repair Café International Foundation, July 2026",
+  "group": "the odds"
+ },
+ {
+  "id": "disc",
+  "name": "the rainbow in the disc",
+  "tells": "The 3D stereo render is now the centrepiece, with five numbered parts and the 20-strand cable. A zoom from the disc down to tracks 1.6 µm apart shows why it throws a rainbow.",
+  "from": "11 the stereo and 24 the stereo taken apart, merged and given the physics.",
+  "src": "Red Book standard (IEC 60908) · angles worked from the grating equation · my photos of the repair, Oct 18 2026",
+  "group": "my stereo"
+ },
+ {
+  "id": "heart",
+  "name": "every piece on the table",
+  "tells": "The heart clock laid flat, part by part, with the gold ring showing the hour numbers as it sat in the toolbox. This is an explore page.",
+  "from": "25 the heart, labelled part by part.",
+  "src": "Modelled in Blender from my photos, Oct 18 2026. The stacking order is likely, and the glow is a drawing choice.",
+  "group": "the heart clock"
+ },
+ {
+  "id": "jazz",
+  "name": "two repairs Jazz remembers",
+  "tells": "The cuckoo clock and the talking doll side by side, both drawn in 3D, step by step, with Jazz's own words. Both are reconstructions of an earlier event.",
+  "from": "22 the pull-string doll and 23 the cuckoo clock, together.",
+  "src": "As told by Jazz, volunteer fixer, Repair Café Silicon Valley. Drawn as typical units.",
+  "group": "jazz's repairs"
+ },
+ {
+  "id": "cuckoo",
+  "name": "her late father's cuckoo clock",
+  "tells": "The 3D cuckoo clock and its chain wheels in three steps: off the wheels, fed back with a wire, tied for the drive home, with Jazz's quotes and the hug.",
+  "from": "23 the cuckoo clock, now on its 3D renders.",
+  "src": "As told by Jazz, with his photo of the clock. Drawn as a typical weight-driven cuckoo clock.",
+  "group": "jazz's repairs"
+ },
+ {
+  "id": "doll",
+  "name": "the doll's bent spring",
+  "tells": "The pull-string spring in 3D in three steps: bent out of shape, straightened, pulled tight, with Jazz's quotes about the dad and his son.",
+  "from": "22 the pull-string doll, now on its 3D renders.",
+  "src": "As told by Jazz. Drawn as a typical pull-string unit.",
+  "group": "jazz's repairs"
+ },
+ {
+  "id": "textile",
+  "name": "the textile table",
+  "tells": "The needle and the zipper together, both in 3D: what 70/10 means, the size ladder, ticket #1's four checks, and the slider's three fixes.",
+  "from": "14 the zipper and 15 the needle, combined.",
+  "src": "Schmetz needle guide · YKK size guide · RepairMonitor analysis 2019 · tickets from Oct 18 2026",
+  "group": "the textile table"
+ },
+ {
+  "id": "needle",
+  "name": "the needle is the cheap part",
+  "tells": "A sewing needle's anatomy front and back, what 70/10 means, a size ladder from 60/8 to 110/18 drawn to thickness with the fabrics each suits, and the four checks for ticket #1, a needle hitting the foot.",
+  "from": "15 the needle, with the size ladder added.",
+  "src": "Schmetz needle guide · ticket #1 at the sewing table, Oct 18 2026",
+  "group": "the textile table"
+ },
+ {
+  "id": "zipper",
+  "name": "most broken zippers are fine",
+  "tells": "A zipper beside two cut-away sliders, one healthy and one with its jaws spread, then the three fixes in order: squeeze it with pliers, swap the slider (#3, #5, #8), or sew in a new zipper when teeth are gone. Clothing is fixed more than 80% of the time.",
+  "from": "14 the zipper.",
+  "src": "Zipper Repair A box at the textile table · RepairMonitor analysis 2019 · YKK size guide for what the size number means",
+  "group": "the textile table"
+ },
+ {
+  "id": "lamp",
+  "name": "a lamp is five parts in a row",
+  "tells": "The brass candelabra from the lamp table with its current path traced from plug to bulb, the two most common faults marked, a cut-away of the E12 socket, the order to test things in, and lamps as the fourth most common item brought in.",
+  "from": "13 anatomy of a lamp, rebuilt around the Blender candelabra.",
+  "src": "My photo at Repair Café Silicon Valley, Oct 18 2026 · RepairMonitor analysis 2019",
+  "group": "the lamp and the bench"
+ },
+ {
+  "id": "battery",
+  "name": "the needle gets a vote",
+  "tells": "The BT-168 battery tester from bin D3 with its three zones, and why testing under a small load catches a tired cell that a plain meter reading passes. A dead battery is the most common clock fault.",
+  "from": "16 the battery tester, as a finer instrument with circuit sketches.",
+  "src": "Tester drawn from bin D3, Oct 18 2026 · RepairMonitor analysis 2019",
+  "group": "the lamp and the bench"
+ },
+ {
+  "id": "pantry",
+  "name": "the pantry",
+  "tells": "Where every spare part lives, as a walnut apothecary cabinet with brass label plates: D3 batteries, E1 to E4 electrical, F4 to F6 oils, glues and cleaners. Drawer E3 is pulled open to show its four green-tape boxes, and the textile bags and zipper box sit on the shelf below.",
+  "from": "04 the pantry, redrawn as one cabinet. The real store is lettered bins and totes, and the plate says so.",
+  "src": "Bin codes and contents from the café's sign cards and tape labels, Oct 18 2026",
+  "group": "the lamp and the bench"
+ },
+ {
+  "id": "glue",
+  "name": "glue steeps like tea",
+  "tells": "All ten glues from the chart over the glue tub, on one time scale from 5 seconds to a week: when each holds on its own, when it reaches full strength, which ones need clamping, and what each is for.",
+  "from": "12 glue steeps like tea, redone as a tea-tin label.",
+  "src": "MIT D-Lab, Learn-It: Adhesives (CC BY-NC 3.0), the chart taped up at the café",
+  "group": "the lamp and the bench"
+ },
+ {
+  "id": "route",
+  "name": "amsterdam to the alameda",
+  "tells": "A postcard route with five postmarked stamps: Amsterdam 2009, Palo Alto 2012, Mountain View 2013, the 2023 merger, San José 2026. A tally gives about 8,790 km, 17 years to the day, 6,209 days and 3,818 cafés.",
+  "from": "New, from the timeline facts.",
+  "src": "Wikipedia, Repair Café · Verde Magazine 2012 · KQED 2017 · Repair Café International Foundation · distances computed from city coordinates, approximate",
+  "group": "set aside"
+ }
+]

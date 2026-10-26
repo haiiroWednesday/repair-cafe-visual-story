@@ -1,0 +1,562 @@
+[
+{
+"id": "p_st_world",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "the café, outside",
+"w": 840,
+"h": 542
+},
+{
+"id": "p_st_intake",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "check-in counter, menu board, ticket rail",
+"w": 534,
+"h": 854
+},
+{
+"id": "p_st_kitchen",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "electronics bench and pegboard",
+"w": 596,
+"h": 587
+},
+{
+"id": "p_st_tools",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "the tool wall",
+"w": 769,
+"h": 571
+},
+{
+"id": "p_st_sew",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "the sewing table",
+"w": 659,
+"h": 616
+},
+{
+"id": "p_st_appl",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "appliance table: heart clock and lamp",
+"w": 599,
+"h": 728
+},
+{
+"id": "p_st_tea",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "the tea table",
+"w": 744,
+"h": 643
+},
+{
+"id": "p_st_keep",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "the cuckoo clock on its chest",
+"w": 372,
+"h": 838
+},
+{
+"id": "p_st_order",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "the pickup table and cloche",
+"w": 504,
+"h": 697
+},
+{
+"id": "p_st_pass",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "the pass",
+"w": 570,
+"h": 637
+},
+{
+"id": "p_st_combo",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "the building: trunk, orangerie, stepped glass",
+"w": 1100,
+"h": 786
+},
+{
+"id": "p_studies",
+"group": "the café in 3D",
+"kind": "three.js diorama",
+"name": "building studies",
+"w": 1100,
+"h": 650
+},
+{
+"id": "p_st_pu_world",
+"group": "pop-ups",
+"kind": "three.js, for the notebook",
+"name": "pop-up: the café",
+"w": 1100,
+"h": 677
+},
+{
+"id": "p_st_pu_kitchen",
+"group": "pop-ups",
+"kind": "three.js, for the notebook",
+"name": "pop-up: the bench",
+"w": 750,
+"h": 603
+},
+{
+"id": "p_st_pu_stereo",
+"group": "pop-ups",
+"kind": "three.js, for the notebook",
+"name": "pop-up: the stereo",
+"w": 1055,
+"h": 855
+},
+{
+"id": "p_st_pu_clock",
+"group": "pop-ups",
+"kind": "three.js, for the notebook",
+"name": "pop-up: the cuckoo clock",
+"w": 584,
+"h": 935
+},
+{
+"id": "p_st_pu_tea",
+"group": "pop-ups",
+"kind": "three.js, for the notebook",
+"name": "pop-up: the tea table",
+"w": 807,
+"h": 581
+},
+{
+"id": "p_st_pu_pot",
+"group": "pop-ups",
+"kind": "three.js, for the notebook",
+"name": "pop-up: the teapot",
+"w": 1100,
+"h": 689
+},
+{
+"id": "p_st_pu_order",
+"group": "pop-ups",
+"kind": "three.js, for the notebook",
+"name": "pop-up: the pickup",
+"w": 640,
+"h": 990
+},
+{
+"id": "p_we-fixed-it-board-rainbow",
+"group": "the sign",
+"kind": "Blender",
+"name": "We Fixed It, rainbow chalk",
+"w": 769,
+"h": 1066
+},
+{
+"id": "p_we-fixed-it-board-white",
+"group": "the sign",
+"kind": "Blender",
+"name": "We Fixed It, white chalk",
+"w": 769,
+"h": 1066
+},
+{
+"id": "p_st_stereo",
+"group": "my stereo",
+"kind": "three.js",
+"name": "stereo, layers lifted",
+"w": 1100,
+"h": 899
+},
+{
+"id": "p_st_stereo2",
+"group": "my stereo",
+"kind": "three.js",
+"name": "stereo, second angle",
+"w": 1100,
+"h": 1012
+},
+{
+"id": "p_stereo_exploded2",
+"group": "my stereo",
+"kind": "three.js",
+"name": "stereo exploded, clean",
+"w": 1100,
+"h": 921
+},
+{
+"id": "p_stereo2",
+"group": "my stereo",
+"kind": "three.js",
+"name": "stereo exploded, cable fanned",
+"w": 1100,
+"h": 1009
+},
+{
+"id": "p_film_stereo",
+"group": "my stereo",
+"kind": "three.js",
+"name": "film strip of the repair",
+"w": 632,
+"h": 1100
+},
+{
+"id": "p_heart_whole",
+"group": "the heart clock",
+"kind": "Blender",
+"name": "heart clock, whole",
+"w": 702,
+"h": 750
+},
+{
+"id": "p_heart2_whole",
+"group": "the heart clock",
+"kind": "Blender",
+"name": "heart clock, face on",
+"w": 597,
+"h": 606
+},
+{
+"id": "p_heart_exploded",
+"group": "the heart clock",
+"kind": "Blender",
+"name": "heart clock, exploded",
+"w": 931,
+"h": 539
+},
+{
+"id": "p_heart2_tray",
+"group": "the heart clock",
+"kind": "Blender",
+"name": "heart clock, every piece on the table",
+"w": 1100,
+"h": 621
+},
+{
+"id": "p_candelabra_clean",
+"group": "the lamp",
+"kind": "Blender and three.js",
+"name": "brass candelabra",
+"w": 438,
+"h": 1100
+},
+{
+"id": "p_candelabra_three",
+"group": "the lamp",
+"kind": "Blender and three.js",
+"name": "candelabra, three-quarter",
+"w": 681,
+"h": 1100
+},
+{
+"id": "p_socket_cut3",
+"group": "the lamp",
+"kind": "Blender and three.js",
+"name": "E12 socket, cut open",
+"w": 330,
+"h": 1100
+},
+{
+"id": "p_socket_cut",
+"group": "the lamp",
+"kind": "Blender and three.js",
+"name": "socket, second cut",
+"w": 234,
+"h": 857
+},
+{
+"id": "p_cuckoo_whole",
+"group": "jazz's cuckoo clock",
+"kind": "three.js and isometric",
+"name": "the cuckoo clock",
+"w": 526,
+"h": 1100
+},
+{
+"id": "p_chainwheels_off",
+"group": "jazz's cuckoo clock",
+"kind": "three.js and isometric",
+"name": "chains off the wheels",
+"w": 940,
+"h": 738
+},
+{
+"id": "p_chainwheels_fed",
+"group": "jazz's cuckoo clock",
+"kind": "three.js and isometric",
+"name": "fed back with a wire",
+"w": 940,
+"h": 738
+},
+{
+"id": "p_chainwheels_tied",
+"group": "jazz's cuckoo clock",
+"kind": "three.js and isometric",
+"name": "tied for the drive home",
+"w": 940,
+"h": 738
+},
+{
+"id": "p_s_idle",
+"group": "jazz's cuckoo clock",
+"kind": "three.js and isometric",
+"name": "isometric clock, at rest",
+"w": 978,
+"h": 1100
+},
+{
+"id": "p_s_see",
+"group": "jazz's cuckoo clock",
+"kind": "three.js and isometric",
+"name": "isometric clock, opened",
+"w": 978,
+"h": 1100
+},
+{
+"id": "p_s_tied",
+"group": "jazz's cuckoo clock",
+"kind": "three.js and isometric",
+"name": "isometric clock, tied",
+"w": 978,
+"h": 1100
+},
+{
+"id": "p_s_run",
+"group": "jazz's cuckoo clock",
+"kind": "three.js and isometric",
+"name": "isometric clock, running",
+"w": 978,
+"h": 1100
+},
+{
+"id": "p_pull_bent2",
+"group": "jazz's talking doll",
+"kind": "three.js",
+"name": "spring bent out of shape",
+"w": 830,
+"h": 917
+},
+{
+"id": "p_pull_fixed2",
+"group": "jazz's talking doll",
+"kind": "three.js",
+"name": "spring straightened",
+"w": 830,
+"h": 917
+},
+{
+"id": "p_pull_pulled4",
+"group": "jazz's talking doll",
+"kind": "three.js",
+"name": "cord pulled, coils tight",
+"w": 830,
+"h": 920
+},
+{
+"id": "p_needle_front",
+"group": "the textile table",
+"kind": "three.js",
+"name": "needle, front",
+"w": 102,
+"h": 1100
+},
+{
+"id": "p_needle_back",
+"group": "the textile table",
+"kind": "three.js",
+"name": "needle, back",
+"w": 102,
+"h": 1100
+},
+{
+"id": "p_slider_ok2",
+"group": "the textile table",
+"kind": "three.js",
+"name": "zipper slider, healthy",
+"w": 914,
+"h": 548
+},
+{
+"id": "p_slider_spread2",
+"group": "the textile table",
+"kind": "three.js",
+"name": "zipper slider, jaws spread",
+"w": 934,
+"h": 548
+},
+{
+"id": "p_cake_640_17_v4",
+"group": "tea things",
+"kind": "three.js",
+"name": "the cake, 17 candles",
+"w": 1100,
+"h": 822
+},
+{
+"id": "p_stand_680_760_E8857B",
+"group": "tea things",
+"kind": "three.js",
+"name": "the three-tier stand",
+"w": 1002,
+"h": 1100
+},
+{
+"id": "p_pot_b",
+"group": "tea things",
+"kind": "three.js",
+"name": "the teapot",
+"w": 887,
+"h": 733
+},
+{
+"id": "p_cup_E8857B_96",
+"group": "tea things",
+"kind": "three.js",
+"name": "teacup filled to 96%",
+"w": 955,
+"h": 780
+},
+{
+"id": "p_cup_8FCBB2_63",
+"group": "tea things",
+"kind": "three.js",
+"name": "teacup filled to 63%",
+"w": 955,
+"h": 780
+},
+{
+"id": "p_cupx2_E8857B_96",
+"group": "tea things",
+"kind": "three.js",
+"name": "tall glass, 96%",
+"w": 922,
+"h": 712
+},
+{
+"id": "p_cupx2_EFC15E_40",
+"group": "tea things",
+"kind": "three.js",
+"name": "tall glass, 40%",
+"w": 922,
+"h": 712
+},
+{
+"id": "p_vase_86AEDCE8857BB79FD6",
+"group": "tea things",
+"kind": "three.js",
+"name": "vase of flowers",
+"w": 467,
+"h": 742
+},
+{
+"id": "p_vase_E8857BEFC15EF7D3CC",
+"group": "tea things",
+"kind": "three.js",
+"name": "vase, warm",
+"w": 467,
+"h": 742
+},
+{
+"id": "p_candle_F7D3CC",
+"group": "tea things",
+"kind": "three.js",
+"name": "candle, rose",
+"w": 236,
+"h": 893
+},
+{
+"id": "p_candle_D2EADF",
+"group": "tea things",
+"kind": "three.js",
+"name": "candle, mint",
+"w": 236,
+"h": 893
+},
+{
+"id": "p_fr_feature",
+"group": "photos in frames",
+"kind": "2.5D collage",
+"name": "the shoes, framed",
+"w": 1100,
+"h": 684
+},
+{
+"id": "p_fr_entrance",
+"group": "photos in frames",
+"kind": "2.5D collage",
+"name": "entrance, framed",
+"w": 1100,
+"h": 874
+},
+{
+"id": "p_fr_intake",
+"group": "photos in frames",
+"kind": "2.5D collage",
+"name": "intake, framed",
+"w": 1092,
+"h": 869
+},
+{
+"id": "p_fr_heart",
+"group": "photos in frames",
+"kind": "2.5D collage",
+"name": "heart clock, heart frame",
+"w": 1022,
+"h": 929
+},
+{
+"id": "p_fr_volunteer",
+"group": "photos in frames",
+"kind": "2.5D collage",
+"name": "volunteer, framed",
+"w": 857,
+"h": 1082
+},
+{
+"id": "p_fr_sewing",
+"group": "photos in frames",
+"kind": "2.5D collage",
+"name": "sewing, framed",
+"w": 675,
+"h": 854
+},
+{
+"id": "p_fr_board",
+"group": "photos in frames",
+"kind": "2.5D collage",
+"name": "the board, framed",
+"w": 925,
+"h": 736
+},
+{
+"id": "p_fr_final",
+"group": "photos in frames",
+"kind": "2.5D collage",
+"name": "final, framed",
+"w": 1100,
+"h": 766
+},
+{
+"id": "p_inked",
+"group": "the 2D library",
+"kind": "hand-inked",
+"name": "105 inked objects, one sheet (105)",
+"w": 1800,
+"h": 1350
+},
+{
+"id": "p_tools",
+"group": "the 2D library",
+"kind": "hand-inked",
+"name": "the tools, cut out for the margins (57)",
+"w": 1800,
+"h": 750
+}
+]

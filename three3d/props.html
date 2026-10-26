@@ -1,0 +1,186 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style></head>
+<body>
+<script src="package/build/three.min.js"></script>
+<script>
+/* Café china built in 3D, rendered the CSEN 20 way: toon shading with a soft three-step ramp,
+   crayon-hatched canvas textures, an ink hull pushed out along the normals, then saved as a
+   transparent PNG so the 2D page can annotate over it. */
+const T = THREE;
+const INK = 0x7E6E64, GOLD = '#D6B56E', GOLD2 = '#B8955A';
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const ramp = (() => { const d = new Uint8Array([178, 178, 178, 255, 222, 222, 222, 255, 255, 255, 255, 255]); const t = new T.DataTexture(d, 3, 1, T.RGBAFormat); t.minFilter = t.magFilter = T.NearestFilter; t.needsUpdate = true; return t; })();
+function crayonCanvas(base, w = 512, h = 512, n = 1400) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d');
+  g.fillStyle = base; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < n; i++) { const x = rnd() * w, y = rnd() * h, L = 6 + rnd() * 16, a = -.5 + rnd() * .25; g.strokeStyle = rnd() < .55 ? `rgba(90,60,70,${.035 + rnd() * .05})` : `rgba(255,255,255,${.08 + rnd() * .12})`; g.lineWidth = 1 + rnd() * 2.2; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * L, y + Math.sin(a) * L); g.stroke(); }
+  return c;
+}
+function tex(c) { const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return t; }
+function toon(c) { return new T.MeshToonMaterial({ color: 0xffffff, map: tex(c), gradientMap: ramp }); }
+function flat(hex) { return toon(crayonCanvas(hex, 128, 128, 160)); }
+const outlineMat = (w) => new T.ShaderMaterial({ side: T.BackSide, uniforms: { w: { value: w } }, vertexShader: 'uniform float w; void main(){ vec3 p = position + normal * w; gl_Position = projectionMatrix * modelViewMatrix * vec4(p,1.0); }', fragmentShader: 'void main(){ gl_FragColor = vec4(0.494,0.431,0.392,1.0); }' });
+function inked(geo, mat, w = .012) { const g = new T.Group(); const m = new T.Mesh(geo, mat); g.add(m); g.add(new T.Mesh(geo, outlineMat(w))); return g; }
+function rose(g, x, y, r, col) { g.fillStyle = '#9CCFB8'; g.beginPath(); g.ellipse(x - r * 1.6, y + r * .3, r * .9, r * .45, -.4, 0, 7); g.fill(); g.beginPath(); g.ellipse(x + r * 1.6, y + r * .3, r * .9, r * .45, .4, 0, 7); g.fill(); g.fillStyle = col; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.strokeStyle = 'rgba(255,255,255,.85)'; g.lineWidth = r * .22; g.beginPath(); g.arc(x, y, r * .55, .5, 5.2); g.stroke(); g.fillStyle = '#86AEDC'; [[-2.3, 1.3], [2.3, 1.3]].forEach(([a, b]) => { g.beginPath(); g.arc(x + a * r, y + b * r, r * .22, 0, 7); g.fill(); }); }
+// porcelain texture painted in lathe UV space: v=0 bottom of the profile, v=1 top
+function chinaCanvas(tint, opt = {}) {
+  const c = crayonCanvas('#FFFDF9', 1024, 512, 1600), g = c.getContext('2d'), H = 512;
+  const band = (v0, v1, col) => { g.fillStyle = col; g.fillRect(0, H * (1 - v1), 1024, H * (v1 - v0)); };
+  (opt.gold || []).forEach(v => band(v - .006, v + .006, GOLD));
+  if (opt.band) band(opt.band[0], opt.band[1], tint + 'AA');
+  if (opt.roses) { const [v, n, r] = opt.roses; for (let i = 0; i < n; i++) rose(g, (i + .5) * 1024 / n, H * (1 - v), r, opt.roseCol || '#EFA3A6'); }
+  if (opt.dots) { const [v, n] = opt.dots; g.fillStyle = GOLD; for (let i = 0; i < n; i++) { g.beginPath(); g.arc((i + .5) * 1024 / n, H * (1 - v), 2.4, 0, 7); g.fill(); } }
+  if (opt.scallop) { const [v, n] = opt.scallop; g.strokeStyle = GOLD; g.lineWidth = 2.5; for (let i = 0; i < n; i++) { const x = (i + .5) * 1024 / n; g.beginPath(); g.arc(x, H * (1 - v), 1024 / n / 2, 0, Math.PI); g.stroke(); } }
+  return c;
+}
+function lathe(pts, seg = 96, p0 = 0, pl = Math.PI * 2) { const g = new T.LatheGeometry(pts.map(([r, y]) => new T.Vector2(r, y)), seg, p0, pl); g.computeVertexNormals(); return g; }
+function goldRing(r, y, tube = .012) { const m = new T.Mesh(new T.TorusGeometry(r, tube, 10, 120), flat(GOLD)); m.rotation.x = Math.PI / 2; m.position.y = y; return m; }
+
+/* ---------- props ---------- */
+function teacup(o) {
+  const tint = o.tint || '#EFA3A6', root = new T.Group();
+  // saucer
+  const sp = [[0, 0], [.34, .0], [.38, .02], [.52, .05], [.54, .065], [.5, .07], [.37, .045], [.17, .04], [0, .04]];
+  root.add(inked(lathe(sp), toon(chinaCanvas(tint, { gold: [.86], roses: [.55, 6, 16], roseCol: tint, dots: [.95, 60] }))));
+  root.add(goldRing(.535, .063, .008));
+  // cup: foot, bowl outer then inner
+  const cp = [[0, .045], [.12, .045], [.13, .06], [.09, .1], [.1, .13], [.26, .2], [.36, .32], [.42, .46], [.44, .5], [.43, .505], [.4, .46], [.34, .33], [.24, .22], [.0, .19]];
+  const glass = !!o.cut;
+  if (glass) { cp.splice(0, cp.length, [0, .045], [.12, .045], [.13, .06], [.06, .1], [.05, .16], [.12, .2], [.22, .28], [.28, .42], [.3, .58], [.31, .72], [.3, .73], [.28, .58], [.26, .42], [.2, .29], [0, .26]); }
+  if (!glass) { root.add(inked(lathe(cp), toon(chinaCanvas(tint, { gold: [.06, .9, .94], band: o.band === false ? null : [.78, .86], roses: [.42, 6, 22], roseCol: tint, scallop: [.82, 18] })))); root.add(goldRing(.435, .5, .01)); }
+  else {
+    // a glass cup on a china saucer: the tea level reads from the side, like a parfait glass
+    const yb = .27, yLevel = .27 + (.71 - .27) * o.pct / 100, rAt = y => y < .42 ? .2 + (.26 - .2) * (y - .29) / (.42 - .29) : y < .58 ? .26 + .02 * (y - .42) / .16 : .28 + .015 * (y - .58) / .14;
+    const tg = new T.CylinderGeometry(rAt(yLevel) * .96, .2, yLevel - yb, 64); const tea = new T.Mesh(tg, toon(crayonCanvas('#C99A72', 256, 256, 260))); tea.position.y = (yLevel + yb) / 2; tea.renderOrder = 1; root.add(tea);
+    const top = new T.Mesh(new T.CircleGeometry(rAt(yLevel) * .96, 64), toon(crayonCanvas('#DDB892', 128, 128, 80))); top.rotation.x = -Math.PI / 2; top.position.y = yLevel + .001; root.add(top);
+    const lvl = new T.Mesh(new T.TorusGeometry(rAt(yLevel) * .97, .005, 6, 96), new T.MeshBasicMaterial({ color: 0x9A6E4C })); lvl.rotation.x = Math.PI / 2; lvl.position.y = yLevel; root.add(lvl);
+    const gm = new T.MeshBasicMaterial({ color: 0xFFFFFF, transparent: true, opacity: .22, depthWrite: false, side: T.FrontSide });
+    const cg = lathe(cp); const cup = new T.Mesh(cg, gm); cup.renderOrder = 2; root.add(cup);
+    // glass outline: only the silhouette edges and the rim, drawn as lines
+    const prof = cp.slice(0, glass ? 11 : 10); [-1, 1].forEach(sd => { const pts = prof.map(([r, y]) => new T.Vector3(sd * r, y, 0)); const L = new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 60, .004, 6), new T.MeshBasicMaterial({ color: 0x7E6E64 })); L.userData.billboard = 1; root.add(L); });
+    const rimL = new T.Mesh(new T.TorusGeometry(.31, .004, 6, 120), new T.MeshBasicMaterial({ color: 0x7E6E64 })); rimL.rotation.x = Math.PI / 2; rimL.position.y = .73; root.add(rimL);
+    const tintBand = new T.Mesh(new T.TorusGeometry(.3, .014, 8, 120), toon(crayonCanvas(tint, 64, 64, 40))); tintBand.rotation.x = Math.PI / 2; tintBand.position.y = .69; root.add(tintBand);
+    root.add(goldRing(.31, .725, .009)); root.add(goldRing(.12, .06, .01));
+    // shine strokes on the glass
+    const sh = new T.Mesh(new T.PlaneGeometry(.025, .16), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .8 })); sh.position.set(-.2, .52, .3); sh.rotation.z = .15; root.add(sh);
+    window.__teaY = yLevel;
+  }
+  if (!glass && o.pct != null) {
+    const yLevel = .2 + (.46 - .2) * o.pct / 100, rLevel = .24 + (.4 - .24) * (yLevel - .22) / (.46 - .22);
+    const tea = new T.Mesh(new T.CircleGeometry(Math.max(.05, rLevel), 64), toon(crayonCanvas('#C99A72', 256, 256, 300))); tea.rotation.x = -Math.PI / 2; tea.position.y = yLevel; root.add(tea);
+    const ring = new T.Mesh(new T.TorusGeometry(rLevel * .82, .006, 6, 80), new T.MeshBasicMaterial({ color: 0xE8C9A6 })); ring.rotation.x = Math.PI / 2; ring.position.y = yLevel + .002; root.add(ring);
+  }
+  // handle: a curl of gold
+  if (!glass) {
+  const curve = new T.CatmullRomCurve3([new T.Vector3(.41, .43, 0), new T.Vector3(.58, .46, 0), new T.Vector3(.62, .36, 0), new T.Vector3(.52, .26, 0), new T.Vector3(.36, .26, 0)]);
+  root.add(inked(new T.TubeGeometry(curve, 60, .028, 12), flat(GOLD), .008));
+  const curl = new T.CatmullRomCurve3([new T.Vector3(.56, .465, 0), new T.Vector3(.64, .5, 0), new T.Vector3(.66, .45, 0), new T.Vector3(.61, .44, 0)]);
+  root.add(inked(new T.TubeGeometry(curl, 30, .014, 8), flat(GOLD), .006));
+  }
+  return root;
+}
+function teapot(o) {
+  const tint = o.tint || '#86AEDC', root = new T.Group();
+  const bp = [[0, 0], [.2, 0], [.22, .03], [.2, .05], [.3, .12], [.38, .26], [.37, .4], [.3, .52], [.22, .58], [.2, .6], [0, .6]];
+  root.add(inked(lathe(bp), toon(chinaCanvas(tint, { gold: [.06, .1, .93], roses: [.45, 3, 30], roseCol: '#EFA3A6', scallop: [.85, 16], band: [.7, .74] }))));
+  const lp = [[0, .6], [.21, .6], [.2, .64], [.15, .7], [.08, .73], [.05, .76], [.07, .8], [.0, .84]];
+  root.add(inked(lathe(lp), toon(chinaCanvas(tint, { gold: [.1, .6], dots: [.3, 40] }))));
+  const knob = new T.Mesh(new T.SphereGeometry(.05, 24, 16), flat(GOLD)); knob.position.y = .85; root.add(knob);
+  const spout = new T.CatmullRomCurve3([new T.Vector3(-.3, .22, 0), new T.Vector3(-.45, .3, 0), new T.Vector3(-.52, .48, 0), new T.Vector3(-.6, .56, 0)]);
+  root.add(inked(new T.TubeGeometry(spout, 40, .05, 16), toon(crayonCanvas('#FFFDF9', 128, 128, 120)), .01));
+  const hc = new T.CatmullRomCurve3([new T.Vector3(.34, .48, 0), new T.Vector3(.56, .52, 0), new T.Vector3(.6, .32, 0), new T.Vector3(.46, .16, 0), new T.Vector3(.34, .16, 0)]);
+  root.add(inked(new T.TubeGeometry(hc, 60, .035, 12), flat(GOLD), .01));
+  return root;
+}
+function candle(o) {
+  const col = o.col || '#F2B8C6', root = new T.Group();
+  const holder = [[0, 0], [.16, 0], [.16, .02], [.06, .05], [.04, .12], [.06, .15], [.03, .2], [.1, .24], [.11, .26], [0, .26]];
+  root.add(inked(lathe(holder), flat(GOLD), .008));
+  const c = crayonCanvas(col, 256, 512, 400), g = c.getContext('2d'); g.strokeStyle = 'rgba(255,255,255,.75)'; g.lineWidth = 7; for (let k = -10; k < 20; k++) { g.beginPath(); g.moveTo(-20, k * 40); g.lineTo(280, k * 40 + 120); g.stroke(); }
+  const body = new T.Mesh(new T.CylinderGeometry(.045, .05, .7, 32), toon(c)); body.position.y = .61; const bg = new T.Group(); bg.add(body); const bo = new T.Mesh(body.geometry, outlineMat(.006)); bo.position.copy(body.position); bg.add(bo); root.add(bg);
+  const fl = new T.Mesh(new T.SphereGeometry(.04, 20, 12), new T.MeshBasicMaterial({ color: 0xFBE3A0 })); fl.scale.set(.8, 1.9, .8); fl.position.y = 1.03; root.add(fl);
+  const core = new T.Mesh(new T.SphereGeometry(.018, 12, 8), new T.MeshBasicMaterial({ color: 0xF0A05A })); core.scale.set(.8, 1.6, .8); core.position.y = 1.01; root.add(core);
+  const glow = new T.Mesh(new T.SphereGeometry(.11, 20, 12), new T.MeshBasicMaterial({ color: 0xFFF3C8, transparent: true, opacity: .35 })); glow.position.y = 1.04; root.add(glow);
+  return root;
+}
+function vase(o) {
+  const root = new T.Group();
+  const vp = [[0, 0], [.12, 0], [.12, .02], [.08, .05], [.16, .16], [.2, .3], [.17, .42], [.1, .5], [.09, .56], [.13, .6], [.12, .61], [.08, .58], [0, .58]];
+  root.add(inked(lathe(vp, 72), toon(chinaCanvas('#86AEDC', { gold: [.04, .97], dots: [.5, 30] })), .008));
+  const cols = o.cols || ['#EFA3A6', '#F6DEA2', '#C9B8E8', '#EFA3A6', '#F7D3CC', '#C9B8E8', '#F6DEA2'];
+  const pos = [[0, .86, 0], [-.16, .78, .05], [.16, .8, .04], [-.07, .96, -.05], [.09, .95, .02], [-.24, .66, 0], [.24, .68, 0]];
+  pos.forEach((p, i) => {
+    const stem = new T.Mesh(new T.CylinderGeometry(.006, .006, Math.hypot(p[0], p[1] - .56), 6), flat('#86A97A')); stem.position.set(p[0] / 2, (p[1] + .56) / 2, p[2] / 2); stem.lookAt(p[0], p[1], p[2]); stem.rotateX(Math.PI / 2); root.add(stem);
+    const leaf = new T.Mesh(new T.SphereGeometry(.05, 12, 8), flat('#A8D5C2')); leaf.scale.set(1.4, .35, .7); leaf.position.set(p[0] * .7 + .04, p[1] * .9, p[2]); leaf.rotation.z = .5 * (i % 2 ? 1 : -1); root.add(leaf);
+    const c = crayonCanvas(cols[i], 256, 256, 300), g = c.getContext('2d'); g.strokeStyle = 'rgba(255,255,255,.8)'; g.lineWidth = 6; for (let k = 0; k < 5; k++) { g.beginPath(); g.arc(128, 128, 20 + k * 22, k, k + 4); g.stroke(); }
+    const rad = .075 + (i % 3) * .01, bl = new T.Group();
+    const head = inked(new T.SphereGeometry(rad, 24, 16), toon(c), .005); head.scale.set(1, .78, 1); bl.add(head);
+    for (let k = 0; k < 2; k++) { const pet = new T.Mesh(new T.TorusGeometry(rad * (.95 + k * .2), rad * .28, 10, 32), toon(crayonCanvas(cols[i], 64, 64, 30))); pet.rotation.x = Math.PI / 2; pet.position.y = -rad * (.15 + k * .22); bl.add(pet); }
+    bl.position.set(p[0], p[1], p[2]); bl.rotation.x = .5; root.add(bl);
+  });
+  return root;
+}
+// three-tier stand. tiers given as [screenYfrac, radiusFrac] of the target box; orthographic so the 2D layout lines up
+function stand(o) {
+  const root = new T.Group(), tint = o.tint || '#EFA3A6';
+  const mat = toon(chinaCanvas(tint, { gold: [.63, .66], roses: [.74, 12, 13], roseCol: tint, dots: [.6, 90] }));
+  o.tiers.forEach(([Y, R]) => {
+    const pp = [[0, 0], [R * .25, 0], [R * .3, .006], [R * .9, .02], [R, .04], [R * .99, .05], [R * .9, .036], [R * .3, .024], [0, .024]];
+    const g = inked(lathe(pp), mat, .006); g.position.y = Y; root.add(g);
+    const r = goldRing(R * .995, Y + .046, .006); root.add(r);
+  });
+  const top = o.tiers[0][0], bot = o.tiers[o.tiers.length - 1][0];
+  const stem = new T.Mesh(new T.CylinderGeometry(.012, .012, top - bot + .32, 16), flat(GOLD)); stem.position.y = (top + bot) / 2 + .1; root.add(stem);
+  for (let k = 0; k < o.tiers.length - 1; k++) { const b = new T.Mesh(new T.SphereGeometry(.025, 16, 12), flat(GOLD)); b.position.y = (o.tiers[k][0] + o.tiers[k + 1][0]) / 2; root.add(b); }
+  const loop = new T.Mesh(new T.TorusGeometry(.06, .01, 10, 60), flat(GOLD)); loop.position.y = top + .3; root.add(loop);
+  const fin = new T.Mesh(new T.SphereGeometry(.022, 16, 12), flat(GOLD)); fin.position.y = top + .38; root.add(fin);
+  const foot = lathe([[0, 0], [.12, 0], [.12, .01], [.05, .04], [.02, .06], [0, .06]]); const f = new T.Mesh(foot, flat(GOLD)); f.position.y = bot - .07; root.add(f);
+  return root;
+}
+function cake(o) {
+  const root = new T.Group();
+  root.add(inked(lathe([[0, 0], [.44, 0], [.46, .015], [.44, .025], [0, .025]]), toon(chinaCanvas('#86AEDC', { gold: [.6], dots: [.8, 80] })), .006));
+  const tier = (r, y0, h, col, drip) => {
+    const c = crayonCanvas(col, 1024, 256, 900), g = c.getContext('2d'); g.fillStyle = drip;
+    for (let i = 0; i < 24; i++) { const x = i * 1024 / 24; g.beginPath(); g.moveTo(x, 0); g.lineTo(x + 43, 0); g.lineTo(x + 43, 30 + (i * 37) % 40); g.arc(x + 21, 30 + (i * 37) % 40, 21, 0, Math.PI); g.fill(); }
+    const cyl = new T.CylinderGeometry(r, r, h, 96, 1, true); const m = inked(cyl, toon(c), .006); m.position.y = y0 + h / 2; root.add(m);
+    const lid = new T.Mesh(new T.CircleGeometry(r, 96), toon(crayonCanvas(drip, 256, 256, 200))); lid.rotation.x = -Math.PI / 2; lid.position.y = y0 + h; root.add(lid);
+    const bead = new T.Mesh(new T.TorusGeometry(r, .018, 10, 120), toon(crayonCanvas('#FFFDF9', 128, 128, 80))); bead.rotation.x = Math.PI / 2; bead.position.y = y0 + h; root.add(bead);
+    const bead2 = bead.clone(); bead2.position.y = y0 + .01; root.add(bead2);
+  };
+  const y0 = o.y0, y1 = o.y1, y2 = o.y2; root.children[0].position.y = y0 - .025;
+  tier(.4, y0, y1 - y0, '#F8E6B4', '#F7D3CC'); tier(.28, y1, y2 - y1, '#F7D3CC', '#FFFDF9');
+  for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2 + .2, ch = new T.Mesh(new T.SphereGeometry(.02, 16, 12), toon(crayonCanvas('#E8857B', 64, 64, 30))); ch.position.set(Math.cos(a) * .35, y1 + .02, Math.sin(a) * .35); root.add(ch); }
+  const cols = ['#E8857B', '#EFC15E', '#8FCBB2', '#86AEDC', '#B79FD6'];
+  (o.candles || []).forEach(([x, z], i) => {
+    const cn = new T.Mesh(new T.CylinderGeometry(.007, .007, .11, 12), toon(crayonCanvas(cols[i % 5], 64, 64, 40))); cn.position.set(x, o.y2 + .06, z); root.add(cn);
+    const fl = new T.Mesh(new T.SphereGeometry(.014, 12, 8), new T.MeshBasicMaterial({ color: 0xFBE3A0 })); fl.scale.set(.8, 1.8, .8); fl.position.set(x, o.y2 + .14, z); root.add(fl);
+  });
+  return root;
+}
+
+/* ---------- render one job ---------- */
+async function render(job) {
+  seed = job.seed || 7;
+  const W = job.w || 600, H = job.h || 600, PR = job.pr || 2;
+  const r = new T.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); r.setPixelRatio(PR); r.setSize(W, H); r.outputColorSpace = T.SRGBColorSpace;
+  document.body.innerHTML = ''; document.body.appendChild(r.domElement);
+  const scene = new T.Scene();
+  scene.add(new T.AmbientLight(0xffffff, 1.6)); const sun = new T.DirectionalLight(0xffffff, 1.5); sun.position.set(-2, 4, 3); scene.add(sun);
+  const make = Object.assign({ teacup, teapot, candle, vase, stand, cake }, window.EXTRA || {})[job.kind];
+  window.__marks = null;
+  const obj = make(job); scene.add(obj);
+  let cam;
+  if (job.ortho) { const a = H / W, sp = job.span || 1, cy = job.cy || 0; cam = new T.OrthographicCamera(-sp / 2, sp / 2, a * sp / 2, -a * sp / 2, -20, 20); const th = job.tilt == null ? .26 : job.tilt, az = job.az || 0; cam.position.set(Math.sin(az) * Math.cos(th) * 8, cy + Math.sin(th) * 8, Math.cos(az) * Math.cos(th) * 8); cam.lookAt(0, cy, 0); }
+  else { cam = new T.PerspectiveCamera(job.fov || 26, W / H, .1, 50); const d = job.dist || 3.2, el = job.el || .45, az = job.az || -.5; const tx = job.tx || 0, tz = job.tz || 0; cam.position.set(tx + Math.sin(az) * d * Math.cos(el), Math.sin(el) * d + (job.ty || .3), tz + Math.cos(az) * d * Math.cos(el)); cam.lookAt(tx, job.ty || .3, tz); }
+  obj.traverse(m => { if (m.userData.billboard) { const az = Math.atan2(cam.position.x, cam.position.z); m.rotation.y = az; } });
+  r.render(scene, cam);
+  let meta = null; if (job.bg) {}
+  if (window.__marks) { meta = meta || {}; for (const [k, p] of Object.entries(window.__marks)) { const v = new T.Vector3(...p).project(cam); meta[k] = [+((v.x + 1) / 2).toFixed(4), +((1 - v.y) / 2).toFixed(4)]; } window.__marks = null; }
+  if (window.__teaY != null) { const v = new T.Vector3(0, window.__teaY, 0).project(cam); meta = { teaY: (1 - v.y) / 2 }; window.__teaY = null; }
+  return { url: r.domElement.toDataURL('image/png'), meta };
+}
+window.render = render;
+</script>
+<script src="props2.js"></script>
+</body></html>
