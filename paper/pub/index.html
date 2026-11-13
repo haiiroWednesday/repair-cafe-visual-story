@@ -1431,6 +1431,10 @@ img.pc,.cfig .plbtn,.pola img,.pc.stk,.photo img{cursor:default !important}
 .closecol.seen > p.lastline{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.endshot,.closecol > p.lastline{transition:none}}
 
+/* ===== v85: the end photograph is off the page at her request (kept in the page); the last sentence still stands alone ===== */
+.endshot{display:none !important}
+.closecol > p.lastline{margin:54px auto 84px}
+
 </style>
 <script id="v70js">
 addEventListener('DOMContentLoaded',()=>{
@@ -1459,7 +1463,7 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
       /* v84: the shoes come back as the last picture, and her last sentence stands alone under it */
       const f=document.createElement('figure'); f.className='endshot'; f.innerHTML='<img src="img/g_shoes_end.webp" width="1000" height="1569" alt="Two white sneakers with ribbon laces lying on a dark carpet, a rainbow of light falling across them" loading="lazy">'; c.appendChild(f);
       const l=document.createElement('p'); l.className='lastline'; l.textContent='I wanted to be the one who decided when I was finished with them.'; c.appendChild(l); cf.after(c);
-      if(RM) c.classList.add('seen'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){c.classList.add('seen');io.disconnect();}}),{threshold:.3}).observe(f); } }
+      if(RM) c.classList.add('seen'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){c.classList.add('seen');io.disconnect();}}),{threshold:.6}).observe(l); } }
   /* v81: hidden with her yes, all kept in the page: the two workshop-tour paragraphs, the age paragraph (and the note about ages), step 1 of the counter */
   { const hp=(sel,re)=>[...document.querySelectorAll(sel)].filter(p=>re.test(p.textContent.trim())).forEach(hide);
     hp('#bench .col > p',/^(Screws and spare parts|Aaron, one of the volunteers)/);

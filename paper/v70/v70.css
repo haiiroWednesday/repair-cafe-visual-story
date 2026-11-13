@@ -340,3 +340,7 @@ img.pc,.cfig .plbtn,.pola img,.pc.stk,.photo img{cursor:default !important}
 .closecol > p.lastline{margin:48px auto 84px;max-width:21em;text-align:center;font:400 clamp(21px,2.05vw,27px)/1.42 Georgia,serif;color:#2F4A78;opacity:0;transform:translateY(10px);transition:opacity .9s ease-out .7s,transform .9s ease-out .7s}
 .closecol.seen > p.lastline{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.endshot,.closecol > p.lastline{transition:none}}
+
+/* ===== v85: the end photograph is off the page at her request (kept in the page); the last sentence still stands alone ===== */
+.endshot{display:none !important}
+.closecol > p.lastline{margin:54px auto 84px}
