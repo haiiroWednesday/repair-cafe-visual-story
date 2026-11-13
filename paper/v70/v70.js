@@ -108,7 +108,7 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('rv-in');io.unobserve(e.target);}}),{rootMargin:'0px 0px -12% 0px'});
   const add=(sel,stag)=>document.querySelectorAll(sel).forEach((e,i)=>{e.classList.add('rv'); if(stag) e.style.setProperty('--rd',(i%stag.n)*stag.ms+'ms'); io.observe(e);});
   add('#history .photo img'); add('.pegboard .stage > img.pc',{n:2,ms:160}); add('.volfig .stage > img.pc',{n:2,ms:160});
-  add('.heartfig .stage > img.pc',{n:3,ms:200}); add('.tray .stk',{n:5,ms:90}); add('.clockfig .polawrap');
+  add('.heartfig .stage > img.pc',{n:2,ms:240}); add('.tray .stk',{n:5,ms:90}); add('.clockfig .polawrap');
   add('.clockfig .stepimg',{n:3,ms:260}); add('.clockfig .stepl',{n:3,ms:260}); add('#bench .cfig.plate .plimg');
 })();
 

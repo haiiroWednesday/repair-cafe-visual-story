@@ -39,8 +39,7 @@ html{font-synthesis:none}
 .herophoto img{--r:-.6deg !important}
 #history .photo img{--r:.6deg !important}
 .heartfig img[src*="fr_heart"]{--r:-1deg !important}
-.heartfig img[src*="hc2_layers"]{--r:0deg !important;--w:23% !important;--t:13% !important;--l:76.5% !important;--mw:24% !important;--mt:20% !important;--ml:74% !important}
-.heartfig img[src*="hc2_back"]{--r:-4deg !important}
+.heartfig img[src*="hc2_back"]{--r:-7deg !important;--w:18% !important;--l:68% !important;--t:60% !important;--mw:24% !important;--ml:70% !important;--mt:60% !important;filter:drop-shadow(2.5px 0 0 #fff) drop-shadow(-2.5px 0 0 #fff) drop-shadow(0 2.5px 0 #fff) drop-shadow(0 -2.5px 0 #fff) drop-shadow(0 5px 5px rgba(50,35,20,.3)) !important}
 .polawrap{--r:1.5deg !important}
 @media (min-width:821px){
   .herophoto{max-width:min(1000px,88vh) !important}
@@ -168,3 +167,4 @@ html{font-synthesis:none}
 
 .ctrSvg .big{font-size:84px !important;transform:translate(20px,10px)}
 @media (max-width:700px){#pal{display:none !important}}
+@media (min-width:821px){.heartfig .stage{margin-bottom:-7% !important}}
