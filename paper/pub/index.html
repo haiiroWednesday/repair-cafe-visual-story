@@ -1503,7 +1503,7 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
   /* v88: the heart clock photo joins the check-in paragraph it shows; the visit sentence in the history is hidden;
      one sentence (a mock for her to rewrite) leads into the data */
   { const ci=document.querySelector('#counter-s > .col'), hf=document.querySelector('.heartfig'); if(ci&&hf) ci.after(hf);
-    [...document.querySelectorAll('#history .col > p')].filter(p=>/^Exactly seventeen years later/.test(p.textContent.trim())).forEach(hide);
+    /* v91: the 'Exactly seventeen years later' sentence is back on the page at her request */
     const sf=document.querySelector('#counter-s .scrollfig');
     if(sf&&!document.querySelector('.datacol')){ const c=document.createElement('div'); c.className='col datacol'; const p=document.createElement('p');
       p.textContent='“Beyond repair” is often a guess. At Repair Cafés in 2019, more than half of the broken electrical things went home fixed, and so did most of everything else.';
