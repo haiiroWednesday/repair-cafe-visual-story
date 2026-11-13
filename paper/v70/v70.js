@@ -11,9 +11,10 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
   if(c&&ap&&vf){c.after(ap);ap.after(vf);}
   const hide=e=>{if(e){e.style.display='none';e.dataset.v7hidden=1;}};
   hide(tw('volunteer'));
-  document.querySelectorAll('#heart > .rim + .col > p').forEach(hide);
+  hide(document.querySelector('#heart > .rim + .col')); /* title, number and paragraph of The Two Clocks (v77) */
+  { const hf=document.querySelector('.heartfig'), cap=hf&&hf.querySelector(':scope > .enc'); if(cap) hf.prepend(cap); }
   if(tw('heart')&&tw('odds')&&tw('why')) tw('heart').before(tw('odds'),tw('why'));
-  ['history','counter-s','bench','odds','why','heart'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
+  ['history','counter-s','bench','odds','why'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
 })();
 
 /* 1. seams: whip stitches that follow each torn edge */
