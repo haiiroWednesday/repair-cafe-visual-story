@@ -25,7 +25,7 @@ def enc(path):
         if im.getchannel('A').getextrema()[0] == 255: im = im.convert('RGB')
     else: im = im.convert('RGB')
     q = 78 if path.endswith(('.jpg', '.jpeg')) else 80
-    b = io.BytesIO(); im.save(b, 'WEBP', quality=q, method=6); new = b.getvalue()
+    b = io.BytesIO(); im.save(b, 'WEBP', quality=q, method=4); new = b.getvalue()
     data, mime = (new, 'image/webp') if len(new) < len(raw) else (raw, 'image/' + ('jpeg' if path.endswith(('jpg', 'jpeg')) else path.rsplit('.', 1)[1]))
     cache[path] = 'data:%s;name=%s;base64,%s' % (mime, path, base64.b64encode(data).decode())
     return cache[path]
@@ -38,13 +38,18 @@ s = re.sub(r'url\(\s*([\'"]?)(' + PAT + r')\1\s*\)', url_sub, s)
 # 2. script templates -> a lookup table
 for t, (a, k, z) in TPL.items():
     s = s.replace(t, '${__I[\'%s\'+%s+\'%s\']}' % (a, k, z))
+# 2b. pictures named by script at run time
+s = s.replace("im.src = 'img/' + im.dataset.photo + '.jpg';", "im.src = __I['img/' + im.dataset.photo + '.jpg'];")
+s = s.replace("xpOpen('img/pl_' + b.dataset.pl + '.webp'", "xpOpen(''").replace("xpOpen('img/x_' + b.dataset.x + '.webp'", "xpOpen(''")   # the zoom viewer is switched off on the page
+tpl_files |= {'img/' + x + '.jpg' for x in re.findall(r'data-photo="([^"]+)"', s)}
 # 3. every other mention (src attributes, strings in script) -> the data itself
 s = re.sub(PAT, lambda m: enc(m.group(0)), s)
 root = ':root{' + ';'.join('%s:url("%s")' % (var(p), enc(p)) for p in sorted(used_vars)) + '}'
 table = 'window.__I=' + json.dumps({p: enc(p) for p in sorted(tpl_files)}) + ';'
 head = '<style id="inline-pictures">' + root + '</style><script>' + table + '</script>'
 s = s.replace('<head>', '<head>' + head, 1) if '<head>' in s else re.sub(r'(<head[^>]*>)', r'\1' + head, s, count=1)
-assert 'img/' not in re.sub(r'name=img/[^;]+;', '', s).replace('__I[\'img/', ''), [x for x in re.findall(r'.{30}img/.{30}', re.sub(r'name=img/[^;]+;', '', s))][:5]
+chk = re.sub(r'name=img/[^;]+;', '', re.sub(r'[A-Za-z0-9+/=]{120,}', '', s.replace(table, ''))).replace("__I['img/", '')
+assert 'img/' not in chk, re.findall(r'.{30}img/.{30}', chk)[:5]
 open(OUT, 'w').write(s)
 kept = [p for p in cache if not cache[p].startswith('data:image/gif')]
 print(OUT, '%.2f MB' % (len(s.encode()) / 1e6), 'pictures inside:', len(kept), 'placeholders:', len(cache) - len(kept))
