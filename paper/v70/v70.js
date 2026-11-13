@@ -19,8 +19,9 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
     if(tw('bench')&&tw('history')) tw('history').before(tw('bench'));
     const hs=document.getElementById('heart'), mix=document.querySelector('#why > .rim + .col > p'), cf=hs&&hs.querySelector('.clockfig');
     hs&&[...hs.querySelectorAll('.col > p')].filter(p=>/Do you think she was happy/.test(p.textContent)).forEach(hide);
-    if(hs&&mix&&cf&&!hs.querySelector('.closecol')){ const c=document.createElement('div'); c.className='col closecol'; c.appendChild(mix);
-      const p=document.createElement('p'); p.textContent='My shoes were badly worn. I knew that when I wanted to keep them.'; c.appendChild(p);
+    if(hs&&cf&&!hs.querySelector('.closecol')){ const c=document.createElement('div'); c.className='col closecol';
+      /* v86: the mixer stays at the top of section 05; the close is her two sentences, then her last line alone */
+      const p=document.createElement('p'); p.textContent='My mother told me my shoes were beyond repair, and I believed her. Had I known this community earlier, I would have restored them and kept them.'; c.appendChild(p);
       /* v84: the shoes come back as the last picture, and her last sentence stands alone under it */
       const f=document.createElement('figure'); f.className='endshot'; f.innerHTML='<img src="img/g_shoes_end.webp" width="1000" height="1569" alt="Two white sneakers with ribbon laces lying on a dark carpet, a rainbow of light falling across them" loading="lazy">'; c.appendChild(f);
       const l=document.createElement('p'); l.className='lastline'; l.textContent='I wanted to be the one who decided when I was finished with them.'; c.appendChild(l); cf.after(c);
@@ -33,10 +34,10 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
     if(tn){ const sp=document.createElement('span'); sp.textContent=tn.nodeValue.replace(/^\.\s*/,''); hide(sp); tn.nodeValue='.'; tn.after(sp); }
     const ctr=document.getElementById('counter');
     if(ctr){ hide(ctr.querySelector('.steps > .step')); ctr.classList.add('v8two');
-      [['1','01','1 of 2'],['2','02','2 of 2']].forEach(([i,n,f])=>{ const sc=ctr.querySelector('.sc[data-i="'+i+'"]'); if(!sc) return;
+      [['1','05','1 of 2'],['2','06','2 of 2']].forEach(([i,n,f])=>{ const sc=ctr.querySelector('.sc[data-i="'+i+'"]'); if(!sc) return;
         const t=sc.querySelector('.stt'); if(t) t.textContent=t.textContent.replace(/^\d\d/,n);
         const ft=sc.querySelector('.sfoot'), x=ft&&[...ft.childNodes].find(k=>k.nodeType===3&&/of 3/.test(k.nodeValue)); if(x) x.nodeValue=x.nodeValue.replace(/\d of 3/,f); }); }
-    const oc=document.querySelector('.cfig.odds .claim'); if(oc) oc.textContent=oc.textContent.replace(/^04/,'03'); }
+    }
   /* v82: section headlines taken off the page at her request while new ones are discussed (kept in the page) */
   ['bench','history','counter-s','odds','why'].forEach(id=>hide(document.querySelector('#'+id+' > .col > h2')));
   ['bench','history','counter-s','odds','why'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
@@ -324,6 +325,21 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   lay(); md.addEventListener('load',lay); addEventListener('load',lay); if(window.ResizeObserver) new ResizeObserver(lay).observe(st);
   if(RM){h.classList.add('hung');return;}
   new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){h.classList.add('hung');io.disconnect();}}),{threshold:.35}).observe(st);
+})();
+
+
+/* 15. every graphic gets its own headline, on top, in one style (v86) */
+(()=>{
+  const hd=(fig,t,where)=>{ if(!fig) return; const h=document.createElement('h3'); h.className='ghd'; h.textContent=t; (where||fig).prepend(h); return h; };
+  hd(document.querySelector('.cfig.pegboard'),'01 · The Electronics Bench');
+  const st=document.querySelector('.st3wrap > .st3'); if(st){ const h=document.createElement('h3'); h.className='ghd st3hd'; h.textContent='02 · Inside the Stereo'; st.prepend(h); }
+  const cf=document.querySelector('.cakefig');
+  if(cf&&!cf.querySelector('.cakecard')){ const k=document.createElement('div'); k.className='cakecard';
+    k.innerHTML='<h3 class="ghd">03 · Repair Café, 2009 to 2026</h3><p>One candle for each year since the first café in Amsterdam</p><p>A dot over a candle marks a year below</p>'; cf.prepend(k); }
+  hd(document.querySelector('.apgame'),'04 · Which Table Fixes It?');
+  const oc=document.querySelector('.cfig.odds .claim'), of=document.querySelector('.cfig.odds');
+  if(oc&&of){ oc.textContent='07 · What Gets Fixed'; oc.classList.add('ghd'); of.prepend(oc); }
+  const wf=document.querySelector('#why .whyfig'); hd(wf,'08 · Why They Came');
 })();
 
 });
