@@ -279,3 +279,27 @@ html{font-synthesis:none}
 .heartfig > .enc{margin:0 auto calc(-1 * min(9.5vw,78px)) !important;font-size:15px !important;max-width:520px;position:relative;z-index:8}
 .heartfig .stage{margin-top:0 !important}
 @media (max-width:820px){.heartfig .stage{--mar:1/1.03 !important}}
+
+/* ===== v78 ===== */
+/* no zoom anywhere */
+img.pc,.cfig .plbtn,.pola img,.pc.stk,.photo img{cursor:default !important}
+.pc.stk:hover,.pc.stk:focus-visible{transform:rotate(var(--r)) !important}
+/* heart: the three sticker boxes are hidden (kept in the page) */
+.heartfig .tray{display:none !important}
+/* stereo: loose strands, sparks, the rainbow on the spinning disc */
+.st3wrap{height:calc(min(1040px,100vw - 44px) / var(--ar,1.55) + 160svh)}
+.st3 .ly.wire{background:url(img/s3_w.webp) 0 0/100% 2000% no-repeat;opacity:0}
+.st3 .spk3{position:absolute;width:0;height:0;pointer-events:none;z-index:5}
+.st3 .spk3::before{content:'';position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#fff 0 22%,#FFE9A8 40%,rgba(255,200,90,0) 70%);opacity:0;transform:scale(.2)}
+.st3 .spk3.go::before{animation:spk3 .55s ease-out}
+@keyframes spk3{0%{opacity:1;transform:scale(.2)}35%{opacity:1;transform:scale(1.5)}100%{opacity:0;transform:scale(2.2)}}
+.st3 .ly.disc .rb{position:absolute;left:2.8%;right:2.8%;top:6.5%;bottom:10%;border-radius:50%;opacity:0;pointer-events:none;
+  background:conic-gradient(from var(--a,0deg),rgba(255,255,255,0) 0deg 18deg,#F27BAE 26deg,#F59A62 34deg,#EDBE36 42deg,#4FCB96 50deg,#43B9DD 58deg,#9A7BEA 66deg,rgba(255,255,255,0) 76deg 198deg,#F27BAE 206deg,#F59A62 214deg,#EDBE36 222deg,#4FCB96 230deg,#43B9DD 238deg,#9A7BEA 246deg,rgba(255,255,255,0) 256deg 360deg);
+  -webkit-mask:radial-gradient(ellipse closest-side,#0000 33%,#000 36%,#000 97%,#0000 100%);mask:radial-gradient(ellipse closest-side,#0000 33%,#000 36%,#000 97%,#0000 100%);mix-blend-mode:multiply}
+/* colour: the dusty blue and marigold of the reference pages replace the indigo and the ochre */
+:root{--navy:#2F4A78;--ink:#2A4169}
+.clean > .tw > .band,.clean > .tw > .end{background-color:#46638F !important}
+.clean > .tw > #why{background-color:#E0A63A}
+.hero h1,.part:not(.band) > .col > h2,.sclaim .stt,.cfig.odds .claim{color:#2F4A78 !important}
+.sclaim .hb[aria-pressed=true],.sclaim .hb[aria-pressed=true]:hover{background:#2F4A78 !important;border-color:#2F4A78 !important}
+#why h2{color:#28406A !important}

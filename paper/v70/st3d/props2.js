@@ -417,7 +417,7 @@
     const j = a => (rnd() - .5) * a;
     for (let k = 0; k < 20; k++) {
       const off = (k - 9.5) * .011, col = PHOTO[k], mat = toon(crayonCanvas(col, 16, 16, 4)), r = .0038 + rnd() * .0018;
-      add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3([A.clone().add(new T.Vector3(off, 0, 0)), A.clone().add(new T.Vector3(off * 1.6 + j(.04), -.02 + j(.05), -.18 + j(.06))), new T.Vector3(m1.x + off * 1.4 + j(.05), m1.y + .1 + j(.06), m1.z + .12 + j(.05)), m1.clone().add(new T.Vector3(off * .15, 0, 0))]), 30, r, 5), mat));
+      add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3([A.clone().add(new T.Vector3(off, 0, 0)), A.clone().add(new T.Vector3(off * 1.6 + j(.04), -.02 + j(.05), -.18 + j(.06))), new T.Vector3(m1.x + off * 1.4 + j(.05), m1.y + .1 + j(.06), m1.z + .12 + j(.05)), m1.clone().add(new T.Vector3(off * .15, 0, 0))]), 30, r, 5), mat)).userData.L=20+k;
       add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3([m2.clone().add(new T.Vector3(off * .15, 0, 0)), new T.Vector3(m2.x + .08 + j(.05), m2.y - .02 + j(.05), m2.z + .2 + off + j(.05)), Z.clone().add(new T.Vector3(off + j(.02), j(.03), -.12)), Z.clone().add(new T.Vector3(off, 0, 0))]), 30, r, 5), mat));
     }
     // a few strands skip the sheath and loop straight across, the way they do in the photo

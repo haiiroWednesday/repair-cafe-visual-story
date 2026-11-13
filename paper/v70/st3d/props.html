@@ -196,6 +196,7 @@ async function renderLayers(job){
   for(let i=1;i<5;i++){const a=proj([0,E[i],0]), b=proj([0,C[i],0]); out.lift[i]=[b[0]-a[0],b[1]-a[1]];}
   const show=n=>obj.children.forEach(m=>m.visible=(m.userData.L===n));
   for(let n=0;n<10;n++){ show(n); r.render(scene,cam); out.layers[n]=r.domElement.toDataURL('image/png'); }
+  out.strands=[]; out.piv=[]; out.head=[]; for(let k=0;k<20;k++){ show(20+k); r.render(scene,cam); out.strands.push(r.domElement.toDataURL('image/png')); const off=(k-9.5)*.011; out.piv.push(proj([-.42+off*.15,.3,-.85])); out.head.push(proj([-.22+off,gap+.04,-.35])); }
   show(3); for(let k=0;k<job.nf;k++){ window.__disc.rotation.y=k*Math.PI/job.nf; r.render(scene,cam); out.frames.push(r.domElement.toDataURL('image/png')); }
   return out;
 }
