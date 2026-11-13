@@ -350,4 +350,15 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const wf=document.querySelector('#why .whyfig'); hd(wf,'08 · Why They Came');
 })();
 
+
+/* 16. photo captions that say who and what (v89, from her answers) */
+(()=>{
+  const cap=(after,t,cls)=>{ if(!after) return; const p=document.createElement('p'); p.className='phcap'+(cls?' '+cls:''); p.textContent=t; after.after(p); return p; };
+  const g=document.querySelector('img[src*="g_fr_group"]'), gc=g&&g.closest('figure').querySelector('figcaption'); if(gc) gc.textContent='Volunteers lean in over a repair together. Photo: Cynthia.';
+  cap(document.querySelector('.volfig > .stage'),'Volunteers at the sewing table, and a volunteer at his own table. Photos: Cynthia.');
+  const hc=document.querySelector('.heartfig > .enc'); if(hc) hc.textContent='Rayna, a volunteer, and the clock’s owner look it over together. Photo and illustration: Cynthia.';
+  const pi=document.querySelector('.pola img.ph-img'); if(pi) pi.alt='Jazz holds up a carved wooden cuckoo clock, the one that belonged to the woman’s late father';
+  cap(document.querySelector('.clockfig > .stage'),'Jazz with the cuckoo clock that belonged to the woman’s late father.');
+})();
+
 });

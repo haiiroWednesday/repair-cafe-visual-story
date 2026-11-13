@@ -363,3 +363,6 @@ h3.ghd,.cfig.odds h3.claim.ghd{display:block;max-width:900px;margin:0 auto 26px 
 /* ===== v88 ===== */
 .datacol{margin-top:40px;margin-bottom:10px}
 #counter-s .heartfig{margin-top:34px;margin-bottom:34px}
+
+/* ===== v89: photo captions ===== */
+p.phcap{max-width:760px;margin:14px auto 0;padding:0 22px;text-align:center;font:italic 400 13.5px/1.45 Georgia,serif;color:#6A5E52}
