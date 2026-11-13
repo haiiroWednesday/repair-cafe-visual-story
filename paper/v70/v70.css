@@ -366,3 +366,6 @@ h3.ghd,.cfig.odds h3.claim.ghd{display:block;max-width:900px;margin:0 auto 26px 
 
 /* ===== v89: photo captions ===== */
 p.phcap{max-width:760px;margin:14px auto 0;padding:0 22px;text-align:center;font:italic 400 13.5px/1.45 Georgia,serif;color:#6A5E52}
+
+/* ===== v93: the sewing sticker box is off the page at her request (kept in the page) ===== */
+.volfig .tray{display:none !important}

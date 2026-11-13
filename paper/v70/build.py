@@ -63,6 +63,7 @@ for p in targets:
                 ('<text class="lyh lyh2" x="985" y="736"></text>','<text class="lyh lyh2" x="985" y="736">Ranks 2 to 5 share one layer.</text>'),
                 ('>The marbled band holds four.</text>','>Ranks 2 to 5 share one layer.</text>'),
                 ('A rainbow of light fell across my shoes','A rainbow fell across my shoes'),
+                ('Photos and illustrations: Cynthia. The aprons represent check-in, sewing, appliance repair, mechanical repair, electronics, and special skills.','Photos and illustrations: Cynthia.'),
                 ('a band of iridescent light falling across them','a rainbow falling across them')]:
         s=s.replace(a,b)
     s=s.replace('--ml:0%;--mt:4%;--mw:100%" loading="lazy"','--ml:0%;--mt:4%;--mw:100%" loading="eager" fetchpriority="high"',1)
