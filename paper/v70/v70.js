@@ -24,7 +24,7 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
       const p=document.createElement('p'); p.textContent='My mother told me my shoes were beyond repair, and I believed her. Had I known this community earlier, I would have restored them and kept them.'; c.appendChild(p);
       /* v84: the shoes come back as the last picture, and her last sentence stands alone under it */
       const f=document.createElement('figure'); f.className='endshot'; f.innerHTML='<img src="img/g_shoes_end.webp" width="1000" height="1569" alt="Two white sneakers with ribbon laces lying on a dark carpet, a rainbow of light falling across them" loading="lazy">'; c.appendChild(f);
-      const l=document.createElement('p'); l.className='lastline'; l.textContent='I wanted to be the one who decided when I was finished with them.'; c.appendChild(l); cf.after(c);
+      const l=document.createElement('p'); l.className='lastline'; l.textContent='Next time, I want to be the one who decides what\u2019s worth saving.'; c.appendChild(l); cf.after(c);
       if(RM) c.classList.add('seen'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){c.classList.add('seen');io.disconnect();}}),{threshold:.6}).observe(l); } }
   /* v81: hidden with her yes, all kept in the page: the two workshop-tour paragraphs, the age paragraph (and the note about ages), step 1 of the counter */
   { const hp=(sel,re)=>[...document.querySelectorAll(sel)].filter(p=>re.test(p.textContent.trim())).forEach(hide);
@@ -39,6 +39,14 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
         const ft=sc.querySelector('.sfoot'), x=ft&&[...ft.childNodes].find(k=>k.nodeType===3&&/of 3/.test(k.nodeValue)); if(x) x.nodeValue=x.nodeValue.replace(/\d of 3/,f); }); }
     }
   /* v82: section headlines taken off the page at her request while new ones are discussed (kept in the page) */
+  /* v88: the heart clock photo joins the check-in paragraph it shows; the visit sentence in the history is hidden;
+     one sentence (a mock for her to rewrite) leads into the data */
+  { const ci=document.querySelector('#counter-s > .col'), hf=document.querySelector('.heartfig'); if(ci&&hf) ci.after(hf);
+    [...document.querySelectorAll('#history .col > p')].filter(p=>/^Exactly seventeen years later/.test(p.textContent.trim())).forEach(hide);
+    const sf=document.querySelector('#counter-s .scrollfig');
+    if(sf&&!document.querySelector('.datacol')){ const c=document.createElement('div'); c.className='col datacol'; const p=document.createElement('p');
+      p.textContent='“Beyond repair” is often a guess. At Repair Cafés in 2019, more than half of the broken electrical things went home fixed, and so did most of everything else.';
+      c.appendChild(p); sf.before(c); } }
   ['bench','history','counter-s','odds','why'].forEach(id=>hide(document.querySelector('#'+id+' > .col > h2')));
   ['bench','history','counter-s','odds','why'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
 })();
@@ -317,7 +325,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const h=document.createElement('div'); h.className='filmhang';
   h.innerHTML='<img src="img/film_stereo3.webp" alt="Three frames on a strip of film: the stereo with its back open and coloured wires hanging loose, a volunteer in a headlamp working on it, and the stereo from above with its blue ring lit"><i class="peg"></i>';
   st.appendChild(h);
-  const cap=document.createElement('p'); cap.className='hangcap'; cap.textContent='Photos: Cynthia'; st.after(cap);
+  const cap=document.createElement('p'); cap.className='hangcap'; cap.textContent='The stereo. Photos: Cynthia'; st.after(cap);
   const POST=[596/698,62/654], FR=564/1094;   /* top of the right-hand pegboard post inside the drawing; the strip's own proportions */
   const lay=()=>{ const W=st.clientWidth, H=st.clientHeight, w=md.offsetWidth, ih=w*654/698; if(!w||!W||!H) return;
     const sh=ih*.82, sw=sh*FR, px=md.offsetLeft+w*POST[0], py=md.offsetTop+ih*POST[1];

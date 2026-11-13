@@ -31,6 +31,10 @@ for p in targets:
     G.append(("history. Inspired, she began recruiting volunteer repairers, starting with a friend’s handy husband. A carpenter, a seamstress, and others followed.</p>","history.<span data-v7hidden=\"1\" style=\"display:none\"> Inspired, she began recruiting volunteer repairers, starting with a friend’s handy husband. A carpenter, a seamstress, and others followed.</span></p>"))
     # v87: Jazz is introduced once, at the stereo
     G.append(("Jazz, a volunteer I spoke with, told me about another clock","Jazz told me about another clock"))
+    # v88: the game plays three tickets (trousers, fan, her stereo); all seven stay in the page as T_ALL
+    G.append(("const T=[{\"t\": \"\", \"item\": \"Trousers\"","const T_ALL=[{\"t\": \"\", \"item\": \"Trousers\""))
+    G.append(("opened at the appliance table.\"}], S=[\"check-in\"","opened at the appliance table.\"}], T=[0,2,1].map(k=>T_ALL[k]), S=[\"check-in\""))
+    G.append(("<span class=\"apn\">1</span> of 7 tickets","<span class=\"apn\">1</span> of 3 tickets"))
     for a,b in G:
         if b in s: continue
         if a not in s: continue   # already superseded by a later patch

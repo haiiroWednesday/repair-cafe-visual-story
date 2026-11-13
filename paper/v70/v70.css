@@ -359,3 +359,7 @@ h3.ghd,.cfig.odds h3.claim.ghd{display:block;max-width:900px;margin:0 auto 26px 
 .st3wrap{padding-top:48px}
 .cakecard{width:min(600px,92%)}
 @media (max-width:820px){.st3 h3.st3hd{top:-34px}}
+
+/* ===== v88 ===== */
+.datacol{margin-top:40px;margin-bottom:10px}
+#counter-s .heartfig{margin-top:34px;margin-bottom:34px}
