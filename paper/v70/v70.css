@@ -331,3 +331,12 @@ img.pc,.cfig .plbtn,.pola img,.pc.stk,.photo img{cursor:default !important}
 
 /* ===== v83: the corner ticket that followed the scroll is off the page at her request (kept in the page) ===== */
 #tix{display:none !important}
+
+/* ===== v84: the ending. The shoe photograph returns as a small print, the last sentence alone under it ===== */
+.closecol{padding-bottom:26px}
+.endshot{margin:62px auto 0;width:min(300px,64%);padding:11px 11px 12px;background:#F7F1E3;box-shadow:inset 0 0 0 1px rgba(90,70,40,.10);transform:rotate(-5deg) translateY(22px);opacity:0;filter:drop-shadow(0 14px 18px rgba(38,30,18,.30));transition:opacity .9s ease-out,transform 1.2s cubic-bezier(.2,.85,.25,1)}
+.endshot img{display:block;width:100%;height:auto}
+.closecol.seen .endshot{opacity:1;transform:rotate(-2deg)}
+.closecol > p.lastline{margin:48px auto 84px;max-width:21em;text-align:center;font:400 clamp(21px,2.05vw,27px)/1.42 Georgia,serif;color:#2F4A78;opacity:0;transform:translateY(10px);transition:opacity .9s ease-out .7s,transform .9s ease-out .7s}
+.closecol.seen > p.lastline{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.endshot,.closecol > p.lastline{transition:none}}
