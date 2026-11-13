@@ -1396,11 +1396,28 @@ img.pc,.cfig .plbtn,.pola img,.pc.stk,.photo img{cursor:default !important}
 
 /* ===== v79: stereo text and the film strip ===== */
 .col > p > .pbr{display:block;margin-top:1.05em}
-.film3{max-width:min(1000px,94vw);margin:38px auto 6px;padding:0}
-.film3 .fs{transform:rotate(-1.1deg);filter:drop-shadow(0 2px 0 rgba(0,0,0,.18)) drop-shadow(0 16px 18px rgba(10,20,45,.38))}
-.film3 img{display:block;width:100%;height:auto}
-.film3 .enc{margin-top:16px !important}
-@media (max-width:700px){.film3{max-width:none;margin:30px 0 6px}.film3 .fs{transform:none;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 16px 14px;filter:none}.film3 img{width:860px;max-width:none;filter:drop-shadow(0 10px 12px rgba(10,20,45,.35))}}
+.filmhang{position:absolute;z-index:5;transform-origin:6% 3%;transform:rotate(1.4deg);pointer-events:none}
+.filmhang.hung{animation:hangsway 6s ease-in-out 1.5s infinite alternate}
+@keyframes hangsway{from{transform:rotate(1.4deg)}to{transform:rotate(-.5deg)}}
+.filmhang img{display:block;width:100%;height:auto;filter:drop-shadow(0 2px 0 rgba(0,0,0,.16)) drop-shadow(-5px 12px 12px rgba(10,20,45,.42));clip-path:inset(0 -30% 100% -30%);transition:clip-path 1.5s cubic-bezier(.2,.85,.25,1)}
+.filmhang.hung img{clip-path:inset(-4% -30% -12% -30%)}
+.filmhang .peg{position:absolute;left:6%;top:3%;width:9.5%;aspect-ratio:1/2.9;transform:translate(-50%,-66%) rotate(-5deg);border-radius:2px;background:linear-gradient(90deg,#B8894A,#E6C58A 45%,#C79A58);box-shadow:0 1px 2px rgba(0,0,0,.4),inset 0 -1px 0 rgba(90,60,20,.35);z-index:2}
+.filmhang .peg::after{content:'';position:absolute;left:8%;right:8%;top:40%;height:7%;background:#8A8F98;border-radius:1px}
+.hangcap{margin:10px auto 0;text-align:center;font:italic 400 12.5px/1.3 Georgia,serif;color:#C9D2E2}
+@media (prefers-reduced-motion:reduce){.filmhang.hung{animation:none}.filmhang img{transition:none}}
+
+/* ===== v80: workbench model stands alone; tool boxes and the tank photo hidden (kept in the page) ===== */
+#bench .tray,.pegboard img[src*="fr_bench"]{display:none !important}
+@media (min-width:821px){.cfig.pegboard .stage{--ar:1/.42 !important;max-width:980px !important}.pegboard img[src*="st_kitchen"]{--l:24.5% !important;--t:6% !important;--w:40% !important;--r:0deg !important}}
+@media (max-width:820px){.cfig.pegboard .stage{--mar:1/.64 !important}.pegboard img[src*="st_kitchen"]{--ml:10% !important;--mt:5% !important;--mw:60% !important;--r:0deg !important}}
+.clean > .tw > #odds{background-color:#EFE6D2}
+.clean > .tw > #heart{background-color:#F8F4EA}
+.closecol{margin-top:46px}
+#why > .rim + .col h2{margin-bottom:0}
+
+/* ===== v81: counter starts at the two cables; step 1 hidden (kept in the page) ===== */
+#counter.v8two[data-step="0"] .ctrSvg .s0,#counter.v8two[data-step="0"] .ctrSvg .ob .rk{opacity:0 !important}
+#counter.v8two[data-step="0"] .sc[data-i="0"]{display:none !important}
 
 </style>
 <script id="v70js">
@@ -1420,7 +1437,26 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
   hide(document.querySelector('#heart > .rim + .col')); /* title, number and paragraph of The Two Clocks (v77) */
   { const hf=document.querySelector('.heartfig'), cap=hf&&hf.querySelector(':scope > .enc'); if(cap) hf.prepend(cap); }
   if(tw('heart')&&tw('odds')&&tw('why')) tw('heart').before(tw('odds'),tw('why'));
-  ['history','counter-s','bench','odds','why'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
+  /* v80: the stereo follows the shoes, and the piece closes on the mixer and the shoes */
+  { const b=document.querySelector('#bench > .rim + .col'), ps=b?[...b.querySelectorAll(':scope > p')]:[]; const st=ps.find(p=>/considerably older/.test(p.textContent)); if(st&&ps[0]!==st) ps[0].before(st);
+    if(tw('bench')&&tw('history')) tw('history').before(tw('bench'));
+    const hs=document.getElementById('heart'), mix=document.querySelector('#why > .rim + .col > p'), cf=hs&&hs.querySelector('.clockfig');
+    hs&&[...hs.querySelectorAll('.col > p')].filter(p=>/Do you think she was happy/.test(p.textContent)).forEach(hide);
+    if(hs&&mix&&cf&&!hs.querySelector('.closecol')){ const c=document.createElement('div'); c.className='col closecol'; c.appendChild(mix);
+      const p=document.createElement('p'); p.textContent='My shoes were badly worn. I knew that when I wanted to keep them. I wanted to be the one who decided when I was finished with them.'; c.appendChild(p); cf.after(c); } }
+  /* v81: hidden with her yes, all kept in the page: the two workshop-tour paragraphs, the age paragraph (and the note about ages), step 1 of the counter */
+  { const hp=(sel,re)=>[...document.querySelectorAll(sel)].filter(p=>re.test(p.textContent.trim())).forEach(hide);
+    hp('#bench .col > p',/^(Screws and spare parts|Aaron, one of the volunteers)/);
+    hp('#odds .col > p',/^In the 2019 RepairMonitor, 41% of clocks/);
+    const enc=document.querySelector('#odds .cfig.odds .enc'), tn=enc&&[...enc.childNodes].find(n=>n.nodeType===3&&/Ages were available/.test(n.nodeValue));
+    if(tn){ const sp=document.createElement('span'); sp.textContent=tn.nodeValue.replace(/^\.\s*/,''); hide(sp); tn.nodeValue='.'; tn.after(sp); }
+    const ctr=document.getElementById('counter');
+    if(ctr){ hide(ctr.querySelector('.steps > .step')); ctr.classList.add('v8two');
+      [['1','01','1 of 2'],['2','02','2 of 2']].forEach(([i,n,f])=>{ const sc=ctr.querySelector('.sc[data-i="'+i+'"]'); if(!sc) return;
+        const t=sc.querySelector('.stt'); if(t) t.textContent=t.textContent.replace(/^\d\d/,n);
+        const ft=sc.querySelector('.sfoot'), x=ft&&[...ft.childNodes].find(k=>k.nodeType===3&&/of 3/.test(k.nodeValue)); if(x) x.nodeValue=x.nodeValue.replace(/\d of 3/,f); }); }
+    const oc=document.querySelector('.cfig.odds .claim'); if(oc) oc.textContent=oc.textContent.replace(/^04/,'03'); }
+  ['bench','history','counter-s','odds','why'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
 })();
 
 /* 1. seams: whip stitches that follow each torn edge */
@@ -1691,12 +1727,20 @@ document.addEventListener('click',e=>{ if(e.target.closest&&e.target.closest('.p
 document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1'); b.removeAttribute('aria-label');});
 
 
-/* 14. the stereo on film: wires loose, the fixer at work, the ring lit */
+/* 14. the film strip is clipped to the corner post of the workbench and hangs beside it at the same height, so bench and photographs are one object */
 (()=>{
-  const col=document.querySelector('#bench > .rim + .col'); if(!col||document.querySelector('.film3')) return;
-  const f=document.createElement('figure'); f.className='film3';
-  f.innerHTML='<div class="fs"><img src="img/film_stereo3.webp" alt="Three frames on a strip of film: the stereo with its back open and coloured wires hanging loose, a volunteer in a headlamp working on it, and the stereo from above with its blue ring lit" loading="lazy"></div><figcaption class="enc">Photos: Cynthia.</figcaption>';
-  col.after(f);
+  const st=document.querySelector('.pegboard .stage'), md=st&&st.querySelector('img[src*="st_kitchen"]'); if(!md||st.querySelector('.filmhang')) return;
+  const h=document.createElement('div'); h.className='filmhang';
+  h.innerHTML='<img src="img/film_stereo3.webp" alt="Three frames on a strip of film: the stereo with its back open and coloured wires hanging loose, a volunteer in a headlamp working on it, and the stereo from above with its blue ring lit"><i class="peg"></i>';
+  st.appendChild(h);
+  const cap=document.createElement('p'); cap.className='hangcap'; cap.textContent='Photos: Cynthia'; st.after(cap);
+  const POST=[596/698,62/654], FR=564/1094;   /* top of the right-hand pegboard post inside the drawing; the strip's own proportions */
+  const lay=()=>{ const W=st.clientWidth, H=st.clientHeight, w=md.offsetWidth, ih=w*654/698; if(!w||!W||!H) return;
+    const sh=ih*.82, sw=sh*FR, px=md.offsetLeft+w*POST[0], py=md.offsetTop+ih*POST[1];
+    h.style.width=(sw/W*100).toFixed(3)+'%'; h.style.left=((px-sw*.06)/W*100).toFixed(3)+'%'; h.style.top=((py-sh*.03)/H*100).toFixed(3)+'%'; };
+  lay(); md.addEventListener('load',lay); addEventListener('load',lay); if(window.ResizeObserver) new ResizeObserver(lay).observe(st);
+  if(RM){h.classList.add('hung');return;}
+  new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){h.classList.add('hung');io.disconnect();}}),{threshold:.35}).observe(st);
 })();
 
 });

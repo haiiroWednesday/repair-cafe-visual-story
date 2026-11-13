@@ -14,7 +14,26 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
   hide(document.querySelector('#heart > .rim + .col')); /* title, number and paragraph of The Two Clocks (v77) */
   { const hf=document.querySelector('.heartfig'), cap=hf&&hf.querySelector(':scope > .enc'); if(cap) hf.prepend(cap); }
   if(tw('heart')&&tw('odds')&&tw('why')) tw('heart').before(tw('odds'),tw('why'));
-  ['history','counter-s','bench','odds','why'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
+  /* v80: the stereo follows the shoes, and the piece closes on the mixer and the shoes */
+  { const b=document.querySelector('#bench > .rim + .col'), ps=b?[...b.querySelectorAll(':scope > p')]:[]; const st=ps.find(p=>/considerably older/.test(p.textContent)); if(st&&ps[0]!==st) ps[0].before(st);
+    if(tw('bench')&&tw('history')) tw('history').before(tw('bench'));
+    const hs=document.getElementById('heart'), mix=document.querySelector('#why > .rim + .col > p'), cf=hs&&hs.querySelector('.clockfig');
+    hs&&[...hs.querySelectorAll('.col > p')].filter(p=>/Do you think she was happy/.test(p.textContent)).forEach(hide);
+    if(hs&&mix&&cf&&!hs.querySelector('.closecol')){ const c=document.createElement('div'); c.className='col closecol'; c.appendChild(mix);
+      const p=document.createElement('p'); p.textContent='My shoes were badly worn. I knew that when I wanted to keep them. I wanted to be the one who decided when I was finished with them.'; c.appendChild(p); cf.after(c); } }
+  /* v81: hidden with her yes, all kept in the page: the two workshop-tour paragraphs, the age paragraph (and the note about ages), step 1 of the counter */
+  { const hp=(sel,re)=>[...document.querySelectorAll(sel)].filter(p=>re.test(p.textContent.trim())).forEach(hide);
+    hp('#bench .col > p',/^(Screws and spare parts|Aaron, one of the volunteers)/);
+    hp('#odds .col > p',/^In the 2019 RepairMonitor, 41% of clocks/);
+    const enc=document.querySelector('#odds .cfig.odds .enc'), tn=enc&&[...enc.childNodes].find(n=>n.nodeType===3&&/Ages were available/.test(n.nodeValue));
+    if(tn){ const sp=document.createElement('span'); sp.textContent=tn.nodeValue.replace(/^\.\s*/,''); hide(sp); tn.nodeValue='.'; tn.after(sp); }
+    const ctr=document.getElementById('counter');
+    if(ctr){ hide(ctr.querySelector('.steps > .step')); ctr.classList.add('v8two');
+      [['1','01','1 of 2'],['2','02','2 of 2']].forEach(([i,n,f])=>{ const sc=ctr.querySelector('.sc[data-i="'+i+'"]'); if(!sc) return;
+        const t=sc.querySelector('.stt'); if(t) t.textContent=t.textContent.replace(/^\d\d/,n);
+        const ft=sc.querySelector('.sfoot'), x=ft&&[...ft.childNodes].find(k=>k.nodeType===3&&/of 3/.test(k.nodeValue)); if(x) x.nodeValue=x.nodeValue.replace(/\d of 3/,f); }); }
+    const oc=document.querySelector('.cfig.odds .claim'); if(oc) oc.textContent=oc.textContent.replace(/^04/,'03'); }
+  ['bench','history','counter-s','odds','why'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
 })();
 
 /* 1. seams: whip stitches that follow each torn edge */
@@ -285,12 +304,20 @@ document.addEventListener('click',e=>{ if(e.target.closest&&e.target.closest('.p
 document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1'); b.removeAttribute('aria-label');});
 
 
-/* 14. the stereo on film: wires loose, the fixer at work, the ring lit */
+/* 14. the film strip is clipped to the corner post of the workbench and hangs beside it at the same height, so bench and photographs are one object */
 (()=>{
-  const col=document.querySelector('#bench > .rim + .col'); if(!col||document.querySelector('.film3')) return;
-  const f=document.createElement('figure'); f.className='film3';
-  f.innerHTML='<div class="fs"><img src="img/film_stereo3.webp" alt="Three frames on a strip of film: the stereo with its back open and coloured wires hanging loose, a volunteer in a headlamp working on it, and the stereo from above with its blue ring lit" loading="lazy"></div><figcaption class="enc">Photos: Cynthia.</figcaption>';
-  col.after(f);
+  const st=document.querySelector('.pegboard .stage'), md=st&&st.querySelector('img[src*="st_kitchen"]'); if(!md||st.querySelector('.filmhang')) return;
+  const h=document.createElement('div'); h.className='filmhang';
+  h.innerHTML='<img src="img/film_stereo3.webp" alt="Three frames on a strip of film: the stereo with its back open and coloured wires hanging loose, a volunteer in a headlamp working on it, and the stereo from above with its blue ring lit"><i class="peg"></i>';
+  st.appendChild(h);
+  const cap=document.createElement('p'); cap.className='hangcap'; cap.textContent='Photos: Cynthia'; st.after(cap);
+  const POST=[596/698,62/654], FR=564/1094;   /* top of the right-hand pegboard post inside the drawing; the strip's own proportions */
+  const lay=()=>{ const W=st.clientWidth, H=st.clientHeight, w=md.offsetWidth, ih=w*654/698; if(!w||!W||!H) return;
+    const sh=ih*.82, sw=sh*FR, px=md.offsetLeft+w*POST[0], py=md.offsetTop+ih*POST[1];
+    h.style.width=(sw/W*100).toFixed(3)+'%'; h.style.left=((px-sw*.06)/W*100).toFixed(3)+'%'; h.style.top=((py-sh*.03)/H*100).toFixed(3)+'%'; };
+  lay(); md.addEventListener('load',lay); addEventListener('load',lay); if(window.ResizeObserver) new ResizeObserver(lay).observe(st);
+  if(RM){h.classList.add('hung');return;}
+  new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){h.classList.add('hung');io.disconnect();}}),{threshold:.35}).observe(st);
 })();
 
 });
