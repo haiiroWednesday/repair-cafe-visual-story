@@ -432,7 +432,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const mrs=[...list.querySelectorAll('.mr')], slips=[...rail.querySelectorAll('.slip')];
   const by=re=>slips.filter(s=>re.test(s.textContent));
   const one=document.createElement('div'); one.className='whyone'+(RM?'':' anim');
-  one.innerHTML='<div class="wo-g"><div class="wo-head"><b>Farnham Repair Café, England, 2016</b><span>37 visitors and volunteers</span><i>The thicker the layer, the higher people ranked it.</i></div><div class="wo-glass"><img src="img/wy_glass_empty_c.webp" alt=""><img class="fill" src="img/wy_glass_brown_c.webp" alt="A tall glass of layered coffee, one layer for each reason"></div></div><div class="wo-l"></div>';
+  one.innerHTML='<div class="wo-head"><b>Farnham Repair Café, England, 2016 · 37 visitors and volunteers</b><i>The thicker the layer, the higher people ranked it.</i></div><div class="wo-g"><div class="wo-glass"><img src="img/wy_glass_empty_c.webp" alt=""><img class="fill" src="img/wy_glass_brown_c.webp" alt="A tall glass of layered coffee, one layer for each reason"></div></div><div class="wo-l"></div>';
   const L=one.querySelector('.wo-l'), fill=one.querySelector('.fill');
   /* bottom layer first: [row index in the old list, voices, fill level after it (% from the top of the glass picture)] */
   const plan=[[4,by(/didn.t know where to take it/),78.8],[3,by(/heartbroken/),71.0],[2,[],62.3],[1,by(/made of metal/),54.0],[0,by(/hate throwing|really dead|worn it out/),31.4]];
@@ -451,5 +451,22 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   fill.style.clipPath=`inset(${EMPTY}% 0 0 0)`;
   const kick=()=>{ if(!live){live=true;requestAnimationFrame(step);} }; addEventListener('scroll',kick,{passive:true}); kick();
 })();
+
+
+/* 19. v95 polish: on a phone the cake is wide enough to read and pans sideways */
+(()=>{
+  const btn=document.querySelector('.cakefig .plbtn'); if(!btn||btn.parentElement.classList.contains('cakepan')) return;
+  const pan=document.createElement('div'); pan.className='cakepan'; btn.before(pan); pan.appendChild(btn);
+  const hint=document.createElement('p'); hint.className='panhint'; hint.setAttribute('aria-hidden','true'); hint.textContent='← swipe →'; pan.after(hint);
+  const mq=matchMedia('(max-width:820px)');
+  const centre=()=>{ if(mq.matches) pan.scrollLeft=(pan.scrollWidth-pan.clientWidth)/2; };
+  centre(); addEventListener('load',centre); mq.addEventListener('change',centre);
+  pan.addEventListener('scroll',()=>{ if(Math.abs(pan.scrollLeft-(pan.scrollWidth-pan.clientWidth)/2)>40) hint.classList.add('gone'); },{passive:true});
+})();
+
+
+/* 20. v95: the counter starts as soon as its drawing is a third of the way up the screen */
+(()=>{ const c=document.getElementById('counter'), st=c&&c.querySelector('.sstage'); if(!st||!c.classList.contains('v8two')) return;
+  new IntersectionObserver((es,io)=>es.forEach(e=>{ if(e.isIntersecting){ if(c.dataset.step==='0') c.dataset.step='1'; io.disconnect(); } }),{rootMargin:'0px 0px -32% 0px'}).observe(st); })();
 
 });

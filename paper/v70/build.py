@@ -72,5 +72,9 @@ for p in targets:
         m=re.search(r'<img[^>]*hc2_back[^>]*>',s); s=s[:m.start()]+open('/home/claude/v70/hc_tag.txt').read()+s[m.start():]
     s=re.sub(r'img/(fr_(?:feature|group|bench|stitch|heart)\.webp)',r'img/g_\1',s).replace('data-photo="clock"','data-photo="g_clock"')
     if '<html lang' not in s: s=s.replace('<html','<html lang="en"',1)
+    # v95 polish: sources note names only the person still in the story; tab title and link preview for the public copies
+    s=s.replace('Aaron and Jazz: my conversations at Repair Caf\u00e9 Silicon Valley, Oct. 18, 2026.','Jazz: my conversation at Repair Caf\u00e9 Silicon Valley, Oct. 18, 2026.')
+    if '/art/' not in p:
+        s=s.replace('<title>The Repair Caf\u00e9, on paper</title>','<title>Who Decides What\u2019s Worth Saving? \u00b7 Cynthia</title><meta property="og:title" content="Who Decides What\u2019s Worth Saving?"><meta property="og:type" content="article"><meta property="og:image" content="https://haiirowednesday.github.io/mochi/repair/img/g_fr_feature.webp"><meta name="twitter:card" content="summary_large_image">',1)
     open(p,'w').write(s)
     print(p,len(s))
