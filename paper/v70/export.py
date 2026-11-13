@@ -42,6 +42,8 @@ for t, (a, k, z) in TPL.items():
 s = s.replace("im.src = 'img/' + im.dataset.photo + '.jpg';", "im.src = __I['img/' + im.dataset.photo + '.jpg'];")
 s = s.replace("xpOpen('img/pl_' + b.dataset.pl + '.webp'", "xpOpen(''").replace("xpOpen('img/x_' + b.dataset.x + '.webp'", "xpOpen(''")   # the zoom viewer is switched off on the page
 tpl_files |= {'img/' + x + '.jpg' for x in re.findall(r'data-photo="([^"]+)"', s)}
+s = s.replace("e.src='img/o_'+ic+'.webp';", "e.src=__I['img/o_'+ic+'.webp'];")
+tpl_files |= {'img/o_%s.webp' % k for k in ('laptop','radio','coffeemaker','trousers','coat','bike')}
 # 3. every other mention (src attributes, strings in script) -> the data itself
 s = re.sub(PAT, lambda m: enc(m.group(0)), s)
 root = ':root{' + ';'.join('%s:url("%s")' % (var(p), enc(p)) for p in sorted(used_vars)) + '}'
