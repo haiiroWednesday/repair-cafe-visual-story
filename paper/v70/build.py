@@ -29,6 +29,8 @@ for p in targets:
     G.append(("so at bench 2, a volunteer opened the stereo","so at bench 2, a volunteer named Jazz opened the stereo"))
     G.append(("twenty-three years old.</span></p>","twenty-three years old.</span><span class=\"pbr\">When he finished, the blue ring on the lid lit up.</span></p>"))
     G.append(("history. Inspired, she began recruiting volunteer repairers, starting with a friend’s handy husband. A carpenter, a seamstress, and others followed.</p>","history.<span data-v7hidden=\"1\" style=\"display:none\"> Inspired, she began recruiting volunteer repairers, starting with a friend’s handy husband. A carpenter, a seamstress, and others followed.</span></p>"))
+    # v87: Jazz is introduced once, at the stereo
+    G.append(("Jazz, a volunteer I spoke with, told me about another clock","Jazz told me about another clock"))
     for a,b in G:
         if b in s: continue
         if a not in s: continue   # already superseded by a later patch
