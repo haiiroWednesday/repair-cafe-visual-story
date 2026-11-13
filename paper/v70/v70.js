@@ -181,7 +181,7 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
   const ctr=document.querySelector('.ctrSvg'); if(ctr){[...ctr.querySelectorAll('.ob')].reverse().forEach((o,i)=>o.style.setProperty('--i',i));
     if(RM) ctr.classList.add('v7in'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){ctr.classList.add('v7in');io.disconnect();}}),{threshold:.35}).observe(ctr);}
   if(RM) return;
-  const T=[...document.querySelectorAll('.cakefig .plimg, .apgame .apwrap')];
+  const T=[]; /* the ribbon reveal is switched off (v76) */
   T.forEach((el,n)=>{
     const host=el.parentElement; if(getComputedStyle(host).position==='static') host.style.position='relative';
     const band=document.createElement('i'); band.className='pourband'; band.style.display='none'; host.appendChild(band);
@@ -245,6 +245,17 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
     const tgt=cl((top-r.top+innerHeight*.18)/(span+innerHeight*.18),0,1); cur+=(tgt-cur)*.1; if(Math.abs(tgt-cur)<.0008) cur=tgt; pose(cur,dt);
     if(r.bottom<-300||r.top>innerHeight+300){live=false;return;} requestAnimationFrame(loop); };
   new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting&&!live){live=true;last=performance.now();requestAnimationFrame(loop);} }),{rootMargin:'300px 0px'}).observe(wrap);
+})();
+
+
+/* 12. aprons: no selection box. The apron under the pointer gets a soft light and its tag lifts */
+(()=>{
+  const F=document.querySelector('.apgame'); if(!F) return;
+  const roles=[...F.querySelectorAll('.aprole')];
+  F.querySelectorAll('.aphit').forEach(b=>{const r=roles[+b.dataset.st]; if(!r) return;
+    const on=v=>r.classList.toggle('lit',v);
+    b.addEventListener('pointerenter',()=>on(true)); b.addEventListener('pointerleave',()=>on(false)); b.addEventListener('focus',()=>on(true)); b.addEventListener('blur',()=>on(false));
+    new MutationObserver(()=>on(b.classList.contains('hov')||b.matches(':hover'))).observe(b,{attributes:true,attributeFilter:['class']});});
 })();
 
 });
