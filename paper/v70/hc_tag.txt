@@ -1,0 +1,1 @@
+<img class="pc " src="img/hc_explode.webp" alt="The heart clock face up, its glass, hands and number ring lifted off the rose dial one above another" data-stop="6|the heart clock|.07|.72" style="--l:74%;--t:47.5%;--w:22%;--r:4deg;--z:4;--ml:64%;--mt:58%;--mw:34%" loading="lazy" decoding="async">

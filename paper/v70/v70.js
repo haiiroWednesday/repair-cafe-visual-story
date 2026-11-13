@@ -112,4 +112,42 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
   add('.clockfig .stepimg',{n:3,ms:260}); add('.clockfig .stepl',{n:3,ms:260}); add('#bench .cfig.plate .plimg');
 })();
 
+
+/* 7. film look, tape, and the corner ticket */
+(()=>{
+  const g=document.createElement('div'); g.className='grainlay'; g.setAttribute('aria-hidden','true'); document.body.appendChild(g);
+  document.querySelectorAll('.slip-in').forEach((e,i)=>{e.style.setProperty('--cx',(i*37%100)+'%');e.style.setProperty('--cy',(i*53%100)+'%');});
+  const b=document.querySelector('.heartfig img[src*="hc2_back"]'); if(b){const t=document.createElement('i');t.className='tape';t.style.cssText='--l:46.5%;--t:66%;--w:9.5%;--r:32deg;--ml:55%;--mt:49.8%;--mw:12%';b.after(t);}
+  const tix=document.getElementById('tix'), it=document.getElementById('tixItem');
+  if(tix&&it){const chk=()=>tix.classList.toggle('v7hide',it.textContent==='White shoes');chk();new MutationObserver(chk).observe(it,{childList:true,characterData:true,subtree:true});}
+})();
+
+
+/* 8. ink and the check-in desk: uneven type, a station stamp, a ticket you can hand to an apron */
+(()=>{
+  const d=document.createElement('div'); d.style.cssText='position:absolute;width:0;height:0;overflow:hidden'; d.setAttribute('aria-hidden','true');
+  d.innerHTML=`<svg width="0" height="0"><defs>
+  <filter id="v7ink" x="-3%" y="-15%" width="106%" height="130%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".02 .55" numOctaves="2" seed="3" result="m"/><feColorMatrix in="m" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.5 0 0 0 1.72" result="a"/><feComposite in="d" in2="a" operator="in" result="w"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -5 0 0 4.4" result="p"/><feComposite in="w" in2="p" operator="in"/></filter>
+  <filter id="v7stamp" x="-8%" y="-25%" width="116%" height="150%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="2" seed="12" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="5" result="m"/><feColorMatrix in="m" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.3 0 0 0 2.05" result="a"/><feComposite in="d" in2="a" operator="in" result="w"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -5 0 0 4.3" result="p"/><feComposite in="w" in2="p" operator="in"/></filter>
+  </defs></svg>`; document.body.appendChild(d);
+  const F=document.querySelector('.apgame'), tk=F&&F.querySelector('#tkt'); if(!tk) return;
+  const hits=[...F.querySelectorAll('.aphit')];
+  /* when a ticket is sent, aim it at that apron's pocket */
+  new MutationObserver(()=>{ const st=tk.dataset.st, a=hits.find(h=>h.dataset.st===st);
+    if(tk.classList.contains('done')&&a&&!tk.dataset.aimed){ tk.dataset.aimed=1; const r=tk.getBoundingClientRect(), b=a.getBoundingClientRect();
+      tk.style.setProperty('--fx',(b.left+b.width/2-(r.left+r.width/2))+'px'); tk.style.setProperty('--fy',(b.top+b.height*.55-(r.top+r.height/2))+'px'); }
+    if(tk.classList.contains('away')&&a&&tk.dataset.aimed==='1'){ tk.dataset.aimed=2; tk.style.translate=''; tk.style.transition='translate .6s cubic-bezier(.5,0,.75,.35)'; setTimeout(()=>{a.classList.add('got');setTimeout(()=>a.classList.remove('got'),720);},420); }
+    if(!tk.classList.contains('done')&&tk.dataset.aimed){ delete tk.dataset.aimed; tk.style.transition=''; tk.style.translate=''; }
+  }).observe(tk,{attributes:true,attributeFilter:['class']});
+  /* drag the ticket onto an apron */
+  let drag=null;
+  const under=(x,y)=>document.elementsFromPoint(x,y).find(e=>e.classList&&e.classList.contains('aphit'));
+  tk.addEventListener('pointerdown',e=>{ if(tk.classList.contains('done')||document.body.classList.contains('editing')) return; drag={x:e.clientX,y:e.clientY,moved:false}; tk.setPointerCapture(e.pointerId); });
+  tk.addEventListener('pointermove',e=>{ if(!drag) return; const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(!drag.moved&&Math.hypot(dx,dy)<6) return; drag.moved=true; tk.classList.add('lift');
+    tk.style.transition='none'; tk.style.translate=dx+'px '+dy+'px'; const h=under(e.clientX,e.clientY); hits.forEach(b=>b.classList.toggle('hov',b===h)); });
+  const end=e=>{ if(!drag) return; const was=drag; drag=null; tk.classList.remove('lift'); hits.forEach(b=>b.classList.remove('hov')); if(!was.moved) return;
+    const h=under(e.clientX,e.clientY); tk.style.transition=''; if(h) h.click(); if(!tk.classList.contains('done')) tk.style.translate=''; };
+  tk.addEventListener('pointerup',end); tk.addEventListener('pointercancel',end);
+})();
+
 });
