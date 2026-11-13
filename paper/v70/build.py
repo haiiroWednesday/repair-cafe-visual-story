@@ -24,6 +24,7 @@ for p in targets:
        ("<p class=\"enc\">Photo and illustration: Cynthia.</p>","<p class=\"enc\">A volunteer and the clock\u2019s owner look it over together. Photo and illustration: Cynthia.</p>")]
     G.append(("let best=ids[0];for(const k of ids){const el=document.getElementById(k);if(el&&el.getBoundingClientRect().top<innerHeight*.45)best=k}","let best=ids[0],bt=-1e9;for(const k of ids){const el=document.getElementById(k);if(!el||(k!=='top'&&!el.offsetParent))continue;const t=el.getBoundingClientRect().top;if(t<innerHeight*.45&&t>bt){bt=t;best=k}}"))
     s=s.replace('img/g_fr_volunteer.webp','img/fr_volunteer.webp')
+    G.append(("<p>My stereo dated from August 2003. Its two units were connected by a cable containing twenty separate wires. At bench 2, the cover came off, and every wire was stripped and soldered back onto its pin by hand.</p>","<p>At a Repair Café in San José, I brought in something considerably older: a stereo manufactured in August 2003.<span class=\"pbr\">It had two units connected by a single control cable. Inside that cable were twenty separate wires, all of which needed to be reconnected. A replacement cable wasn’t available, so at bench 2, a volunteer opened the stereo, stripped the wires, and soldered them back onto their pins by hand.</span><span class=\"pbr\">The work demanded twenty small connections in a machine that was already twenty-three years old.</span></p>"))
     for a,b in G:
         if b in s: continue
         assert s.count(a)==1,a

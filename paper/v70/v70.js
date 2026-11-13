@@ -284,4 +284,13 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
 document.addEventListener('click',e=>{ if(e.target.closest&&e.target.closest('.plbtn, img.pc, .pola, .pc.stk, .photo img')){e.stopImmediatePropagation(); e.preventDefault();} },true);
 document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1'); b.removeAttribute('aria-label');});
 
+
+/* 14. the stereo on film: wires loose, the fixer at work, the ring lit */
+(()=>{
+  const col=document.querySelector('#bench > .rim + .col'); if(!col||document.querySelector('.film3')) return;
+  const f=document.createElement('figure'); f.className='film3';
+  f.innerHTML='<div class="fs"><img src="img/film_stereo3.webp" alt="Three frames on a strip of film: the stereo with its back open and coloured wires hanging loose, a volunteer in a headlamp working on it, and the stereo from above with its blue ring lit" loading="lazy"></div><figcaption class="enc">Photos: Cynthia.</figcaption>';
+  col.after(f);
+})();
+
 });
