@@ -346,8 +346,8 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
     k.innerHTML='<h3 class="ghd">03 · Repair Café, 2009 to 2026</h3><p>One candle for each year since the first café in Amsterdam</p>'; cf.prepend(k); }
   hd(document.querySelector('.apgame'),'04 · Which Table Fixes It?');
   const oc=document.querySelector('.cfig.odds .claim'), of=document.querySelector('.cfig.odds');
-  if(oc&&of){ oc.textContent='07 · What Gets Fixed'; oc.classList.add('ghd'); of.prepend(oc); }
-  const wf=document.querySelector('#why .whyfig'); hd(wf,'08 · Why They Came');
+  if(oc&&of){ oc.textContent='06 · What Gets Fixed'; oc.classList.add('ghd'); of.prepend(oc); }
+  const wf=document.querySelector('#why .whyfig'); hd(wf,'07 · Why They Came');
 })();
 
 
@@ -359,6 +359,97 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const hc=document.querySelector('.heartfig > .enc'); if(hc) hc.textContent='Rayna, a volunteer, and the clock’s owner look it over together. Photo and illustration: Cynthia.';
   const pi=document.querySelector('.pola img.ph-img'); if(pi) pi.alt='Jazz holds up a carved wooden cuckoo clock, the one that belonged to the woman’s late father';
   cap(document.querySelector('.clockfig > .stage'),'Jazz with the cuckoo clock that belonged to the woman’s late father.');
+})();
+
+
+/* 17. v94: C4 the section tabs go; the counter keeps one step; the repairability ruler moves under the cake stand,
+   and the objects sort along it, then hop up to their glasses as you scroll */
+(()=>{
+  const hide=e=>{if(e){e.style.display='none';e.dataset.v7hidden=1;}};
+  ['bench','history','counter-s','odds','why'].forEach(id=>hide(document.querySelector('#'+id+' > .col > .kick')));
+  const ctr=document.getElementById('counter');
+  if(ctr){ const st=[...ctr.querySelectorAll('.steps > .step')]; if(st[2]) hide(st[2]);
+    const ft=ctr.querySelector('.sc[data-i="1"] .sfoot'), x=ft&&[...ft.childNodes].find(k=>k.nodeType===3&&/of \d/.test(k.nodeValue)); if(x) x.nodeValue=x.nodeValue.replace(/\d of \d · /,''); }
+  const fig=document.querySelector('.cfig.odds'), stage=fig&&fig.querySelector('.stage'), img=stage&&stage.querySelector('img.pc'); if(!img) return;
+  const h3=fig.querySelector('h3.ghd');
+  const sc=document.createElement('div'); sc.className='oscroll'; const stk=document.createElement('div'); stk.className='ostk'; sc.appendChild(stk);
+  stage.before(sc); if(h3) stk.appendChild(h3); const row=document.createElement('div'); row.className='orow'; stk.appendChild(row); row.appendChild(stage);
+  const ru=document.createElement('div'); ru.className='oruler'; ru.setAttribute('aria-hidden','true');
+  ru.innerHTML='<div class="ostrip">'+Array.from({length:10},(_,i)=>`<span style="--v:${i+1}">${i+1}</span>`).join('')+'</div>'
+    +'<i class="omk e" style="--v:6.5"><b>electrical 6.5</b></i><i class="omk n" style="--v:7.5"><b>non-electrical 7.5</b></i>'
+    +'<em class="ohint">How hard repairers rated the job, out of 10<span class="olg"><i class="e"></i>electrical 6.5 <i class="n"></i>non-electrical 7.5</span></em>';
+  row.prepend(ru);
+  const mqV=matchMedia('(min-width:821px)');
+  const note=document.createElement('p'); note.className='onote';
+  note.textContent='Repairers assigned scores to 10,160 repairs. Their assessments reflected the object’s design, available parts and tools, and their own experience. Trousers received the most perfect 10s. Coffee makers received the most 1s.';
+  sc.after(note);
+  /* liquid: our own copy of the glasses, driven by scroll (the old one is hidden) */
+  const G={laptops:[32.607,22.867,11.298,4.733],printers:[58.771,21.133,5.946,6.667],radios:[27.552,50.667,13.28,8.4],trousers:[12.884,75.467,8.424,13.333],clothing:[33.102,78.6,9.812,6.2],bikes:[66.105,80.733,10.208,8.467],coffee:[54.9,54.6,12.5,8.0]};
+  const box=document.createElement('div'); box.className='oliq omine'; stage.appendChild(box);
+  const objs=document.createElement('div'); objs.className='oobjs'; stk.appendChild(objs);
+  const gl={}; for(const k in G){ if(k==='coffee') continue; const [x,y,w,h]=G[k], d=document.createElement('div'); d.className='g';
+    d.style.cssText=`left:${x}%;top:${y}%;width:${w}%;height:${h}%;background-size:${1e4/w}% ${1e4/h}%;background-position:${x/(100-w)*100}% ${y/(100-h)*100}%`; box.appendChild(d); gl[k]=d; }
+  const sync=()=>{box.style.left=img.offsetLeft+'px';box.style.top=img.offsetTop+'px';box.style.width=img.offsetWidth+'px';box.style.height=img.offsetHeight+'px';};
+  /* who goes where: [icon, glass, label text start, group] */
+  const O=[['laptop','laptops','45%','e'],['radio','radios','56%','e'],['coffeemaker','coffee','55%','e'],['trousers','trousers','96%','n'],['coat','clothing','94%','n'],['bike','bikes','Over 80%','n']];
+  /* where each object is already drawn on the stand: centre x, centre y, width (% of the picture) */
+  const TW={laptops:[26,25.6,7.6],radios:[23.6,57,9],coffee:[79.4,56.4,7.6],trousers:[7.1,87,7],clothing:[42.1,89.2,6.3],bikes:[85,87.6,9.4]};
+  const lbl=[...stage.querySelectorAll('.flbl')], lb=t=>lbl.find(l=>l.querySelector('b')&&l.querySelector('b').textContent.trim()===t);
+  const pr=lb('About 40%');
+  const ob=O.map(([ic,g,t,grp],i)=>{ const e=document.createElement('img'); e.src='img/o_'+ic+'.webp'; e.alt=''; e.className='oob'; objs.appendChild(e); return {e,g,l:lb(t),grp,i}; });
+  const cl=(v,a,b)=>Math.max(0,Math.min(1,(v-a)/(b-a))), ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, lerp=(a,b,t)=>a+(b-a)*t;
+  let cur=RM?1:0, tgt=cur, live=false;
+  const draw=P=>{ sync(); const S=stk.getBoundingClientRect(), I=img.getBoundingClientRect(), R=ru.querySelector('.ostrip').getBoundingClientRect();
+    const V=mqV.matches, grpN={e:0,n:0};
+    const sz=V?Math.max(34,Math.min(50,R.height*.075)):Math.max(28,Math.min(46,R.width*.075));
+    const at=v=>V?[R.left-S.left+R.width/2, R.bottom-S.top-R.height*(.04+.92*(v-1)/9)]:[R.left-S.left+R.width*(.04+.92*(v-1)/9), R.top-S.top+R.height/2];
+    ob.forEach(o=>{ const k=grpN[o.grp]++; let start, mid;
+      if(V){ const p1=at(1.3+(o.i%3)*.55), pe=at(o.grp==='e'?6.5:7.5); start=[p1[0]-sz*(1.1+Math.floor(o.i/3)*1.05+(o.i%3)*.2), p1[1]]; mid=[pe[0]-sz*(.95+k*1.0), pe[1]]; }
+      else { const p1=at(1.2+o.i*.62), pe=at(o.grp==='e'?6.5:7.5); start=[p1[0], p1[1]-R.height/2-sz*.62]; mid=o.grp==='e'?[pe[0]+(k-1)*sz*.92, pe[1]-R.height/2-sz*.62]:[pe[0]+(k-1)*sz*.92, pe[1]+R.height/2+sz*.58]; }
+      const [tx,ty,tw]=TW[o.g], end=[I.left-S.left+I.width*tx/100, I.top-S.top+I.height*ty/100], es=I.width*tw/100/sz;
+      const a=ease(cl(P,.06+o.i*.03,.30+o.i*.03)), b=ease(cl(P,.42+o.i*.075,.54+o.i*.075));
+      let x=lerp(start[0],mid[0],a), y=lerp(start[1],mid[1],a)-Math.sin(a*Math.PI)*sz*.7, s=1;
+      if(b>0){ x=lerp(mid[0],end[0],b); y=lerp(mid[1],end[1],b)-Math.sin(b*Math.PI)*Math.max(60,(mid[1]-end[1])*.35); s=lerp(1,es,b); }
+      o.e.style.opacity=b<.82?1:Math.max(0,1-(b-.82)/.18);
+      o.e.style.width=sz+'px'; o.e.style.transform=`translate(${(x-sz/2).toFixed(1)}px,${(y-sz/2).toFixed(1)}px) scale(${s.toFixed(3)}) rotate(${(Math.sin((a+b)*Math.PI)*10).toFixed(1)}deg)`;
+      const f=cl(P,.50+o.i*.075,.62+o.i*.075); if(gl[o.g]) gl[o.g].style.clipPath=`inset(${(100-f*100).toFixed(1)}% 0 0 0)`;
+      if(o.l) o.l.style.opacity=f>.05?Math.min(1,f*1.6):0; });
+    const fp=cl(P,.5,.62); if(gl.printers) gl.printers.style.clipPath=`inset(${(100-fp*100).toFixed(1)}% 0 0 0)`; if(pr) pr.style.opacity=fp>.05?Math.min(1,fp*1.6):0;
+    ru.style.setProperty('--sort',cl(P,.08,.34).toFixed(3)); };
+  const prog=()=>{ const r=sc.getBoundingClientRect(), H=sc.offsetHeight-innerHeight; return Math.max(0,Math.min(1,-r.top/Math.max(1,H))); };
+  const loop=()=>{ tgt=prog(); cur+=(tgt-cur)*.16; if(Math.abs(tgt-cur)<.0005) cur=tgt; draw(cur);
+    const r=sc.getBoundingClientRect(); if(r.bottom<-100||r.top>innerHeight+100){live=false;return;} requestAnimationFrame(loop); };
+  const kick=()=>{ if(!live){live=true;requestAnimationFrame(loop);} };
+  if(RM){ img.complete?draw(1):img.addEventListener('load',()=>draw(1)); addEventListener('resize',()=>draw(1)); return; }
+  addEventListener('scroll',kick,{passive:true}); addEventListener('resize',kick); img.addEventListener('load',kick); kick();
+})();
+
+/* 18. v94: the quotes and the coffee glass are one figure. Reasons climb from the last to the first; the glass fills
+   layer by layer as you reach each one, and each reason carries the voices that say it */
+(()=>{
+  const hide=e=>{if(e){e.style.display='none';e.dataset.v7hidden=1;}};
+  const fig=document.querySelector('#why .whyfig'), list=document.getElementById('wymlist'), rail=fig&&fig.querySelector('.slips'); if(!fig||!list||!rail) return;
+  const mrs=[...list.querySelectorAll('.mr')], slips=[...rail.querySelectorAll('.slip')];
+  const by=re=>slips.filter(s=>re.test(s.textContent));
+  const one=document.createElement('div'); one.className='whyone'+(RM?'':' anim');
+  one.innerHTML='<div class="wo-g"><div class="wo-head"><b>Farnham Repair Café, England, 2016</b><span>37 visitors and volunteers</span><i>The thicker the layer, the higher people ranked it.</i></div><div class="wo-glass"><img src="img/wy_glass_empty_c.webp" alt=""><img class="fill" src="img/wy_glass_brown_c.webp" alt="A tall glass of layered coffee, one layer for each reason"></div></div><div class="wo-l"></div>';
+  const L=one.querySelector('.wo-l'), fill=one.querySelector('.fill');
+  /* bottom layer first: [row index in the old list, voices, fill level after it (% from the top of the glass picture)] */
+  const plan=[[4,by(/didn.t know where to take it/),78.8],[3,by(/heartbroken/),71.0],[2,[],62.3],[1,by(/made of metal/),54.0],[0,by(/hate throwing|really dead|worn it out/),31.4]];
+  const rows=plan.map(([k,vs,lvl],i)=>{ const r=document.createElement('div'); r.className='wo-r'; r.dataset.lvl=lvl;
+    const m=mrs[k].cloneNode(true); m.className='mr wo-m'; r.appendChild(m);
+    if(vs.length){ const w=document.createElement('div'); w.className='wo-s'; vs.forEach((v,j)=>{const c=v.cloneNode(true); c.style.setProperty('--i',j); w.appendChild(c);}); r.appendChild(w); }
+    L.appendChild(r); return r; });
+  const h3=fig.querySelector('h3.ghd'); (h3||fig.firstChild).after(one);
+  [rail,document.getElementById('wyscroll'),document.getElementById('wymob')].forEach(e=>e&&hide(e));
+  const EMPTY=86.2; let cur=RM?31.4:EMPTY, live=false;
+  const step=()=>{ let lvl=EMPTY; const y=innerHeight*.62;
+    rows.forEach(r=>{ const t=r.getBoundingClientRect().top, on=t<y; r.classList.toggle('won',on); if(on) lvl=+r.dataset.lvl; });
+    cur+=(lvl-cur)*.09; if(Math.abs(lvl-cur)<.05) cur=lvl; fill.style.clipPath=`inset(${cur.toFixed(2)}% 0 0 0)`;
+    const R=one.getBoundingClientRect(); if(R.bottom<-100||R.top>innerHeight+100){live=false;return;} requestAnimationFrame(step); };
+  if(RM){ rows.forEach(r=>r.classList.add('won')); fill.style.clipPath='inset(31.4% 0 0 0)'; return; }
+  fill.style.clipPath=`inset(${EMPTY}% 0 0 0)`;
+  const kick=()=>{ if(!live){live=true;requestAnimationFrame(step);} }; addEventListener('scroll',kick,{passive:true}); kick();
 })();
 
 });
