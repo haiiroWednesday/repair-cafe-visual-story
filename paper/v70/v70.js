@@ -3,6 +3,19 @@ const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const NS='http://www.w3.org/2000/svg';
 const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e;};
 
+/* 0. story order (v73): aprons and the people photos join the check-in section, Why Bring It In comes before Jazz.
+      Nothing is removed from the page. Hidden parts carry data-v7hidden and can be shown again. */
+(()=>{
+  const tw=id=>{const e=document.getElementById(id);return e&&e.closest('.tw');};
+  const c=document.querySelector('#counter-s > .col'), ap=document.querySelector('.apgame'), vf=document.querySelector('.volfig');
+  if(c&&ap&&vf){c.after(ap);ap.after(vf);}
+  const hide=e=>{if(e){e.style.display='none';e.dataset.v7hidden=1;}};
+  hide(tw('volunteer'));
+  document.querySelectorAll('#heart > .rim + .col > p').forEach(hide);
+  if(tw('heart')&&tw('odds')&&tw('why')) tw('heart').before(tw('odds'),tw('why'));
+  ['history','counter-s','bench','odds','why','heart'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
+})();
+
 /* 1. seams: whip stitches that follow each torn edge */
 (()=>{
   const EDGE=__EDGES__;

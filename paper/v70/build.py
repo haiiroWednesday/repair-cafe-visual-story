@@ -22,6 +22,8 @@ for p in targets:
        ("again.addEventListener('click',()=>{ if(ed())return; i=0;","again.addEventListener('click',()=>{ if(ed())return; i=0; F.dataset.clean=0;"),
        ("'Which table takes it? Tap an apron.'","'Which table takes it? Drag the ticket to an apron, or tap one.'"),
        ("<p class=\"enc\">Photo and illustration: Cynthia.</p>","<p class=\"enc\">A volunteer and the clock\u2019s owner look it over together. Photo and illustration: Cynthia.</p>")]
+    G.append(("let best=ids[0];for(const k of ids){const el=document.getElementById(k);if(el&&el.getBoundingClientRect().top<innerHeight*.45)best=k}","let best=ids[0],bt=-1e9;for(const k of ids){const el=document.getElementById(k);if(!el||(k!=='top'&&!el.offsetParent))continue;const t=el.getBoundingClientRect().top;if(t<innerHeight*.45&&t>bt){bt=t;best=k}}"))
+    s=s.replace('img/g_fr_volunteer.webp','img/fr_volunteer.webp')
     for a,b in G:
         if b in s: continue
         assert s.count(a)==1,a
@@ -30,7 +32,7 @@ for p in targets:
     s=s.replace('img/hc_back.webp','img/hc2_back.webp')
     if 'src="img/hc_explode.webp"' not in s:
         m=re.search(r'<img[^>]*hc2_back[^>]*>',s); s=s[:m.start()]+open('/home/claude/v70/hc_tag.txt').read()+s[m.start():]
-    s=re.sub(r'img/(fr_(?:feature|group|bench|stitch|volunteer|heart)\.webp)',r'img/g_\1',s).replace('data-photo="clock"','data-photo="g_clock"')
+    s=re.sub(r'img/(fr_(?:feature|group|bench|stitch|heart)\.webp)',r'img/g_\1',s).replace('data-photo="clock"','data-photo="g_clock"')
     if '<html lang' not in s: s=s.replace('<html','<html lang="en"',1)
     open(p,'w').write(s)
     print(p,len(s))

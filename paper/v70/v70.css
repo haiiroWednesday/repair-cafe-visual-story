@@ -226,3 +226,5 @@ html{font-synthesis:none}
 .clockfig .stage{--ar:1/.83 !important;--mar:1/1.17 !important}
 .clockfig .polawrap{--l:21% !important;--t:1% !important}
 .pola .ink .hand{mix-blend-mode:multiply}
+
+.cfig.volfig{margin-top:44px !important}
