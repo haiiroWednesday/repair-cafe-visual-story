@@ -435,7 +435,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   one.innerHTML='<div class="wo-head"><b>Farnham Repair Café, England, 2016 · 37 visitors and volunteers</b><i>The thicker the layer, the higher people ranked it.</i></div><div class="wo-g"><div class="wo-glass"><img src="img/wy_glass_empty_c.webp" alt=""><img class="fill" src="img/wy_glass_brown_c.webp" alt="A tall glass of layered coffee, one layer for each reason"></div></div><div class="wo-l"></div>';
   const L=one.querySelector('.wo-l'), fill=one.querySelector('.fill');
   /* bottom layer first: [row index in the old list, voices, fill level after it (% from the top of the glass picture)] */
-  const plan=[[4,by(/didn.t know where to take it/),78.8],[3,by(/heartbroken/),71.0],[2,[],62.3],[1,by(/made of metal/),54.0],[0,by(/hate throwing|really dead|worn it out/),31.4]];
+  const plan=[[4,by(/didn.t know where to take it/),78.8],[3,by(/older than my marriage|cracks showed/),71.0],[2,[],62.3],[1,by(/my mother were alive/),54.0],[0,by(/really dead|worn it out/),31.4]];
   const rows=plan.map(([k,vs,lvl],i)=>{ const r=document.createElement('div'); r.className='wo-r'; r.dataset.lvl=lvl;
     const m=mrs[k].cloneNode(true); m.className='mr wo-m'; r.appendChild(m);
     if(vs.length){ const w=document.createElement('div'); w.className='wo-s'; vs.forEach((v,j)=>{const c=v.cloneNode(true); c.style.setProperty('--i',j); w.appendChild(c);}); r.appendChild(w); }
@@ -468,5 +468,9 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
 /* 20. v95: the counter starts as soon as its drawing is a third of the way up the screen */
 (()=>{ const c=document.getElementById('counter'), st=c&&c.querySelector('.sstage'); if(!st||!c.classList.contains('v8two')) return;
   new IntersectionObserver((es,io)=>es.forEach(e=>{ if(e.isIntersecting){ if(c.dataset.step==='0') c.dataset.step='1'; io.disconnect(); } }),{rootMargin:'0px 0px -32% 0px'}).observe(st); })();
+
+
+/* 21. v96: the headline comes first, the photograph under it */
+(()=>{ const h=document.querySelector('header.hero'), f=h&&h.querySelector('.herophoto'), t=h&&h.querySelector('.herotext'); if(f&&t){ t.after(f); h.classList.add('titlefirst'); } })();
 
 });
