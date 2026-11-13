@@ -35,10 +35,35 @@ for p in targets:
     G.append(("const T=[{\"t\": \"\", \"item\": \"Trousers\"","const T_ALL=[{\"t\": \"\", \"item\": \"Trousers\""))
     G.append(("opened at the appliance table.\"}], S=[\"check-in\"","opened at the appliance table.\"}], T=[0,2,1].map(k=>T_ALL[k]), S=[\"check-in\""))
     G.append(("<span class=\"apn\">1</span> of 7 tickets","<span class=\"apn\">1</span> of 3 tickets"))
+    # v90: plain language in the small print (her request: no "not percentages", nothing stiff)
+    G.append(('<text class="lyh" x="985" y="640">WHY VISITORS CAME</text><text class="lyh" x="985" y="664">FARNHAM REPAIR CAFÉ, ENGLAND, 2016</text><text class="lyh lyh2" x="985" y="688">Each layer is as thick as its</text><text class="lyh lyh2" x="985" y="712">weighted ranking score.</text><text class="lyh lyh2" x="985" y="736">The scores are not percentages.</text>',
+              '<text class="lyh" x="985" y="640">FARNHAM REPAIR CAFÉ, ENGLAND, 2016</text><text class="lyh" x="985" y="664">37 VISITORS AND VOLUNTEERS</text><text class="lyh lyh2" x="985" y="688">The thicker the layer,</text><text class="lyh lyh2" x="985" y="712">the higher people ranked it.</text><text class="lyh lyh2" x="985" y="736"></text>'))
+    G.append(('<p class="enc">Historical quotations: attributed to their original speakers and publications. <a class="src" href="https://cfsd.org.uk/site-pdfs/Farnham%20Repair%20Cafe%20Survey%202016.pdf" target="_blank" rel="noopener">Farnham survey</a> figures are weighted ranking scores, not percentages.</p>',
+              '<p class="enc">Quotes: Verde Magazine, Alta Journal and Stanford Magazine, 2012 to 2020. Survey: <a class="src" href="https://cfsd.org.uk/site-pdfs/Farnham%20Repair%20Cafe%20Survey%202016.pdf" target="_blank" rel="noopener">Centre for Sustainable Design</a>, 2016.</p>'))
+    G.append(('Illustration: Cynthia. Exterior details and cable arrangement based on photographs of the stereo; internal CD components are representative.',
+              'Illustration: Cynthia, from photos of the stereo. The CD parts inside follow a typical player.'))
+    G.append(('Photos and illustrations: Cynthia. The aprons represent check-in, sewing, appliance repair, mechanical repair, electronics, and special skills.','Photos and illustrations: Cynthia.'))
+    G.append(('</a>, recording 13,609 repairs at 67 participating cafés in eight countries.</figcaption>','</a>, 13,609 repairs logged at 67 Repair Cafés in eight countries.</figcaption>'))
+    G.append(('<p class="dq">Which table takes it? Tap an apron.</p>','<p class="dq">Tap an apron.</p>'))
+    G.append(("'Which table takes it? Drag the ticket to an apron, or tap one.'","'Drag the ticket to an apron, or tap one.'"))
+    G.append(('"fact": "Worldwide, 96 in 100','"fact": "At Repair Cafés, 96 in 100'))
+    G.append(('"fact": "Worldwide, 53 in 100','"fact": "At Repair Cafés, 53 in 100'))
+    G.append(('"fact": "Worldwide, more than 80 in 100','"fact": "At Repair Cafés, more than 80 in 100'))
     for a,b in G:
         if b in s: continue
         if a not in s: continue   # already superseded by a later patch
         assert s.count(a)==1,a
+        s=s.replace(a,b)
+    # v90b: plain, true labels on the coffee glass and the hero caption (replace everywhere)
+    for a,b in [("reason: 'ranks 2 to 5', rank: 'not broken out · band not to scale'","reason: 'meeting people, learning, helping the café', rank: 'ranks 2 to 5'"),
+                ("'not broken out · band not to scale'","''"),
+                ("reason: 'ranks 2 to 5', rank: 'meeting people, learning to repair, helping the café'","reason: 'meeting people, learning, helping the café', rank: 'ranks 2 to 5'"),
+                ("'meeting people, learning to repair, helping the café'","''"),
+                ("reason: 'meeting people, learning, helping the café'","reason: 'meeting people, learning, the café'"),
+                ('<text class="lyh lyh2" x="985" y="736"></text>','<text class="lyh lyh2" x="985" y="736">Ranks 2 to 5 share one layer.</text>'),
+                ('>The marbled band holds four.</text>','>Ranks 2 to 5 share one layer.</text>'),
+                ('A rainbow of light fell across my shoes','A rainbow fell across my shoes'),
+                ('a band of iridescent light falling across them','a rainbow falling across them')]:
         s=s.replace(a,b)
     s=s.replace('--ml:0%;--mt:4%;--mw:100%" loading="lazy"','--ml:0%;--mt:4%;--mw:100%" loading="eager" fetchpriority="high"',1)
     s=s.replace('img/hc_back.webp','img/hc2_back.webp')

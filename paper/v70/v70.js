@@ -23,7 +23,7 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
       /* v86: the mixer stays at the top of section 05; the close is her two sentences, then her last line alone */
       const p=document.createElement('p'); p.textContent='My mother told me my shoes were beyond repair, and I believed her. Had I known this community earlier, I would have restored them and kept them.'; c.appendChild(p);
       /* v84: the shoes come back as the last picture, and her last sentence stands alone under it */
-      const f=document.createElement('figure'); f.className='endshot'; f.innerHTML='<img src="img/g_shoes_end.webp" width="1000" height="1569" alt="Two white sneakers with ribbon laces lying on a dark carpet, a rainbow of light falling across them" loading="lazy">'; c.appendChild(f);
+      const f=document.createElement('figure'); f.className='endshot'; f.innerHTML='<img src="img/g_shoes_end.webp" width="1000" height="1569" alt="Two white sneakers with ribbon laces lying on a dark carpet, a rainbow falling across them" loading="lazy">'; c.appendChild(f);
       const l=document.createElement('p'); l.className='lastline'; l.textContent='Next time, I want to be the one who decides what\u2019s worth saving.'; c.appendChild(l); cf.after(c);
       if(RM) c.classList.add('seen'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){c.classList.add('seen');io.disconnect();}}),{threshold:.6}).observe(l); } }
   /* v81: hidden with her yes, all kept in the page: the two workshop-tour paragraphs, the age paragraph (and the note about ages), step 1 of the counter */
@@ -107,7 +107,7 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
   /* desktop glass: crop the drawing to the glass and its key, and take the fill off the scroll */
   const svg=document.getElementById('wysvg'); if(!svg) return;
   svg.setAttribute('viewBox','10 362 1380 640');
-  const t=svg.querySelector('title'); if(t) t.textContent='A tall glass of layered coffee. Each layer is as thick as one reason’s weighted ranking score in the Farnham survey.';
+  const t=svg.querySelector('title'); if(t) t.textContent='A tall glass of layered coffee. The thicker a layer, the higher people at the Farnham Repair Café ranked that reason.';
   const old=document.getElementById('wyfillRect'), rg0=document.getElementById('wyrows'); if(!old||!rg0) return;
   const wave=sv('path',{id:'wyfillWave'}); old.replaceWith(wave);
   const rg=rg0.cloneNode(true); rg0.replaceWith(rg);            // detach from the old scroll handler
@@ -343,7 +343,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const st=document.querySelector('.st3wrap > .st3'); if(st){ const h=document.createElement('h3'); h.className='ghd st3hd'; h.textContent='02 · Inside the Stereo'; st.prepend(h); }
   const cf=document.querySelector('.cakefig');
   if(cf&&!cf.querySelector('.cakecard')){ const k=document.createElement('div'); k.className='cakecard';
-    k.innerHTML='<h3 class="ghd">03 · Repair Café, 2009 to 2026</h3><p>One candle for each year since the first café in Amsterdam</p><p>A dot over a candle marks a year below</p>'; cf.prepend(k); }
+    k.innerHTML='<h3 class="ghd">03 · Repair Café, 2009 to 2026</h3><p>One candle for each year since the first café in Amsterdam</p>'; cf.prepend(k); }
   hd(document.querySelector('.apgame'),'04 · Which Table Fixes It?');
   const oc=document.querySelector('.cfig.odds .claim'), of=document.querySelector('.cfig.odds');
   if(oc&&of){ oc.textContent='07 · What Gets Fixed'; oc.classList.add('ghd'); of.prepend(oc); }
