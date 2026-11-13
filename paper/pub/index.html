@@ -1456,6 +1456,8 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
         const t=sc.querySelector('.stt'); if(t) t.textContent=t.textContent.replace(/^\d\d/,n);
         const ft=sc.querySelector('.sfoot'), x=ft&&[...ft.childNodes].find(k=>k.nodeType===3&&/of 3/.test(k.nodeValue)); if(x) x.nodeValue=x.nodeValue.replace(/\d of 3/,f); }); }
     const oc=document.querySelector('.cfig.odds .claim'); if(oc) oc.textContent=oc.textContent.replace(/^04/,'03'); }
+  /* v82: section headlines taken off the page at her request while new ones are discussed (kept in the page) */
+  ['bench','history','counter-s','odds','why'].forEach(id=>hide(document.querySelector('#'+id+' > .col > h2')));
   ['bench','history','counter-s','odds','why'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
 })();
 
