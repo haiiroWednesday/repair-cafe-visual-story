@@ -228,3 +228,16 @@ html{font-synthesis:none}
 .pola .ink .hand{mix-blend-mode:multiply}
 
 .cfig.volfig{margin-top:44px !important}
+
+/* ===== v74: every graphic arrives with motion. drawn plates are poured in behind a ribbon of thread colours ===== */
+.pourband{position:absolute;z-index:8;pointer-events:none;background:linear-gradient(90deg,#F27BAE,#F59A62,#EDBE36,#4FCB96,#43B9DD,#9A7BEA,#F27BAE);opacity:.95;filter:drop-shadow(0 2px 3px rgba(40,25,10,.25))}
+@media (prefers-reduced-motion:no-preference){
+  .ctrSvg:not(.v7in) .ob image{opacity:0}
+  .ctrSvg.v7in .ob image{animation:v7drop .75s cubic-bezier(.3,1.5,.5,1) backwards;animation-delay:calc(var(--i,0) * 75ms)}
+  [data-step="2"] .ctrSvg .gd{animation:v7gd .6s cubic-bezier(.3,1.4,.5,1) backwards}
+  [data-step="2"] .ctrSvg .gd.no{animation-delay:.15s}[data-step="2"] .ctrSvg .gd.pl{animation-delay:.3s}[data-step="2"] .ctrSvg .gd.all{animation-delay:.45s}[data-step="2"] .ctrSvg .gd.np{animation-delay:.6s}[data-step="2"] .ctrSvg .gd.ok{animation-delay:.75s}
+  [data-step="2"] .ctrSvg .band{animation:v7band .8s .2s ease-out backwards;transform-box:fill-box;transform-origin:left center}
+}
+@keyframes v7drop{from{opacity:0;transform:translateY(-70px)}}
+@keyframes v7gd{from{opacity:0;transform:translateY(-22px)}}
+@keyframes v7band{from{transform:scaleX(0)}}

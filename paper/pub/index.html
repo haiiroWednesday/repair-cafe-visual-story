@@ -1319,6 +1319,19 @@ html{font-synthesis:none}
 
 .cfig.volfig{margin-top:44px !important}
 
+/* ===== v74: every graphic arrives with motion. drawn plates are poured in behind a ribbon of thread colours ===== */
+.pourband{position:absolute;z-index:8;pointer-events:none;background:linear-gradient(90deg,#F27BAE,#F59A62,#EDBE36,#4FCB96,#43B9DD,#9A7BEA,#F27BAE);opacity:.95;filter:drop-shadow(0 2px 3px rgba(40,25,10,.25))}
+@media (prefers-reduced-motion:no-preference){
+  .ctrSvg:not(.v7in) .ob image{opacity:0}
+  .ctrSvg.v7in .ob image{animation:v7drop .75s cubic-bezier(.3,1.5,.5,1) backwards;animation-delay:calc(var(--i,0) * 75ms)}
+  [data-step="2"] .ctrSvg .gd{animation:v7gd .6s cubic-bezier(.3,1.4,.5,1) backwards}
+  [data-step="2"] .ctrSvg .gd.no{animation-delay:.15s}[data-step="2"] .ctrSvg .gd.pl{animation-delay:.3s}[data-step="2"] .ctrSvg .gd.all{animation-delay:.45s}[data-step="2"] .ctrSvg .gd.np{animation-delay:.6s}[data-step="2"] .ctrSvg .gd.ok{animation-delay:.75s}
+  [data-step="2"] .ctrSvg .band{animation:v7band .8s .2s ease-out backwards;transform-box:fill-box;transform-origin:left center}
+}
+@keyframes v7drop{from{opacity:0;transform:translateY(-70px)}}
+@keyframes v7gd{from{opacity:0;transform:translateY(-22px)}}
+@keyframes v7band{from{transform:scaleX(0)}}
+
 </style>
 <script id="v70js">
 addEventListener('DOMContentLoaded',()=>{
@@ -1445,7 +1458,7 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
   const add=(sel,stag)=>document.querySelectorAll(sel).forEach((e,i)=>{e.classList.add('rv'); if(stag) e.style.setProperty('--rd',(i%stag.n)*stag.ms+'ms'); io.observe(e);});
   add('#history .photo img'); add('.pegboard .stage > img.pc',{n:2,ms:160}); add('.volfig .stage > img.pc',{n:2,ms:160});
   add('.heartfig .stage > img.pc',{n:2,ms:240}); add('.tray .stk',{n:5,ms:90}); add('.clockfig .polawrap');
-   add('#bench .cfig.plate .plimg');
+  
 })();
 
 
@@ -1496,6 +1509,35 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
   sv('path',{d:"M218.4 1870.6 L243.0 1870.1 L267.5 1870.0 L292.0 1870.0 L316.6 1870.1 L341.1 1870.0 L365.6 1869.9 L390.1 1869.8 L414.7 1869.5 L439.2 1869.2 L463.7 1868.7 L488.2 1868.2 L512.8 1867.7 L537.3 1867.0 L561.8 1866.3 L586.4 1865.6 L610.9 1864.9 L635.4 1864.2 L659.9 1863.5 L684.5 1862.8 L709.0 1862.1 L733.5 1861.5 L758.1 1861.0 L782.6 1860.4 L807.1 1859.9 L831.6 1859.5 L856.2 1859.1 L880.7 1858.6 L905.2 1858.2 L929.8 1857.8 L954.3 1857.4 L978.8 1857.0 L1003.3 1857.0 L1027.9 1855.9 L1052.4 1854.6 L1076.9 1853.4 L1101.4 1852.2 L1126.0 1850.9 L1150.5 1849.5 L1175.0 1848.0 L1199.6 1846.5 L1199.6 1846.8 L1175.0 1848.8 L1150.5 1850.7 L1126.0 1852.5 L1101.4 1854.3 L1076.9 1855.9 L1052.4 1857.4 L1027.9 1858.6 L1003.3 1859.7 L978.8 1861.8 L954.3 1863.2 L929.8 1864.5 L905.2 1865.6 L880.7 1866.6 L856.2 1867.6 L831.6 1868.5 L807.1 1869.4 L782.6 1870.3 L758.1 1871.1 L733.5 1871.9 L709.0 1872.7 L684.5 1873.6 L659.9 1874.4 L635.4 1875.2 L610.9 1875.9 L586.4 1876.6 L561.8 1877.2 L537.3 1877.8 L512.8 1878.3 L488.2 1878.6 L463.7 1878.9 L439.2 1879.0 L414.7 1879.0 L390.1 1878.8 L365.6 1878.5 L341.1 1878.0 L316.6 1877.4 L292.0 1876.7 L267.5 1875.9 L243.0 1874.9 L218.4 1873.4Z",fill:'#1B1920',filter:'url(#pFelt)',opacity:.94},g);
   sv('path',{d:"M118.4 1676.8 L145.1 1760.6 L75.3 1710.4 L158.3 1709.7 L94.0 1763.5 L122.4 1683.8",fill:'none',stroke:'#D9A02E','stroke-width':6.5,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#pFelt)'},g);
   sv('path',{d:"M1359.6 1834 C1301.6 1794 1307.6 1740 1339.6 1744 C1355.6 1746 1361.6 1762 1361.6 1774 C1363.6 1754 1381.6 1736 1401.6 1750 C1429.6 1772 1389.6 1812 1353.6 1842",fill:'none',stroke:'#DE4F78','stroke-width':7,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#pFelt)'},g);
+})();
+
+
+/* 10. pour-in: a drawn plate is revealed top to bottom behind a wavy ribbon, like liquid running down the page */
+(()=>{
+  const ctr=document.querySelector('.ctrSvg'); if(ctr){[...ctr.querySelectorAll('.ob')].reverse().forEach((o,i)=>o.style.setProperty('--i',i));
+    if(RM) ctr.classList.add('v7in'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){ctr.classList.add('v7in');io.disconnect();}}),{threshold:.35}).observe(ctr);}
+  if(RM) return;
+  const T=[...document.querySelectorAll('.cakefig .plimg, #bench .cfig.plate .plimg, .apgame .apwrap')];
+  T.forEach((el,n)=>{
+    const host=el.parentElement; if(getComputedStyle(host).position==='static') host.style.position='relative';
+    const band=document.createElement('i'); band.className='pourband'; band.style.display='none'; host.appendChild(band);
+    const wave=(y,t,amp,off)=>{let a=[];for(let i=0;i<=24;i++){const x=i/24*100;a.push([x,y+off+Math.sin(i*.8+t*5+n)*amp+Math.sin(i*.33-t*3)*amp*.6]);}return a;};
+    const set=(p,t)=>{const y=-6+p*112, amp=2.2*(1-p*.6), top=wave(y,t,amp,0);
+      el.style.clipPath='polygon(0 0,100% 0,'+top.slice().reverse().map(q=>q[0]+'% '+q[1].toFixed(2)+'%').join(',')+')';
+      const lo=wave(y,t,amp,0), hi=wave(y,t,amp,-1.1-.9*Math.sin(p*Math.PI));
+      band.style.clipPath='polygon('+hi.map(q=>q[0]+'% '+q[1].toFixed(2)+'%').join(',')+','+lo.reverse().map(q=>q[0]+'% '+q[1].toFixed(2)+'%').join(',')+')';};
+    el.style.clipPath='polygon(0 0,100% 0,100% 0,0 0)';
+    /* the front follows the scroll: it sits about four fifths of the way down the window and eases after it */
+    let cur=0, done=false, live=false;
+    const place=()=>{band.style.cssText=`display:block;left:${el.offsetLeft}px;top:${el.offsetTop}px;width:${el.offsetWidth}px;height:${el.offsetHeight}px`;};
+    const loop=now=>{ if(done) return; const r=el.getBoundingClientRect(); if(!r.height){requestAnimationFrame(loop);return;}
+      const tgt=Math.max(0,Math.min(1,(innerHeight*.8-r.top)/r.height)); cur+=(tgt-cur)*.09; if((tgt>=1&&cur>.995)||r.bottom<0) cur=1;
+      place(); set(cur,now/1000);
+      if(cur>=1){done=true; el.style.clipPath=''; band.remove(); return;}
+      if(r.bottom<-200||r.top>innerHeight+200){live=false;return;}
+      requestAnimationFrame(loop); };
+    new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting&&!live&&!done){live=true;requestAnimationFrame(loop);} }),{rootMargin:'200px 0px'}).observe(host);
+  });
 })();
 
 });
