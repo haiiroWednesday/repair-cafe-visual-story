@@ -1,0 +1,170 @@
+/* ===== v70: one system. paper, navy blueprint, brass, thread, tickets ===== */
+:root{--brew:'Fell',Georgia,serif;--hand:'Fell',Georgia,serif;--num:'Fraunces',Georgia,serif;--thread:#C24A23}
+html{font-synthesis:none}
+
+/* --- the tears are sewn shut: variegated thread, one whip stitch at a time --- */
+.seam{position:relative;height:0;z-index:7;pointer-events:none}
+.seam svg{position:absolute;left:0;width:100%;overflow:visible;display:block}
+.seam path{fill:none;stroke-linecap:round;stroke-width:2.1;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .28s ease-out;transition-delay:calc(var(--i) * 14ms)}
+.seam .sh{stroke:rgba(50,32,18,.32);stroke-width:2.6;transform:translate(.6px,1.3px)}
+.seam.in path{stroke-dashoffset:0}
+@media (prefers-reduced-motion:reduce){.seam path{transition:none;stroke-dashoffset:0}}
+
+/* --- paper: two warm sheets that alternate, navy blueprint for the bench and the close --- */
+.clean{position:relative}
+.clean > .tw > #history{background-color:#EFE6D2}
+.clean > .tw > #counter-s{background-color:#F8F4EA}
+.clean > .tw > #volunteer{background-color:#F8F4EA}
+.clean > .tw > #heart{background-color:#EFE6D2}
+.clean > .tw > #odds{background-color:#F8F4EA}
+.clean > .tw > #why{background-color:#EFE6D2}
+.clean > .tw > #methods{background-color:#F8F4EA}
+
+/* --- type: Androgy for titles, Georgia to read, Fell for labels, Fraunces for figures, Courier on tickets --- */
+.flbl b,.ctrSvg .big,.ctrSvg .gv,.ctrSvg .tn,.ctrSvg .rk,#wysvg .num,.wmob .mr b,.apgame .apodds b{font-family:var(--num) !important;font-weight:600 !important;font-variant-numeric:lining-nums}
+.flbl{font-weight:400 !important;letter-spacing:.05em;color:#3A2E28 !important}
+.flbl b{font-size:clamp(20px,2.1vw,30px) !important;color:#7A2E2E !important;letter-spacing:0;margin-bottom:3px}
+.ctrSvg .note,.ctrSvg .lab,.ctrSvg .tiny{font-weight:400 !important;letter-spacing:.04em}
+.sclaim .hb,.apgame .apagain{font-weight:400 !important;letter-spacing:.08em;border-radius:999px !important;box-shadow:none !important;border:1.3px solid #2B2420 !important;padding:6px 14px !important;background:#FFFCF4 !important;transition:background .2s,color .2s}
+.sclaim .hb[aria-pressed=true]{background:#23337E !important;color:#FFF8E8 !important;border-color:#23337E !important}
+.sclaim .hb:hover,.apgame .apagain:hover{background:#F3E7C8 !important}
+.sclaim .hb[aria-pressed=true]:hover{background:#23337E !important}
+
+/* --- captions and credits: one quiet voice everywhere --- */
+.clean .cap,.clean .enc{font:italic 400 13.5px/1.5 Georgia,'Times New Roman',serif !important;color:#6A5E52 !important;border-top:0 !important;padding-top:0 !important;text-align:center !important;max-width:560px;margin-left:auto !important;margin-right:auto !important}
+.clean .band .cap,.clean .band .enc{color:#C9C5BA !important}
+.herophoto .cap{max-width:none !important;text-align:center !important;padding-right:0 !important}
+
+/* --- photographs: the same torn kraft mount, barely tilted --- */
+.herophoto img{--r:-.6deg !important}
+#history .photo img{--r:.6deg !important}
+.heartfig img[src*="fr_heart"]{--r:-1deg !important}
+.heartfig img[src*="hc2_layers"]{--r:0deg !important;--w:23% !important;--t:13% !important;--l:76.5% !important;--mw:24% !important;--mt:20% !important;--ml:74% !important}
+.heartfig img[src*="hc2_back"]{--r:-4deg !important}
+.polawrap{--r:1.5deg !important}
+@media (min-width:821px){
+  .herophoto{max-width:min(1000px,88vh) !important}
+  .hero h1{margin-top:6px}
+  .cfig.pegboard .stage{--ar:1/.412 !important;max-width:1060px !important}
+  .pegboard img[src*="st_kitchen"]{--l:0% !important;--t:0% !important;--w:43.8% !important;--r:-.5deg !important}
+  .pegboard img[src*="fr_bench"]{--l:46.8% !important;--t:0% !important;--w:53.2% !important;--r:.5deg !important}
+  .cfig.volfig{max-width:1000px !important}
+  .volfig .stage{--ar:1/.513 !important}
+  .volfig img[src*="fr_stitch"]{--l:0% !important;--t:0% !important;--w:56.4% !important;--r:-.5deg !important}
+  .volfig img[src*="fr_volunteer"]{--l:59.4% !important;--t:0% !important;--w:40.6% !important;--r:.5deg !important}
+}
+@media (max-width:820px){
+  .cfig.pegboard .stage{--mar:1/1.74 !important}
+  .pegboard img[src*="st_kitchen"]{--ml:0% !important;--mt:0% !important;--mw:100% !important;--r:0deg !important}
+  .pegboard img[src*="fr_bench"]{--ml:0% !important;--mt:55.5% !important;--mw:100% !important;--r:0deg !important}
+  .volfig .stage{--mar:1/1.94 !important}
+  .volfig img[src*="fr_stitch"]{--ml:0% !important;--mt:0% !important;--mw:100% !important;--r:0deg !important}
+  .volfig img[src*="fr_volunteer"]{--ml:10% !important;--mt:48.5% !important;--mw:80% !important;--r:0deg !important}
+}
+
+/* --- parts tray: the small things laid out in labeled compartments, as they were on the benches --- */
+.tray{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));width:fit-content;max-width:100%;margin:30px auto 4px;border:1.4px solid rgba(58,46,40,.6);border-radius:9px;background:rgba(255,253,246,.6);overflow:hidden;box-shadow:0 2px 0 rgba(58,46,40,.1)}
+.tray .stk{position:static !important;transform:none !important;width:auto !important;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:9px;padding:16px 20px 12px;box-shadow:-1.4px 0 0 rgba(58,46,40,.28);cursor:default;min-width:118px}
+.tray .stk:hover{transform:none !important}
+.tray .stk img{width:auto !important;height:56px;max-width:92px;object-fit:contain;filter:drop-shadow(0 3px 3px rgba(50,35,20,.22)) !important}
+.tray .stk .stl{position:static !important;transform:none !important;background:none !important;padding:0 !important;border-radius:0 !important;opacity:1 !important;font:400 12.5px/1.25 var(--brew) !important;letter-spacing:.05em;color:#4A3A30 !important;max-width:126px !important;width:auto !important;text-align:center}
+.band .tray{border-color:rgba(244,239,225,.55);background:rgba(255,255,255,.07);box-shadow:none}
+.band .tray .stk{box-shadow:-1.4px 0 0 rgba(244,239,225,.3)}
+.band .tray .stk .stl{color:#E8E2D2 !important}
+.band .tray .stk img{filter:drop-shadow(0 3px 4px rgba(0,0,0,.35)) !important}
+@media (max-width:820px){
+  .tray{grid-template-columns:repeat(min(var(--n),3),minmax(0,1fr));width:100%}
+  .tray .stk{min-width:0;padding:12px 8px 10px;box-shadow:-1.4px 0 0 rgba(58,46,40,.28),0 -1.4px 0 rgba(58,46,40,.28)}
+  .tray .stk img{height:44px;max-width:70px}
+  .tray .stk .stl{font-size:11.5px !important}
+}
+.tray .stk .stl{font-size:12.5px !important}
+
+/* --- 07: what people said hangs on an order rail. the glass keeps the survey to itself --- */
+#wyribs,#wymeds,.wmob .mrib,#wymrows{display:none !important}
+#why .wscroll{height:auto !important}
+#why .wstage{position:static !important;height:auto !important;padding:0 !important;display:block !important}
+#why .wcomp{width:min(1080px,94vw) !important;aspect-ratio:1380/540 !important;margin:0 auto}
+.whyfig{margin-top:8px !important}
+.slips{max-width:1040px;margin:34px auto 54px;padding:0 40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:58px 36px;align-items:start}
+.slip{position:relative;transform-origin:50% -16px;transform:rotate(var(--r,0deg));filter:drop-shadow(0 1px 0 rgba(58,46,40,.2)) drop-shadow(0 9px 9px rgba(58,46,40,.16))}
+.slip::before{content:'';position:absolute;left:-19px;right:-19px;top:-17px;height:3px;border-radius:2px;background:linear-gradient(#E6CF98,#A8854A);box-shadow:0 1px 0 rgba(58,46,40,.25);transform:rotate(calc(var(--r,0deg) * -1));transform-origin:50% 1px}
+.slip::after{content:'';position:absolute;left:50%;top:-23px;width:15px;height:27px;margin-left:-7.5px;border-radius:4px 4px 3px 3px;background:linear-gradient(90deg,#8E6B2A,#F0DCA6 38%,#C9A24E 70%,#8E6B2A);box-shadow:0 1px 2px rgba(43,26,16,.4),inset 0 -8px 0 rgba(90,60,20,.18)}
+.slip-in{background:#FFFDF6;padding:26px 22px 30px;-webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%}
+.slip img{display:block;width:54px;height:54px;object-fit:contain;margin:0 0 10px -4px}
+.slip q{display:block;quotes:'“' '”';font:italic 400 18.5px/1.42 Georgia,'Times New Roman',serif;color:#2A2622}
+.slip .a{display:block;margin-top:12px;padding-top:10px;border-top:1px dashed rgba(58,46,40,.35);font:400 12.5px/1.35 var(--brew);letter-spacing:.05em;color:#6A4A3A}
+.slips.anim .slip{opacity:0;transform:rotate(calc(var(--r,0deg) - 8deg)) translateY(-10px);transition:opacity .45s ease-out,transform .9s cubic-bezier(.25,1.6,.45,1);transition-delay:calc(var(--i) * 120ms)}
+.slips.anim.in .slip{opacity:1;transform:rotate(var(--r,0deg))}
+@media (max-width:900px){.slips{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 30px;gap:52px 28px}}
+@media (max-width:560px){.slips{grid-template-columns:1fr;max-width:400px;gap:46px;margin-bottom:36px}.slip q{font-size:17.5px}}
+#wysvg .lbl{font-weight:400 !important;font-size:19px !important;letter-spacing:.03em}
+#wysvg .note,#wysvg .rank{font-weight:400 !important}
+#wysvg .lyh{font-weight:400 !important;letter-spacing:.08em}
+.wmob .mr span,.wmob .mr small{font-weight:400 !important;letter-spacing:.03em}
+
+#wysvg .rank{font-family:var(--num) !important;font-weight:500 !important}
+#why .wcomp{aspect-ratio:1380/640 !important;margin-top:6px}
+
+/* --- the counter: labels that read, colours that hold on paper --- */
+.ctrSvg text{stroke:#F8F4EA !important}
+.ctrSvg text.pl{fill:#2F5FC4 !important}
+.ctrSvg text.np{fill:#A9771A !important}
+.ctrSvg .strand.pl{stroke:#3E78D6 !important;fill:none !important}
+.ctrSvg .strand.np{stroke:#C99A2E !important;fill:none !important}
+.ctrSvg .sdot.pl{fill:#3E78D6 !important}.ctrSvg .sdot.np{fill:#C99A2E !important}
+.ctrSvg .gd.pl circle{fill:#3E78D6 !important}.ctrSvg .gd.np circle{fill:#C99A2E !important}
+.ctrSvg .gd text.pl,.ctrSvg .gd text.np{fill:#2B2420 !important}
+.ctrSvg .big{font-size:50px !important}
+.ctrSvg .gv{font-size:19px !important;fill:#2B2420 !important}
+.ctrSvg .note{font-size:15.5px !important}
+.ctrSvg .tn{font-size:15px !important}
+.ctrSvg .rk{font-size:15px !important;fill:#7A2E2E !important}
+.sclaim p{font-weight:400 !important;color:#2A2622 !important}
+.sclaim .ssub{font-size:15.5px !important;color:#5E5246 !important}
+
+/* --- the cake stand: tier ribbons set in the same label face as everything else --- */
+.rlbls{position:absolute;z-index:4;pointer-events:none}
+.rlbls span{position:absolute;transform:translate(-50%,-50%);font:500 clamp(9.5px,1.02vw,13px)/1 var(--num);letter-spacing:.1em;text-transform:uppercase;color:#6A3A3A;white-space:nowrap}
+
+/* --- check-in desk: fits one screen, and the fact stays long enough to read --- */
+.apgame .apodds b{right:0 !important;top:-24px !important;font-size:18px !important}
+.apgame .apnote{min-height:2.9em}
+.apgame .dq{font-size:17px !important}
+@media (min-width:821px){
+  .apgame .plfig{max-width:clamp(560px,calc((100svh - 470px) * 1.85),980px);margin:0 auto}
+  .apgame .desk{min-height:188px !important}
+}
+
+/* --- small things --- */
+@media (hover:none){#pal{display:none !important}}
+@media (max-height:520px){.tix{display:none !important}}
+.kick{letter-spacing:.14em !important}
+
+.sstage svg.ctrSvg{overflow:visible !important}
+.ctrSvg .s1 .tiny{font-family:var(--num) !important;font-size:13.5px !important;letter-spacing:.02em}
+.stepl b{font-family:var(--num) !important;font-weight:600 !important}
+
+/* --- one motion language: things settle onto the page as they arrive --- */
+.rv{opacity:0;translate:0 24px;transition:opacity .8s ease,translate 1s cubic-bezier(.2,.75,.2,1);transition-delay:var(--rd,0ms)}
+.rv.rv-in{opacity:1;translate:0 0}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;translate:none;transition:none}}
+.wkey .stk{position:static !important;display:inline-block;width:34px !important;transform:none !important;vertical-align:middle;margin-right:10px}
+.wkey .stk img{filter:none !important}
+.clockfig .stepl{letter-spacing:.05em}
+
+/* --- section openers: a numbered tab on a ruled line, like the tab on a claim ticket --- */
+.part > .col > .kick:first-child{position:relative;display:inline-block;min-width:30px;text-align:center !important;padding:8px 13px 6px;margin:0 0 24px !important;border:1.3px solid rgba(43,36,32,.7);border-bottom:0;border-radius:7px 7px 0 0;font:600 15px/1 var(--num) !important;letter-spacing:.06em !important;color:#A24A2A !important;font-variant-numeric:lining-nums;background:rgba(255,253,246,.55)}
+.part > .col > .kick:first-child::after{content:'';position:absolute;left:-1.3px;bottom:-1.3px;width:min(var(--col,640px),calc(100vw - 44px));height:1.3px;background:rgba(43,36,32,.7)}
+.part > .col > .kick:first-child + h2{margin-top:0 !important}
+.band.part > .col > .kick:first-child{border-color:rgba(244,239,225,.65);color:#F2C9A8 !important;background:rgba(255,255,255,.06)}
+.band.part > .col > .kick:first-child::after{background:rgba(244,239,225,.65)}
+
+/* --- the numbers that carry the story are set in the title face, large --- */
+.ctrSvg .big{font-family:'Androgy',var(--title) !important;font-weight:400 !important;font-size:92px !important;letter-spacing:.01em;stroke-width:9px !important}
+.flbl b{font-family:'Androgy',var(--title) !important;font-weight:400 !important;font-size:clamp(30px,3.5vw,50px) !important;line-height:.95 !important;letter-spacing:.01em;text-transform:lowercase;margin-bottom:1px}
+#wysvg .num{font-family:'Androgy',var(--title) !important;font-weight:400 !important;font-size:50px !important}
+.wmob .mr b{font-family:'Androgy',var(--title) !important;font-weight:400 !important;font-size:38px !important}
+
+.ctrSvg .big{font-size:84px !important;transform:translate(20px,10px)}
+@media (max-width:700px){#pal{display:none !important}}
