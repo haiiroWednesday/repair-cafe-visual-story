@@ -241,3 +241,26 @@ html{font-synthesis:none}
 @keyframes v7drop{from{opacity:0;transform:translateY(-70px)}}
 @keyframes v7gd{from{opacity:0;transform:translateY(-22px)}}
 @keyframes v7band{from{transform:scaleX(0)}}
+
+/* ===== v75: the stereo comes apart layer by layer as you scroll ===== */
+#bench .cfig.plate .plbtn{cursor:default}
+#bench .cfig.plate .plbtn.v7off{display:none !important}
+.st3wrap{height:calc(min(1040px,100vw - 44px) / var(--ar,1.55) + 120svh);--ar:1.5536}
+@media (prefers-reduced-motion:reduce){.st3wrap{height:auto}}
+.st3{position:sticky;top:max(64px,calc(50svh - min(1040px,100vw - 44px) / 3.107));width:100%;max-width:1040px;margin:0 auto;aspect-ratio:var(--ar);user-select:none}
+.st3 .ly{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);will-change:transform,opacity;pointer-events:none}
+.st3 .ly img{display:block;width:100%;height:100%}
+.st3 .ly.disc{background:url(img/s3_disc.webp) 0 0/100% calc(var(--nf) * 100%) no-repeat}
+.st3 .ly.led{mix-blend-mode:screen}
+.st3 .ld{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.st3 .ld line{stroke:#E8E2D2;stroke-width:1;vector-effect:non-scaling-stroke;opacity:.75}
+.st3 .ld circle{fill:#E8E2D2}
+.st3 .lb{position:absolute;left:var(--x);top:var(--y);transform:translateY(-50%);font:400 clamp(9px,1.25vw,15px)/1.2 var(--brew);letter-spacing:.14em;text-transform:uppercase;color:#F4EFE1;white-space:nowrap;text-align:left}
+.st3 .lb small{display:block;margin-top:4px;font:italic 400 clamp(8.5px,1.05vw,13.5px)/1.25 Georgia,serif;letter-spacing:0;text-transform:none;color:#D8D2C2;white-space:normal;max-width:15ch}
+.st3 .lb.r{left:auto;right:.5%;text-align:right}
+.st3 .tagl{position:absolute;left:var(--x);top:var(--y);transform:translate(-100%,-50%) rotate(-5deg);background:#FBF6E9 url(img/tx_crumple.jpg) 40% 30%/300px auto;background-blend-mode:multiply;color:#2A2622;font:700 clamp(6.5px,.82vw,10.5px)/1 'Courier Prime',monospace;letter-spacing:.1em;padding:.5em .8em .4em;box-shadow:0 2px 4px rgba(0,0,0,.35);white-space:nowrap}
+.st3 .fx{opacity:0;transition:opacity .5s}
+.st3 .fx.on{opacity:1}
+.st3strip{display:block;width:min(62%,640px);margin:8px auto 0}
+@media (max-width:700px){.st3strip{width:92%}.st3 .lb small{max-width:11ch}}
+@media (max-width:700px){.st3 .tagl,.st3 .lb small,.st3 .ld g.r{display:none !important}.st3 .lb.r{top:100%}.st3 .lb{letter-spacing:.1em}}

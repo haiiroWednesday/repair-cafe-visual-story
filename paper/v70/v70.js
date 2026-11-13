@@ -181,7 +181,7 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
   const ctr=document.querySelector('.ctrSvg'); if(ctr){[...ctr.querySelectorAll('.ob')].reverse().forEach((o,i)=>o.style.setProperty('--i',i));
     if(RM) ctr.classList.add('v7in'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){ctr.classList.add('v7in');io.disconnect();}}),{threshold:.35}).observe(ctr);}
   if(RM) return;
-  const T=[...document.querySelectorAll('.cakefig .plimg, #bench .cfig.plate .plimg, .apgame .apwrap')];
+  const T=[...document.querySelectorAll('.cakefig .plimg, .apgame .apwrap')];
   T.forEach((el,n)=>{
     const host=el.parentElement; if(getComputedStyle(host).position==='static') host.style.position='relative';
     const band=document.createElement('i'); band.className='pourband'; band.style.display='none'; host.appendChild(band);
@@ -202,6 +202,49 @@ document.querySelectorAll('.pegboard .stage,.volfig .stage,.heartfig .stage').fo
       requestAnimationFrame(loop); };
     new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting&&!live&&!done){live=true;requestAnimationFrame(loop);} }),{rootMargin:'200px 0px'}).observe(host);
   });
+})();
+
+
+/* 11. the stereo: lid, disc, mechanism and board lift out one after another with the scroll, the cable is soldered in, the ring lights */
+(()=>{
+  const btn=document.querySelector('#bench .cfig.plate .plbtn'), old=btn&&btn.querySelector('.plimg'); if(!old) return;
+  const S={"ar":1.55358807082945,"layers":{"0":[19.496,50.233,33.833,32.712],"1":[22.016,46.412,28.614,20.224],"2":[24.295,35.415,23.395,14.073],"3":[26.575,21.715,18.236,10.438],"4":[17.816,3.448,34.493,14.911],"5":[23.935,3.914,22.615,11.929],"6":[20.216,5.685,30.054,64.399],"7":[53.509,59.739,36.473,37.745],"8":[27.594,60.112,36.533,34.669],"9":[30.354,24.418,1.44,13.7]},"marks":{"lid":[50.32,9.0],"led":[43.94,11.37],"disc":[43.23,27.82],"sled":[32.52,36.61],"spindle":[36.02,39.14],"pcb":[48.7,55.62],"caps":[33.81,47.5],"header":[35.58,60.72],"chassis":[51.24,65.66],"buttons":[46.28,61.75],"label":[26.18,71.88],"cable":[34.26,91.44],"box2":[71.98,71.73],"sock2":[61.38,83.52]},"lift":{"1":[0.285,11.489],"2":[0.578,23.331],"3":[0.881,35.57],"4":[1.229,49.581]},"nf":12}, M=S.marks;
+  old.classList.add('v7off');
+  const box=document.createElement('div'); box.className='st3'; box.style.setProperty('--ar',S.ar); box.setAttribute('role','img'); box.setAttribute('aria-label',old.alt);
+  const ORDER=[7,0,8,1,2,9,3,4,5,6], el={};
+  ORDER.forEach(n=>{const r=S.layers[n], d=document.createElement('div'); d.className='ly'+(n===3?' disc':'')+(n===5?' led':''); d.style.cssText=`--x:${r[0]}%;--y:${r[1]}%;--w:${r[2]}%;--h:${r[3]}%`;
+    if(n===3) d.style.setProperty('--nf',S.nf); else d.innerHTML=`<img src="img/s3_${n}.webp" alt="">`; box.appendChild(d); el[n]=d;});
+  const LB=[['lid','Lid',4,null],['disc','Disc',3,null],['pcb','Main board',1,null],['cable','Control cable',8,'twenty strands, each soldered by hand']];
+  const ld=sv('svg',{class:'ld',viewBox:'0 0 100 100',preserveAspectRatio:'none'},null); box.appendChild(ld);
+  const fx={};
+  const mk=(key,layer,nodes)=>{(fx[layer]=fx[layer]||[]).push(...nodes); nodes.forEach(n=>n.classList.add('fx'));};
+  LB.forEach(([k,t,layer,sub],i)=>{const y=k==='cable'?M[k][1]-7:M[k][1], b=document.createElement('div'); b.className='lb'; b.style.cssText=`--x:1%;--y:${y}%`; b.innerHTML=t+(sub?`<small>${sub}</small>`:''); box.appendChild(b);
+    const g=sv('g',{},ld); sv('line',{x1:13.5,y1:y,x2:M[k][0],y2:M[k][1]},g); mk(k,layer,[b,g]);});
+  { const b=document.createElement('div'); b.className='lb r'; b.style.cssText=`--y:${M.box2[1]+17}%`; b.innerHTML='The second box'; box.appendChild(b); const g=sv('g',{class:'r'},ld); sv('line',{x1:93,y1:M.box2[1]+14.5,x2:86,y2:M.box2[1]+5},g); mk('box2',8,[b,g]); }
+  { const t=document.createElement('div'); t.className='tagl'; t.style.cssText=`--x:${M.chassis[0]-29}%;--y:${M.chassis[1]+3}%`; t.textContent='MANUFACTURED: AUGUST 2003'; box.appendChild(t); mk('tag',1,[t]); }
+  const wrap=document.createElement('div'); wrap.className='st3wrap'; wrap.appendChild(box); btn.after(wrap); btn.classList.add('v7off');
+  const strip=document.createElement('img'); strip.className='st3strip rv'; strip.src='img/s3_strip.webp'; strip.alt='Box one and box two joined by twenty coloured strands'; strip.loading='lazy'; wrap.after(strip);
+  /* scroll progress to pose */
+  const cl=(v,a,b)=>Math.max(0,Math.min(1,(v-a)/(b-a))), ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const WIN={4:[0,.3],3:[.13,.43],2:[.26,.56],1:[.39,.69]};
+  let frame=0, ft=0;
+  function pose(p,dt){ const H=box.offsetHeight, W=box.offsetWidth;
+    for(const n of [1,2,3,4]){ const q=ease(cl(p,WIN[n][0],WIN[n][1])), L=S.lift[n], dx=L[0]/100*W*(1-q), dy=L[1]/100*H*(1-q);
+      el[n].style.transform=`translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px)`; if(n<4) el[n].style.opacity=cl(q,0,.12);
+      if(n===4){el[5].style.transform=el[4].style.transform;} if(n===2){el[9].style.transform=el[2].style.transform;}
+      (fx[n]||[]).forEach(e=>e.classList.toggle('on',q>.97)); }
+    el[6].style.opacity=cl(p,.55,.72)*.9;
+    const c=cl(p,.66,.9); el[8].style.clipPath=`inset(0 ${(100-c*104).toFixed(1)}% 0 0)`; (fx[8]||[]).forEach(e=>e.classList.toggle('on',c>.97));
+    const lit=cl(p,.9,.97); el[5].style.opacity=.16+lit*.84+(lit>=1?Math.sin(performance.now()/420)*.1:0); el[9].style.opacity=lit*cl(p,.56,.6);
+    if(lit>0&&!RM){ ft+=dt*lit; if(ft>70){ft=0;frame=(frame+1)%S.nf;} } el[3].style.backgroundPositionY=(frame/(S.nf-1)*100)+'%';
+  }
+  if(RM){ pose(1,0); return; }
+  let cur=0, live=false, last=0; pose(0,0);
+  const loop=now=>{ const r=wrap.getBoundingClientRect(), dt=Math.min(60,now-last); last=now;
+    const top=parseFloat(getComputedStyle(box).top)||0, span=Math.max(1,r.height-box.offsetHeight);
+    const tgt=cl((top-r.top+innerHeight*.18)/(span+innerHeight*.18),0,1); cur+=(tgt-cur)*.1; if(Math.abs(tgt-cur)<.0008) cur=tgt; pose(cur,dt);
+    if(r.bottom<-300||r.top>innerHeight+300){live=false;return;} requestAnimationFrame(loop); };
+  new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting&&!live){live=true;last=performance.now();requestAnimationFrame(loop);} }),{rootMargin:'300px 0px'}).observe(wrap);
 })();
 
 });
