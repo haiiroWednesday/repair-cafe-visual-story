@@ -4,3 +4,6 @@ __pycache__/
 shots/
 log_*.txt
 *-local.html
+
+# three.js unpacked from three3d/three-0.160.0.tgz for the renders (tar xzf three-0.160.0.tgz package/build/three.min.js)
+three3d/package/
