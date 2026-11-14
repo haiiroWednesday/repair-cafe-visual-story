@@ -4,7 +4,7 @@
 import re, os, sys, io, json, base64
 from PIL import Image
 SRC = '/home/claude/mochi/repair/'
-OUT = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/out/repair-cafe-who-decides.html'
+OUT = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/out/repair-cafe.html'
 USED = set(json.load(open('/tmp/claude-0/-home-claude/ee5cc871-c0b1-559a-a1f7-dca096f49e11/scratchpad/used.json')))
 KEEP_ANYWAY = {'img/odds_stand.webp'}           # swapped in by script; small enough to keep safe
 USED -= {'img/wy_glass_brown_c.webp', 'img/wy_glass_empty_c.webp', 'img/pl_cake.webp', 'img/pl_cake_unlit.webp'}   # hidden pictures (the old glass, the old flat cake) stay on the site, not in the one-file copy
