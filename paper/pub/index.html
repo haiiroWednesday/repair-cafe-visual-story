@@ -1696,10 +1696,13 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
     hs&&[...hs.querySelectorAll('.col > p')].filter(p=>/Do you think she was happy/.test(p.textContent)).forEach(hide);
     if(hs&&cf&&!hs.querySelector('.closecol')){ const c=document.createElement('div'); c.className='col closecol';
       /* v86: the mixer stays at the top of section 05; the close is her two sentences, then her last line alone */
-      const p=document.createElement('p'); p.textContent='My mother told me my shoes were beyond repair, and I believed her. Had I known this community earlier, I would have restored them and kept them.'; c.appendChild(p);
+      /* v99: the close in her new words. The two earlier versions stay in the page, hidden */
+      const p=document.createElement('p'); p.textContent='My mother had told me my shoes were beyond repair, and I believed her. I still have the photograph: the shoes I wore into a new country, with a rainbow falling across them.'; c.appendChild(p);
+      const p2=document.createElement('p'); p2.textContent='If I had known this place existed, I would have brought them in.'; c.appendChild(p2);
+      ['My mother told me my shoes were beyond repair, and I believed her. Had I known this community earlier, I would have restored them and kept them.','Next time, I want to be the one who decides what\u2019s worth saving.'].forEach(t=>{ const o=document.createElement('p'); o.textContent=t; o.className='oldclose'; hide(o); c.appendChild(o); });
       /* v84: the shoes come back as the last picture, and her last sentence stands alone under it */
       const f=document.createElement('figure'); f.className='endshot'; f.innerHTML='<img src="img/g_shoes_end.webp" width="1000" height="1569" alt="Two white sneakers with ribbon laces lying on a dark carpet, a rainbow falling across them" loading="lazy">'; c.appendChild(f);
-      const l=document.createElement('p'); l.className='lastline'; l.textContent='Next time, I want to be the one who decides what\u2019s worth saving.'; c.appendChild(l); cf.after(c);
+      const l=document.createElement('p'); l.className='lastline'; l.textContent='And if they still couldn\u2019t be repaired, I would have taken them home.'; c.appendChild(l); cf.after(c);
       if(RM) c.classList.add('seen'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){c.classList.add('seen');io.disconnect();}}),{threshold:.6}).observe(l); } }
   /* v81: hidden with her yes, all kept in the page: the two workshop-tour paragraphs, the age paragraph (and the note about ages), step 1 of the counter */
   { const hp=(sel,re)=>[...document.querySelectorAll(sel)].filter(p=>re.test(p.textContent.trim())).forEach(hide);
@@ -2213,6 +2216,28 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   ffs.forEach((f,i)=>f.addEventListener('click',()=>{ const r=wrap.getBoundingClientRect(), span=r.height-stk.offsetHeight; scrollTo({top:scrollY+r.top+span*(.15+.85*JUMP[i])-2,behavior:RM?'auto':'smooth'}); }));
   if(RM){ wrap.classList.add('still'); setFrame(2); zs.style.opacity=0; return; }
   box._drive=drive; drive(0,0); if(st._lay) st._lay();
+})();
+
+/* 23. v99: the body text is her new version, word for word. Each paragraph it replaces or drops is hidden and kept in the page.
+   Text inside the graphics is not touched. The one sentence that is mine is the date at the end of the history (hers to reword). */
+(()=>{
+  const hide=e=>{if(e){e.style.display='none';e.dataset.v7hidden=1;}};
+  const ps=()=>[...document.querySelectorAll('.col > p')].filter(p=>!p.dataset.v7hidden&&!p.classList.contains('v99'));
+  const swap=(re,texts)=>{ const o=ps().find(p=>re.test(p.textContent.trim())); if(!o) return; let at=o; (texts||[]).forEach(t=>{ const n=document.createElement('p'); n.className='v99'; n.textContent=t; at.after(n); at=n; }); hide(o); };
+  swap(/^At a Repair Café in San José, I brought in something/,['At a Repair Café in San José, I brought in a stereo manufactured in August 2003. Its two units were connected by a cable containing twenty separate wires. With no replacement cable available, Jazz stripped the wires and soldered them back onto their pins by hand.','When he finished, the blue ring on the lid lit up.']);
+  swap(/^Amsterdam journalist Martine Postma kept seeing/,['Amsterdam journalist Martine Postma kept noticing discarded belongings that might still have been usable. Finding someone to repair an old appliance had become harder than replacing it.']);
+  swap(/^In 2009, she reported on Platform21/,['Inspired partly by Platform21’s Repair Manifesto, she organized the first Repair Café on October 18, 2009: people brought things they wanted to keep, and volunteers helped them see what could still be done.']);
+  swap(/^On October 18, dozens arrived/); swap(/^By 2012, Repair Café had reached Palo Alto/);
+  swap(/^Exactly seventeen years later/,['The day I carried my stereo in was October 18, 2026, seventeen years later to the day.']);
+  swap(/^At Repair Café, visitors check in/,['Visitors bring in broken belongings and stay while volunteers work on them, sometimes helping with the repair themselves.']);
+  swap(/^At Repair Cafés in 2019, 53%/);
+  swap(/^At an earlier Palo Alto Repair Café, two engineers/,['At an earlier Palo Alto Repair Café, two volunteers spent more than an hour repairing a sixty-year-old Waring drink mixer. An identical model was listed online for $16.']);
+  swap(/^Jazz told me about another clock/,['Jazz also remembered a woman who brought in her late father’s cuckoo clock. It hadn’t worked for years.']);
+  swap(/I had to be quite creative to repair it/);
+  swap(/^The clock’s chains had fallen off/,['“I had to use a stiff wire to feed [the chains] back into the correct position,” he told me.']);
+  swap(/^He secured the chains/,['He tied them in place for the journey home and told her to remove the ties after mounting the clock.']);
+  swap(/^When the repair was finished, she asked/,['When he finished, she asked if she could hug him.']);
+  swap(/^Weeks later, she returned to another Repair Café event/,['Weeks later, she returned to another Repair Café and hugged him again.']);
 })();
 
 });
