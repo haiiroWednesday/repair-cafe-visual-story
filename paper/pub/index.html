@@ -1601,7 +1601,8 @@ header.hero.titlefirst .herophoto{margin-top:26px}
 [data-step="3"] .ctrSvg .s3 .sdot{opacity:1;transition:opacity .3s 1.6s}
 .ctrSvg .rb3{font:500 9px var(--num);letter-spacing:.1em;text-transform:uppercase;fill:#6A3A3A;stroke:none !important}
 .ctrSvg .sn3{font-family:'Androgy',var(--title);font-size:24px;fill:#7A2E2E;stroke-width:4px}
-.ctrSvg .sn3 .pre{font-family:var(--brew);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;fill:#5E4E42}
+.ctrSvg .sn3 .pre{font-size:.62em;text-transform:lowercase;letter-spacing:.02em}
+.ctrSvg .sn3.up3{font-size:30px}
 .ctrSvg .sk3{font-family:var(--brew);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;fill:#3A2A22;stroke-width:3.5px}
 .ctrSvg .tyb.pl,.ctrSvg .gdm.pl{fill:#3E78D6}
 .ctrSvg .tyb.np,.ctrSvg .gdm.np{fill:#C99A2E}
@@ -1626,7 +1627,7 @@ header.hero.titlefirst .herophoto{margin-top:26px}
   #counter.v98:not([data-step="3"]) .sclaim{margin-top:-80% !important}
   [data-step="3"] .ctrSvg .ob{transform:translate(var(--x3m,var(--x3)),var(--y3m,var(--y3))) scale(var(--s3m,var(--s3)))}
   [data-step="3"] .ctrSvg .ob.rests{opacity:0 !important}
-  .ctrSvg .s3t .sn3{font-size:50px;stroke-width:7px}.ctrSvg .s3t .sn3 .pre,.ctrSvg .s3t .sk3{font-size:23px}.ctrSvg .s3t .sk3{stroke-width:6px}.ctrSvg .s3t .rb3{font-size:17px}
+  .ctrSvg .s3t .sn3{font-size:50px;stroke-width:7px}.ctrSvg .s3t .sk3{font-size:23px}.ctrSvg .s3t .sn3.up3{font-size:62px}.ctrSvg .s3t .sk3{stroke-width:6px}.ctrSvg .s3t .rb3{font-size:17px}
   .ctrSvg .s3t .big3{font-size:92px}.ctrSvg .s3t .lab3{font-size:27px}.ctrSvg .s3t .nt3{font-size:24px}
   .ctrSvg .s3t .strand{stroke-width:15}
 }
@@ -1696,13 +1697,14 @@ header.hero.titlefirst .herophoto{margin-top:26px}
 .cakefig.cakestill .cakewalk{height:auto}
 .cakefig.cakestill .cakestk{position:relative;height:auto;padding:20px 0;overflow:visible}
 .cakefig .cakestk .cakecard{margin:0 auto 10px !important;flex:none}
-.ck{display:grid;grid-template-columns:minmax(120px,220px) auto minmax(200px,290px);align-items:center;justify-content:center;gap:0 26px;width:100%;max-width:1140px}
+.ck{display:grid;grid-template-columns:auto minmax(200px,290px);align-items:center;justify-content:center;gap:0 26px;width:100%;max-width:1140px}
 .ckcake{position:relative;width:min(640px,46vw,calc((100svh - 215px) * 1.074));aspect-ratio:580/540;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
 .ckcake.grab{cursor:grabbing}
 .ckbody{position:absolute;inset:0;background:url(img/ck_turn.webp) 0 0/500% 300% no-repeat}
 .ckov{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.ckyear{text-align:right}
-.ckyear b{display:block;font:400 clamp(54px,6.6vw,96px)/1 'Androgy',var(--title);color:#8A2A35;letter-spacing:.01em;font-variant-numeric:lining-nums}
+.ckyear{position:absolute;left:3%;top:17%;text-align:left;pointer-events:none}
+.ckyear span{display:none !important}
+.ckyear b{display:block;font:400 clamp(40px,5vw,76px)/1 'Androgy',var(--title);color:#8A2A35;letter-spacing:.01em;font-variant-numeric:lining-nums}
 .ckyear span{display:block;margin-top:6px;font:400 13.5px/1.3 var(--brew);letter-spacing:.1em;text-transform:lowercase;font-variant:small-caps;color:#6A3A35}
 .cknote{min-height:170px;display:flex;align-items:center;filter:drop-shadow(0 10px 9px rgba(60,40,20,.22)) drop-shadow(0 1px 0 rgba(90,60,30,.12))}
 .cktag{position:relative;width:100%;padding:15px 16px 17px 32px;background:#FBF6EA;clip-path:polygon(17px 0,100% 0,100% 100%,17px 100%,0 calc(100% - 17px),0 17px);opacity:0;transform:translateX(16px) rotate(1.4deg);transition:opacity .2s,transform .2s}
@@ -1735,12 +1737,14 @@ header.hero.titlefirst .herophoto{margin-top:26px}
 @media (prefers-reduced-motion:reduce){.ckov .cfl path{animation:none}.ckov .cni,.ckov .pqi,.cktag{transition:none}}
 @media (max-width:820px){
   .ck{grid-template-columns:1fr;gap:0;justify-items:center}
-  .ckyear{display:flex;align-items:baseline;gap:12px;text-align:left;justify-self:start;padding-left:6px}
-  .ckyear b{font-size:46px}
-  .ckcake{width:min(100%,calc((100svh - 356px) * 1.074))}
+  .ckyear b{font-size:clamp(34px,11vw,54px)}
+  .ckcake{width:min(100%,calc((100svh - 320px) * 1.074))}
   .cknote{min-height:132px;width:min(100%,340px);align-items:flex-start}
   .cktag span{font-size:14.5px}
 }
+
+/* v102: the words under the stereo drawing are off the graphic at her request (kept in the page) */
+.b1word{display:none !important}
 
 </style>
 <script id="v70js">
@@ -1768,12 +1772,12 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
     if(hs&&cf&&!hs.querySelector('.closecol')){ const c=document.createElement('div'); c.className='col closecol';
       /* v86: the mixer stays at the top of section 05; the close is her two sentences, then her last line alone */
       /* v99: the close in her new words. The two earlier versions stay in the page, hidden */
-      const p=document.createElement('p'); p.textContent='My mother had told me my shoes were beyond repair, and I believed her. I still have the photograph: the shoes I wore into a new country, with a rainbow falling across them.'; c.appendChild(p);
-      const p2=document.createElement('p'); p2.textContent='If I had known this place existed, I would have brought them in.'; c.appendChild(p2);
+      const p=document.createElement('p'); p.textContent='Had I known about Repair Café then, I would have brought my shoes in.'; c.appendChild(p);   /* v102: the close is two sentences */
+      ['My mother had told me my shoes were beyond repair, and I believed her. I still have the photograph: the shoes I wore into a new country, with a rainbow falling across them.','If I had known this place existed, I would have brought them in.','And if they still couldn\u2019t be repaired, I would have taken them home.'].forEach(t=>{ const o=document.createElement('p'); o.textContent=t; o.className='oldclose'; hide(o); c.appendChild(o); });
       ['My mother told me my shoes were beyond repair, and I believed her. Had I known this community earlier, I would have restored them and kept them.','Next time, I want to be the one who decides what\u2019s worth saving.'].forEach(t=>{ const o=document.createElement('p'); o.textContent=t; o.className='oldclose'; hide(o); c.appendChild(o); });
       /* v84: the shoes come back as the last picture, and her last sentence stands alone under it */
       const f=document.createElement('figure'); f.className='endshot'; f.innerHTML='<img src="img/g_shoes_end.webp" width="1000" height="1569" alt="Two white sneakers with ribbon laces lying on a dark carpet, a rainbow falling across them" loading="lazy">'; c.appendChild(f);
-      const l=document.createElement('p'); l.className='lastline'; l.textContent='And if they still couldn\u2019t be repaired, I would have taken them home.'; c.appendChild(l); cf.after(c);
+      const l=document.createElement('p'); l.className='lastline'; l.textContent='And if no one could fix them, I would have taken them home.'; c.appendChild(l); cf.after(c);
       if(RM) c.classList.add('seen'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){c.classList.add('seen');io.disconnect();}}),{threshold:.6}).observe(l); } }
   /* v81: hidden with her yes, all kept in the page: the two workshop-tour paragraphs, the age paragraph (and the note about ages), step 1 of the counter */
   { const hp=(sel,re)=>[...document.querySelectorAll(sel)].filter(p=>re.test(p.textContent.trim())).forEach(hide);
@@ -2127,6 +2131,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const G={laptops:[32.607,22.867,11.298,4.733],printers:[58.771,21.133,5.946,6.667],radios:[27.552,50.667,13.28,8.4],coffee:null,trousers:[12.884,75.467,8.424,13.333],clothing:[33.102,78.6,9.812,6.2],bikes:[66.105,80.733,10.208,8.467]};
   const TWN={laptop:[26,25.6,7.6,'laptops'],radio:[23.6,57,9,'radios'],coffeemaker:[79.4,56.4,7.6,'coffee'],trousers:[7.1,87,7,'trousers'],coat:[42.1,89.2,6.3,'clothing'],bike:[85,87.6,9.4,'bikes']};
   /* [glass, type, number, words before the number, name lines, x%, baseline y% of the number, anchor] */
+  const BIG={printers:1,coffee:1,bikes:1};
   const LB=[['laptops','pl',45,'',['Computers /','laptops'],36,14.2,'middle'],['printers','pl',40,'about',['Printers /','scanners'],67.6,14.6,'start'],['radios','pl',56,'',['Radios'],34,43.6,'middle'],['coffee','pl',55,'',['Coffee makers'],69.5,46.6,'middle'],
     ['trousers','np',96,'',['Trousers'],16,70.6,'middle'],['clothing','np',94,'',['Textiles','overall'],39,70.6,'middle'],['bikes','np',80,'over',['Bicycles'],71.5,73.2,'middle']];
   const RB=[['below 50%',[49.95, 33.93]],['50–79%',[50.0, 65.77]],['80% or more',[50.05, 97.73]]];
@@ -2144,7 +2149,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
     [[e1,'pl'],[e2,'pl'],[e3,'np']].forEach(([e,c])=>mk('circle',{class:'sdot '+c,cx:e[0],cy:e[1],r:T?13:7.5},g));
     L.text(g,mk);
     LB.forEach(([k,ty,n,pre,names,x,y,an])=>{ const lg=mk('g',{class:'sl t-'+ty,'data-g':k},g), tx=X(x), ty0=Y(y), fs=T?50:24, ks=T?23:11.5;
-      const nt=mk('text',{class:'sn3',x:tx,y:ty0,'text-anchor':an},lg); if(pre) mk('tspan',{class:'pre'},nt,pre+' '); const num=mk('tspan',{},nt,n+'%');
+      const nt=mk('text',{class:'sn3'+(BIG[k]?' up3':''),x:tx,y:ty0,'text-anchor':an},lg); if(pre) mk('tspan',{class:'pre'},nt,pre+' '); const num=mk('tspan',{},nt,n+'%');
       names.forEach((nm,i)=>mk('text',{class:'sk3',x:tx,y:ty0+ks*1.25+i*ks*1.12,'text-anchor':an},lg,nm));
       const rw=T?40:20, ry=ty0+ks*1.25+(names.length-1)*ks*1.12+ks*.55; mk('rect',{class:'tyb '+ty,x:an==='start'?tx:tx-rw/2,y:ry,width:rw,height:T?5:2.6,rx:1.3},lg);
       counts.push({k,lg,num,n}); });
@@ -2174,7 +2179,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   /* the claim under the drawing, one per step */
   const kick={1:'Electrical and non-electrical',3:'Object by object'};
   const sc3=document.createElement('div'); sc3.className='sc'; sc3.dataset.i=3;
-  sc3.innerHTML='<p>The fuller the glass, the more often that kind of thing was fixed.</p><div class="ctl"><span>Highlight</span><button class="hb" data-hi="pl">Electrical</button><button class="hb" data-hi="np">Non-electrical</button></div>'; claim.appendChild(sc3);
+  sc3.innerHTML='<div class="ctl"><span>Highlight</span><button class="hb" data-hi="pl">Electrical</button><button class="hb" data-hi="np">Non-electrical</button></div>'; claim.appendChild(sc3);
   claim.querySelectorAll('.sc').forEach(sc=>{ const i=sc.dataset.i; if(kick[i]&&!sc.querySelector('.sno')){ const d=document.createElement('div'); d.className='sno'; d.textContent=kick[i]; sc.prepend(d); } });
   sc3.querySelectorAll('.hb').forEach(b=>{ b.setAttribute('aria-pressed','false'); b.addEventListener('click',()=>{ const on=b.getAttribute('aria-pressed')==='true'; sc3.querySelectorAll('.hb').forEach(x=>x.setAttribute('aria-pressed','false')); if(on) ctr.removeAttribute('data-hi'); else { b.setAttribute('aria-pressed','true'); ctr.dataset.hi=b.dataset.hi; } }); });
   /* the last step */
@@ -2205,7 +2210,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const mrs=[...list.querySelectorAll('.mr')], slips=[...rail.querySelectorAll('.slip')];
   const by=re=>slips.filter(s=>re.test(s.textContent));
   const one=document.createElement('div'); one.className='whyone'+(RM?'':' anim');
-  one.innerHTML='<div class="wo-head"><b>Farnham Repair Café, England, 2016 · 37 visitors and volunteers</b><i>Each piece of the cup is a reason. The bigger the piece, the higher people ranked it.</i></div><div class="wo-g"><div class="wo-cup"><img class="steam" src="img/pal_steam.webp" alt=""><img src="img/wy_k0.webp" alt="A china teacup mended with gold, one piece for each reason, on a saucer with a spoon"><img class="kp" src="img/wy_k1.webp" alt=""><img class="kp" src="img/wy_k2.webp" alt=""><img class="kp" src="img/wy_k3.webp" alt=""><img class="kp" src="img/wy_k4.webp" alt=""><img class="kp" src="img/wy_k5.webp" alt=""><img class="kp tea" src="img/wy_k6.webp" alt=""></div></div><div class="wo-l"></div>';
+  one.innerHTML='<div class="wo-head"><b>Farnham Repair Café, England, 2016 · 37 visitors and volunteers</b><i>The bigger the piece, the higher people ranked it.</i></div><div class="wo-g"><div class="wo-cup"><img class="steam" src="img/pal_steam.webp" alt=""><img src="img/wy_k0.webp" alt="A china teacup mended with gold, one piece for each reason, on a saucer with a spoon"><img class="kp" src="img/wy_k1.webp" alt=""><img class="kp" src="img/wy_k2.webp" alt=""><img class="kp" src="img/wy_k3.webp" alt=""><img class="kp" src="img/wy_k4.webp" alt=""><img class="kp" src="img/wy_k5.webp" alt=""><img class="kp tea" src="img/wy_k6.webp" alt=""></div></div><div class="wo-l"></div>';
   const L=one.querySelector('.wo-l'), cup=one.querySelector('.wo-cup'), kps=[...cup.querySelectorAll('.kp')];
   /* bottom piece first: [row index in the old list, voices] */
   const plan=[[4,by(/didn.t know where to take it/)],[3,by(/older than my marriage|cracks showed/)],[2,[]],[1,by(/my mother were alive/)],[0,by(/really dead|worn it out/)]];
@@ -2245,7 +2250,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const walk=document.createElement('div'); walk.className='cakewalk'; const stk=document.createElement('div'); stk.className='cakestk';
   btn.before(walk); walk.appendChild(stk); if(card) stk.appendChild(card); hide(btn); hide(fig.querySelector('.cakepan')); hide(fig.querySelector('.panhint'));
   const ck=document.createElement('div'); ck.className='ck';
-  ck.innerHTML='<div class="ckyear"><b>2009</b><span></span></div><div class="ckcake" role="img" aria-label="A two-tier birthday cake on a turntable. A candle is lit for each year from 2010 to 2026, and nine plaques on its sides carry the years in the timeline."><div class="ckbody"></div></div><div class="cknote" aria-live="polite"><div class="cktag"><b></b><span></span></div></div>';
+  ck.innerHTML='<div class="ckcake" role="img" aria-label="A two-tier birthday cake on a turntable. A candle is lit for each year from 2010 to 2026, and nine plaques on its sides carry the years in the timeline."><div class="ckbody"></div><div class="ckyear"><b>2009</b><span></span></div></div><div class="cknote" aria-live="polite"><div class="cktag"><b></b><span></span></div></div>';
   stk.appendChild(ck); const hint=document.createElement('p'); hint.className='ckhint'; hint.textContent='Drag the cake to turn it.'; stk.appendChild(hint);
   const cake=ck.querySelector('.ckcake'), body=ck.querySelector('.ckbody'), yb=ck.querySelector('.ckyear b'), ys=ck.querySelector('.ckyear span'), tag=ck.querySelector('.cktag'), tb=tag.querySelector('b'), tt=tag.querySelector('span');
   const sv=mk('svg',{class:'ckov',viewBox:`0 0 ${VW} ${VH}`,'aria-hidden':'true'},null); cake.appendChild(sv);

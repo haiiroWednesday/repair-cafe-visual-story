@@ -22,12 +22,12 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
     if(hs&&cf&&!hs.querySelector('.closecol')){ const c=document.createElement('div'); c.className='col closecol';
       /* v86: the mixer stays at the top of section 05; the close is her two sentences, then her last line alone */
       /* v99: the close in her new words. The two earlier versions stay in the page, hidden */
-      const p=document.createElement('p'); p.textContent='My mother had told me my shoes were beyond repair, and I believed her. I still have the photograph: the shoes I wore into a new country, with a rainbow falling across them.'; c.appendChild(p);
-      const p2=document.createElement('p'); p2.textContent='If I had known this place existed, I would have brought them in.'; c.appendChild(p2);
+      const p=document.createElement('p'); p.textContent='Had I known about Repair Café then, I would have brought my shoes in.'; c.appendChild(p);   /* v102: the close is two sentences */
+      ['My mother had told me my shoes were beyond repair, and I believed her. I still have the photograph: the shoes I wore into a new country, with a rainbow falling across them.','If I had known this place existed, I would have brought them in.','And if they still couldn\u2019t be repaired, I would have taken them home.'].forEach(t=>{ const o=document.createElement('p'); o.textContent=t; o.className='oldclose'; hide(o); c.appendChild(o); });
       ['My mother told me my shoes were beyond repair, and I believed her. Had I known this community earlier, I would have restored them and kept them.','Next time, I want to be the one who decides what\u2019s worth saving.'].forEach(t=>{ const o=document.createElement('p'); o.textContent=t; o.className='oldclose'; hide(o); c.appendChild(o); });
       /* v84: the shoes come back as the last picture, and her last sentence stands alone under it */
       const f=document.createElement('figure'); f.className='endshot'; f.innerHTML='<img src="img/g_shoes_end.webp" width="1000" height="1569" alt="Two white sneakers with ribbon laces lying on a dark carpet, a rainbow falling across them" loading="lazy">'; c.appendChild(f);
-      const l=document.createElement('p'); l.className='lastline'; l.textContent='And if they still couldn\u2019t be repaired, I would have taken them home.'; c.appendChild(l); cf.after(c);
+      const l=document.createElement('p'); l.className='lastline'; l.textContent='And if no one could fix them, I would have taken them home.'; c.appendChild(l); cf.after(c);
       if(RM) c.classList.add('seen'); else new IntersectionObserver((es,io)=>es.forEach(e=>{if(e.isIntersecting){c.classList.add('seen');io.disconnect();}}),{threshold:.6}).observe(l); } }
   /* v81: hidden with her yes, all kept in the page: the two workshop-tour paragraphs, the age paragraph (and the note about ages), step 1 of the counter */
   { const hp=(sel,re)=>[...document.querySelectorAll(sel)].filter(p=>re.test(p.textContent.trim())).forEach(hide);
@@ -381,6 +381,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const G={laptops:[32.607,22.867,11.298,4.733],printers:[58.771,21.133,5.946,6.667],radios:[27.552,50.667,13.28,8.4],coffee:null,trousers:[12.884,75.467,8.424,13.333],clothing:[33.102,78.6,9.812,6.2],bikes:[66.105,80.733,10.208,8.467]};
   const TWN={laptop:[26,25.6,7.6,'laptops'],radio:[23.6,57,9,'radios'],coffeemaker:[79.4,56.4,7.6,'coffee'],trousers:[7.1,87,7,'trousers'],coat:[42.1,89.2,6.3,'clothing'],bike:[85,87.6,9.4,'bikes']};
   /* [glass, type, number, words before the number, name lines, x%, baseline y% of the number, anchor] */
+  const BIG={printers:1,coffee:1,bikes:1};
   const LB=[['laptops','pl',45,'',['Computers /','laptops'],36,14.2,'middle'],['printers','pl',40,'about',['Printers /','scanners'],67.6,14.6,'start'],['radios','pl',56,'',['Radios'],34,43.6,'middle'],['coffee','pl',55,'',['Coffee makers'],69.5,46.6,'middle'],
     ['trousers','np',96,'',['Trousers'],16,70.6,'middle'],['clothing','np',94,'',['Textiles','overall'],39,70.6,'middle'],['bikes','np',80,'over',['Bicycles'],71.5,73.2,'middle']];
   const RB=[['below 50%',__RB0__],['50–79%',__RB1__],['80% or more',__RB2__]];
@@ -398,7 +399,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
     [[e1,'pl'],[e2,'pl'],[e3,'np']].forEach(([e,c])=>mk('circle',{class:'sdot '+c,cx:e[0],cy:e[1],r:T?13:7.5},g));
     L.text(g,mk);
     LB.forEach(([k,ty,n,pre,names,x,y,an])=>{ const lg=mk('g',{class:'sl t-'+ty,'data-g':k},g), tx=X(x), ty0=Y(y), fs=T?50:24, ks=T?23:11.5;
-      const nt=mk('text',{class:'sn3',x:tx,y:ty0,'text-anchor':an},lg); if(pre) mk('tspan',{class:'pre'},nt,pre+' '); const num=mk('tspan',{},nt,n+'%');
+      const nt=mk('text',{class:'sn3'+(BIG[k]?' up3':''),x:tx,y:ty0,'text-anchor':an},lg); if(pre) mk('tspan',{class:'pre'},nt,pre+' '); const num=mk('tspan',{},nt,n+'%');
       names.forEach((nm,i)=>mk('text',{class:'sk3',x:tx,y:ty0+ks*1.25+i*ks*1.12,'text-anchor':an},lg,nm));
       const rw=T?40:20, ry=ty0+ks*1.25+(names.length-1)*ks*1.12+ks*.55; mk('rect',{class:'tyb '+ty,x:an==='start'?tx:tx-rw/2,y:ry,width:rw,height:T?5:2.6,rx:1.3},lg);
       counts.push({k,lg,num,n}); });
@@ -428,7 +429,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   /* the claim under the drawing, one per step */
   const kick={1:'Electrical and non-electrical',3:'Object by object'};
   const sc3=document.createElement('div'); sc3.className='sc'; sc3.dataset.i=3;
-  sc3.innerHTML='<p>The fuller the glass, the more often that kind of thing was fixed.</p><div class="ctl"><span>Highlight</span><button class="hb" data-hi="pl">Electrical</button><button class="hb" data-hi="np">Non-electrical</button></div>'; claim.appendChild(sc3);
+  sc3.innerHTML='<div class="ctl"><span>Highlight</span><button class="hb" data-hi="pl">Electrical</button><button class="hb" data-hi="np">Non-electrical</button></div>'; claim.appendChild(sc3);
   claim.querySelectorAll('.sc').forEach(sc=>{ const i=sc.dataset.i; if(kick[i]&&!sc.querySelector('.sno')){ const d=document.createElement('div'); d.className='sno'; d.textContent=kick[i]; sc.prepend(d); } });
   sc3.querySelectorAll('.hb').forEach(b=>{ b.setAttribute('aria-pressed','false'); b.addEventListener('click',()=>{ const on=b.getAttribute('aria-pressed')==='true'; sc3.querySelectorAll('.hb').forEach(x=>x.setAttribute('aria-pressed','false')); if(on) ctr.removeAttribute('data-hi'); else { b.setAttribute('aria-pressed','true'); ctr.dataset.hi=b.dataset.hi; } }); });
   /* the last step */
@@ -459,7 +460,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const mrs=[...list.querySelectorAll('.mr')], slips=[...rail.querySelectorAll('.slip')];
   const by=re=>slips.filter(s=>re.test(s.textContent));
   const one=document.createElement('div'); one.className='whyone'+(RM?'':' anim');
-  one.innerHTML='<div class="wo-head"><b>Farnham Repair Café, England, 2016 · 37 visitors and volunteers</b><i>Each piece of the cup is a reason. The bigger the piece, the higher people ranked it.</i></div><div class="wo-g"><div class="wo-cup"><img class="steam" src="img/pal_steam.webp" alt=""><img src="img/wy_k0.webp" alt="A china teacup mended with gold, one piece for each reason, on a saucer with a spoon"><img class="kp" src="img/wy_k1.webp" alt=""><img class="kp" src="img/wy_k2.webp" alt=""><img class="kp" src="img/wy_k3.webp" alt=""><img class="kp" src="img/wy_k4.webp" alt=""><img class="kp" src="img/wy_k5.webp" alt=""><img class="kp tea" src="img/wy_k6.webp" alt=""></div></div><div class="wo-l"></div>';
+  one.innerHTML='<div class="wo-head"><b>Farnham Repair Café, England, 2016 · 37 visitors and volunteers</b><i>The bigger the piece, the higher people ranked it.</i></div><div class="wo-g"><div class="wo-cup"><img class="steam" src="img/pal_steam.webp" alt=""><img src="img/wy_k0.webp" alt="A china teacup mended with gold, one piece for each reason, on a saucer with a spoon"><img class="kp" src="img/wy_k1.webp" alt=""><img class="kp" src="img/wy_k2.webp" alt=""><img class="kp" src="img/wy_k3.webp" alt=""><img class="kp" src="img/wy_k4.webp" alt=""><img class="kp" src="img/wy_k5.webp" alt=""><img class="kp tea" src="img/wy_k6.webp" alt=""></div></div><div class="wo-l"></div>';
   const L=one.querySelector('.wo-l'), cup=one.querySelector('.wo-cup'), kps=[...cup.querySelectorAll('.kp')];
   /* bottom piece first: [row index in the old list, voices] */
   const plan=[[4,by(/didn.t know where to take it/)],[3,by(/older than my marriage|cracks showed/)],[2,[]],[1,by(/my mother were alive/)],[0,by(/really dead|worn it out/)]];
@@ -499,7 +500,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const walk=document.createElement('div'); walk.className='cakewalk'; const stk=document.createElement('div'); stk.className='cakestk';
   btn.before(walk); walk.appendChild(stk); if(card) stk.appendChild(card); hide(btn); hide(fig.querySelector('.cakepan')); hide(fig.querySelector('.panhint'));
   const ck=document.createElement('div'); ck.className='ck';
-  ck.innerHTML='<div class="ckyear"><b>2009</b><span></span></div><div class="ckcake" role="img" aria-label="A two-tier birthday cake on a turntable. A candle is lit for each year from 2010 to 2026, and nine plaques on its sides carry the years in the timeline."><div class="ckbody"></div></div><div class="cknote" aria-live="polite"><div class="cktag"><b></b><span></span></div></div>';
+  ck.innerHTML='<div class="ckcake" role="img" aria-label="A two-tier birthday cake on a turntable. A candle is lit for each year from 2010 to 2026, and nine plaques on its sides carry the years in the timeline."><div class="ckbody"></div><div class="ckyear"><b>2009</b><span></span></div></div><div class="cknote" aria-live="polite"><div class="cktag"><b></b><span></span></div></div>';
   stk.appendChild(ck); const hint=document.createElement('p'); hint.className='ckhint'; hint.textContent='Drag the cake to turn it.'; stk.appendChild(hint);
   const cake=ck.querySelector('.ckcake'), body=ck.querySelector('.ckbody'), yb=ck.querySelector('.ckyear b'), ys=ck.querySelector('.ckyear span'), tag=ck.querySelector('.cktag'), tb=tag.querySelector('b'), tt=tag.querySelector('span');
   const sv=mk('svg',{class:'ckov',viewBox:`0 0 ${VW} ${VH}`,'aria-hidden':'true'},null); cake.appendChild(sv);
