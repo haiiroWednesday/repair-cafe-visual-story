@@ -534,7 +534,7 @@ header.hero.titlefirst .herophoto{margin-top:26px}
   .ctrSvg .s3w{display:none}.ctrSvg .s3t{display:inline}
   .scrollfig #counter.v98 .sstage{width:min(100%,calc((100svh - 160px) * .6923)) !important;top:6px !important}
   #counter.v98 .sclaim{min-height:0 !important}
-  #counter.v98:not([data-step="3"]) .sclaim{margin-top:-80% !important}
+  #counter.v98:not([data-step="3"]) .sclaim{margin-top:-73% !important}
   [data-step="3"] .ctrSvg .ob{transform:translate(var(--x3m,var(--x3)),var(--y3m,var(--y3))) scale(var(--s3m,var(--s3)))}
   [data-step="3"] .ctrSvg .ob.rests{opacity:0 !important}
   .ctrSvg .s3t .sn3{font-size:50px;stroke-width:7px}.ctrSvg .s3t .sk3{font-size:23px}.ctrSvg .s3t .sn3.up3{font-size:62px}.ctrSvg .s3t .sk3{stroke-width:6px}.ctrSvg .s3t .rb3{font-size:17px}
@@ -655,3 +655,27 @@ header.hero.titlefirst .herophoto{margin-top:26px}
 
 /* v102: the words under the stereo drawing are off the graphic at her request (kept in the page) */
 .b1word{display:none !important}
+
+/* ===== v104: phone and polish pass ===== */
+.hero .kick,.herotext .kick,.cakecard p,.wo-head b{text-wrap:balance}
+.ctrSvg .s2t{display:none}
+@media (max-width:820px){
+  .ctrSvg .s2w{display:none}.ctrSvg .s2t{display:inline}
+  .ctrSvg .s2t .tn{font-size:29px !important}
+  .ctrSvg .s2t .gv{font-size:31px !important}
+  .ctrSvg .s2t .note{font-size:22px !important}
+  .ctrSvg .s2t .tiny{font-size:20px !important}
+  .ctrSvg .s2t text{stroke-width:7px}
+  .ctrSvg .s1 .lab{font-size:28px !important}
+  .ctrSvg .s1 .note{font-size:24px !important;transform:translateY(14px)}
+  .ctrSvg .s1 .tiny{font-size:21px !important;transform:translateY(8px)}
+  .whyone .wo-cup{width:112%;margin:30% 0 0 -7%}
+  .st3 .lb small{max-width:17ch !important}
+  .st3 .tagl{left:54% !important;top:101% !important;transform:translate(-50%,0) rotate(-3deg) !important}
+  .st3 .lb.r{top:calc(var(--y) - 27%) !important}
+  .st3 .ld g.r{display:none !important}
+}
+.srcline{margin:6px 0 0;max-width:46em;font:400 14.5px/1.75 Georgia,serif;color:#5E5246}
+.srcline a{color:#2F4A78;text-decoration:underline;text-decoration-thickness:.6px;text-underline-offset:3px}
+.heartfig > .enc{margin:16px auto 40px !important;position:relative;z-index:2}
+.srcline a,.srcline span{white-space:nowrap}

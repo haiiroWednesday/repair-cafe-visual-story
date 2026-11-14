@@ -1624,7 +1624,7 @@ header.hero.titlefirst .herophoto{margin-top:26px}
   .ctrSvg .s3w{display:none}.ctrSvg .s3t{display:inline}
   .scrollfig #counter.v98 .sstage{width:min(100%,calc((100svh - 160px) * .6923)) !important;top:6px !important}
   #counter.v98 .sclaim{min-height:0 !important}
-  #counter.v98:not([data-step="3"]) .sclaim{margin-top:-80% !important}
+  #counter.v98:not([data-step="3"]) .sclaim{margin-top:-73% !important}
   [data-step="3"] .ctrSvg .ob{transform:translate(var(--x3m,var(--x3)),var(--y3m,var(--y3))) scale(var(--s3m,var(--s3)))}
   [data-step="3"] .ctrSvg .ob.rests{opacity:0 !important}
   .ctrSvg .s3t .sn3{font-size:50px;stroke-width:7px}.ctrSvg .s3t .sk3{font-size:23px}.ctrSvg .s3t .sn3.up3{font-size:62px}.ctrSvg .s3t .sk3{stroke-width:6px}.ctrSvg .s3t .rb3{font-size:17px}
@@ -1746,6 +1746,30 @@ header.hero.titlefirst .herophoto{margin-top:26px}
 /* v102: the words under the stereo drawing are off the graphic at her request (kept in the page) */
 .b1word{display:none !important}
 
+/* ===== v104: phone and polish pass ===== */
+.hero .kick,.herotext .kick,.cakecard p,.wo-head b{text-wrap:balance}
+.ctrSvg .s2t{display:none}
+@media (max-width:820px){
+  .ctrSvg .s2w{display:none}.ctrSvg .s2t{display:inline}
+  .ctrSvg .s2t .tn{font-size:29px !important}
+  .ctrSvg .s2t .gv{font-size:31px !important}
+  .ctrSvg .s2t .note{font-size:22px !important}
+  .ctrSvg .s2t .tiny{font-size:20px !important}
+  .ctrSvg .s2t text{stroke-width:7px}
+  .ctrSvg .s1 .lab{font-size:28px !important}
+  .ctrSvg .s1 .note{font-size:24px !important;transform:translateY(14px)}
+  .ctrSvg .s1 .tiny{font-size:21px !important;transform:translateY(8px)}
+  .whyone .wo-cup{width:112%;margin:30% 0 0 -7%}
+  .st3 .lb small{max-width:17ch !important}
+  .st3 .tagl{left:54% !important;top:101% !important;transform:translate(-50%,0) rotate(-3deg) !important}
+  .st3 .lb.r{top:calc(var(--y) - 27%) !important}
+  .st3 .ld g.r{display:none !important}
+}
+.srcline{margin:6px 0 0;max-width:46em;font:400 14.5px/1.75 Georgia,serif;color:#5E5246}
+.srcline a{color:#2F4A78;text-decoration:underline;text-decoration-thickness:.6px;text-underline-offset:3px}
+.heartfig > .enc{margin:16px auto 40px !important;position:relative;z-index:2}
+.srcline a,.srcline span{white-space:nowrap}
+
 </style>
 <script id="v70js">
 addEventListener('DOMContentLoaded',()=>{
@@ -1772,7 +1796,8 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
     if(hs&&cf&&!hs.querySelector('.closecol')){ const c=document.createElement('div'); c.className='col closecol';
       /* v86: the mixer stays at the top of section 05; the close is her two sentences, then her last line alone */
       /* v99: the close in her new words. The two earlier versions stay in the page, hidden */
-      const p=document.createElement('p'); p.textContent='Had I known about Repair Café then, I would have brought my shoes in.'; c.appendChild(p);   /* v102: the close is two sentences */
+      const p=document.createElement('p'); p.textContent='My mother decided my shoes were beyond repair. Had I known about Repair Café then, I would have brought them in.'; c.appendChild(p);   /* v104: her pick, with decided given to her mother */
+      { const o=document.createElement('p'); o.textContent='Had I known about Repair Café then, I would have brought my shoes in.'; o.className='oldclose'; hide(o); c.appendChild(o); }
       ['My mother had told me my shoes were beyond repair, and I believed her. I still have the photograph: the shoes I wore into a new country, with a rainbow falling across them.','If I had known this place existed, I would have brought them in.','And if they still couldn\u2019t be repaired, I would have taken them home.'].forEach(t=>{ const o=document.createElement('p'); o.textContent=t; o.className='oldclose'; hide(o); c.appendChild(o); });
       ['My mother told me my shoes were beyond repair, and I believed her. Had I known this community earlier, I would have restored them and kept them.','Next time, I want to be the one who decides what\u2019s worth saving.'].forEach(t=>{ const o=document.createElement('p'); o.textContent=t; o.className='oldclose'; hide(o); c.appendChild(o); });
       /* v84: the shoes come back as the last picture, and her last sentence stands alone under it */
@@ -2109,7 +2134,7 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   const cap=(after,t,cls)=>{ if(!after) return; const p=document.createElement('p'); p.className='phcap'+(cls?' '+cls:''); p.textContent=t; after.after(p); return p; };
   const g=document.querySelector('img[src*="g_fr_group"]'), gc=g&&g.closest('figure').querySelector('figcaption'); if(gc) gc.textContent='Volunteers lean in over a repair together. Photo: Cynthia.';
   cap(document.querySelector('.volfig > .stage'),'Volunteers at the sewing table, and a volunteer at his own table. Photos: Cynthia.');
-  const hc=document.querySelector('.heartfig > .enc'); if(hc) hc.textContent='Rayna, a volunteer, and the clock’s owner look it over together. Photo and illustration: Cynthia.';
+  const hc=document.querySelector('.heartfig > .enc'); if(hc) hc.textContent='Rayna, a volunteer, and the clock’s owner look it over together. Photo and illustration: Cynthia.'; if(hc) hc.parentElement.appendChild(hc);   /* v104: under the picture, like every other caption */
   const pi=document.querySelector('.pola img.ph-img'); if(pi) pi.alt='Jazz holds up a carved wooden cuckoo clock, the one that belonged to the woman’s late father';
   cap(document.querySelector('.clockfig > .stage'),'Jazz with the cuckoo clock that belonged to the woman’s late father.');
 })();
@@ -2170,6 +2195,16 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
     cables:(a,b,c)=>[['np',`M52 28 C 52 50 40 50 40 80 V ${c[1]-40} C 40 ${c[1]} 40 ${c[1]} 80 ${c[1]} H ${c[0]}`],['pl',`M68 28 C 68 50 84 50 84 80 V ${b[1]-40} C 84 ${b[1]} 84 ${b[1]} 124 ${b[1]} H ${b[0]}`],['pl',`M84 ${a[1]-50} C 84 ${a[1]} 84 ${a[1]} 124 ${a[1]} H ${a[0]}`]],
     text:(g,mk)=>{ mk('text',{class:'lab3 pl',x:150,y:-16},g,'Electrical'); mk('text',{class:'big3 pl',x:146,y:74},g,'53%'); mk('text',{class:'nt3',x:316,y:42},g,'repaired'); { const t=mk('text',{class:'nt3',x:316,y:72},g,'score '); mk('tspan',{class:'d'},t,'6.5'); }
       mk('text',{class:'lab3 np',x:548,y:-16},g,'Non-electrical'); mk('text',{class:'big3 np',x:544,y:74},g,'85%'); mk('text',{class:'nt3',x:714,y:42},g,'repaired'); { const t=mk('text',{class:'nt3',x:714,y:72},g,'score '); mk('tspan',{class:'d'},t,'7.5'); } } });
+  /* v104: on a phone the tape is redrawn large enough to read, with its five markers on three rows */
+  { const s2=svg.querySelector('g.st.s2'); if(s2){ s2.classList.add('s2w'); const g=mk('g',{class:'st s2 s2t'},null), sx=v=>110+(v-1)*80;
+    mk('rect',{class:'tape',x:80,y:228,width:780,height:74,rx:5},g);
+    for(let i=1;i<=10;i++){ mk('line',{class:'tm',x1:sx(i),y1:228,x2:sx(i),y2:246},g); mk('text',{class:'tn',x:sx(i),y:283,'text-anchor':'middle'},g,i); if(i<10) [.25,.5,.75].forEach(f=>mk('line',{class:'tm thin',x1:sx(i+f),y1:228,x2:sx(i+f),y2:f===.5?238:234},g)); }
+    mk('rect',{class:'band',x:630,y:228,width:80,height:74},g); mk('text',{class:'tiny',x:670,y:328,'text-anchor':'middle'},g,'Most common score');
+    [['no',4.5,392,'L',['Unsuccessful repairs']],['ok',7.6,392,'R',['Successfully','repaired']],['pl',6.5,458,'L',['Electrical or electronic']],['np',7.5,458,'R',['Non-electrical']],['all',6.8,518,'R',['Overall average']]].forEach(([c,v,y,side,lines])=>{
+      const d=mk('g',{class:'gd '+c},g), x=sx(v), R=side==='R'; mk('line',{class:'gl',x1:x,y1:302,x2:x,y2:y-9},d); mk('circle',{cx:x,cy:y,r:7},d);
+      mk('text',{class:'gv',x:R?x+13:x-13,y:y+10,'text-anchor':R?'start':'end'},d,v);
+      lines.forEach((t,i)=>mk('text',{class:'note',x:R?x+66:x-66,y:y+(lines.length>1?-3+i*25:8),'text-anchor':R?'start':'end'},d,t)); });
+    svg.insertBefore(g,svg.querySelector('.ob')); } }
   /* where each object goes on the last step: six to their glasses, the other four stay small on their cable */
   const REST={vacuum:[212,127],lamp:[282,127],sewingmachine:[352,127],clock:[398,513]};
   [...svg.querySelectorAll('.ob')].forEach((o,i)=>{ const k=o.dataset.k, im=o.querySelector('image'), ix=+im.getAttribute('x'), iy=+im.getAttribute('y'), iw=+im.getAttribute('width'), cx=ix+iw/2, cy=iy+iw/2, t=TWN[k];
@@ -2387,6 +2422,19 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
   swap(/^He secured the chains/,['He tied them in place for the journey home and told her to remove the ties after mounting the clock.']);
   swap(/^When the repair was finished, she asked/,['When he finished, she asked if she could hug him.']);
   swap(/^Weeks later, she returned to another Repair Café event/,['Weeks later, she returned to another Repair Café and hugged him again.']);
+})();
+
+/* 24. v104: the sources run as one short paragraph of short names. Every link is kept; the full title stays as the link's tooltip,
+   and the long list stays in the page, hidden. */
+(()=>{
+  const hide=e=>{if(e){e.style.display='none';e.dataset.v7hidden=1;}};
+  const ul=document.querySelector('#methods ul'); if(!ul||document.querySelector('.srcline')) return;
+  const SHORT=[[/RepairMonitor/,'RepairMonitor 2019'],[/Farnham/,'Farnham survey, 2016'],[/Manifesto/,'Repair Manifesto, 2009'],[/Verde/,'Verde Magazine, 2012'],[/Alta/,'Alta Journal, 2018'],[/Stanford/,'Stanford Magazine, 2020'],
+    [/Mr\. Glue/,'Repair Café International, 2024'],[/Recorder/,'The Recorder, 2026'],[/SB 244/,'California SB 244'],[/Martine Postma/,'Wikipedia: Martine Postma'],[/Wikipedia: Repair/,'Repair Café']];
+  const p=document.createElement('p'); p.className='srcline';
+  [...ul.querySelectorAll('a')].forEach((a,i)=>{ const t=a.textContent, m=SHORT.find(([re])=>re.test(t)), c=a.cloneNode(false); c.textContent=m?m[1]:t; c.title=t; if(i) p.append(i===ul.querySelectorAll('a').length-1&&/Wikipedia: Repair/.test(t)?' and ':' · '); p.appendChild(c); });
+  const fine=document.querySelector('#methods p.fine'); if(fine){ p.append(' · '); const sp=document.createElement('span'); sp.textContent='Jazz, in conversation, Oct. 18, 2026'; p.appendChild(sp); hide(fine); }
+  ul.after(p); hide(ul);
 })();
 
 });
