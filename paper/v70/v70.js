@@ -45,7 +45,7 @@ const sv=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.set
     /* v91: the 'Exactly seventeen years later' sentence is back on the page at her request */
     const sf=document.querySelector('#counter-s .scrollfig');
     if(sf&&!document.querySelector('.datacol')){ const c=document.createElement('div'); c.className='col datacol'; const p=document.createElement('p');
-      p.textContent='“Beyond repair” is often a guess. At Repair Cafés in 2019, more than half of the broken electrical things went home fixed, and so did most of everything else.';
+      p.textContent='At Repair Cafés in 2019, 53% of the broken electrical items were fixed. For everything else, it was 85%.';
       c.appendChild(p); sf.before(c); } }
   ['bench','history','counter-s','odds','why'].forEach(id=>hide(document.querySelector('#'+id+' > .col > h2')));
   ['bench','history','counter-s','odds','why'].forEach((id,i)=>{const k=document.querySelector('#'+id+' > .col > .kick');if(k)k.textContent=String(i+1).padStart(2,'0');});
