@@ -1770,6 +1770,24 @@ header.hero.titlefirst .herophoto{margin-top:26px}
 .heartfig > .enc{margin:16px auto 40px !important;position:relative;z-index:2}
 .srcline a,.srcline span{white-space:nowrap}
 
+/* ===== v105: weight. The title face has one thin weight, so the headline and the graphic headlines get a hairline of their own colour ===== */
+.hero h1{-webkit-text-stroke:.014em currentColor;paint-order:stroke fill;letter-spacing:.018em}
+.hero .herotext .kick{margin-bottom:12px}
+h3.ghd,.cakecard h3.ghd{-webkit-text-stroke:.011em currentColor;paint-order:stroke fill}
+.ckyear b{-webkit-text-stroke:.012em currentColor;paint-order:stroke fill}
+/* the same hairline on the numbers set in the title face */
+.ctrSvg .sn3{stroke:#7A2E2E !important;stroke-width:.6px !important}
+.ctrSvg .s3t .sn3{stroke-width:1.2px !important}
+.ctrSvg .big.pl,.ctrSvg .big3.pl{stroke:#2F5FC4 !important;stroke-width:1.5px !important}
+.ctrSvg .big.np,.ctrSvg .big3.np{stroke:#A9771A !important;stroke-width:1.5px !important}
+/* one voice for the small lines above and under the graphics: Fell small caps, as on Why They Came */
+.sclaim .sno,.cakecard p{font:400 13.5px/1.5 var(--brew) !important;letter-spacing:.09em !important;font-variant:small-caps !important;text-transform:lowercase !important}
+.sclaim .sno{color:#5E5246 !important;margin-bottom:5px !important}
+.cakecard p{color:#6A3A35 !important}
+/* the last line carries the piece: a little larger and darker */
+.closecol > p.lastline{font-size:clamp(23px,2.3vw,31px) !important;color:#28406A !important;max-width:20em !important}
+.srcline a{text-decoration-color:rgba(47,74,120,.4)}
+
 </style>
 <script id="v70js">
 addEventListener('DOMContentLoaded',()=>{
