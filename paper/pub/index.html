@@ -2726,7 +2726,7 @@ addEventListener('resize', mribbon); addEventListener('load', mribbon); setTimeo
 
 <script>(()=>{
 const F=document.querySelector('.apgame'); if(!F) return;
-const T_ALL=[{"t": "", "item": "Trousers", "issue": "Tear in the inner thigh", "st": 1, "tool": "scissors", "real": true, "hint": "Trousers go to sewing.", "fact": "At Repair Cafés, 96% of trousers get fixed.", "pct": 96}, {"t": "", "item": "Stereo, made August 2003", "issue": "Control cable between the two boxes", "st": 4, "tool": "iron", "real": true, "hint": "The stereo goes to electronics.", "fact": "Jazz soldered all twenty wires back by hand."}, {"t": "1:47 PM", "item": "Portable fan, table top", "issue": "Stopped working", "st": 2, "tool": "plug", "real": true, "hint": "A fan goes to appliances.", "fact": "At Repair Cafés, 53% of electrical items get fixed.", "pct": 53}, {"t": "", "item": "Bicycle", "issue": "Gears slip", "st": 3, "tool": "tweezers", "real": false, "hint": "Bicycles go to mechanical.", "fact": "At Repair Cafés, more than 80% of bicycles get fixed.", "pct": 80}, {"t": "", "item": "Necklace", "issue": "Clasp broke", "st": 5, "tool": "wire", "real": false, "hint": "Jewelry goes to special skills.", "fact": "Special skills takes the jobs that fit no other table."}, {"t": "11:47 AM", "item": "Sewing machine", "issue": "Needle hits the foot. Misaligned", "st": 1, "tool": "tapemeasure", "real": true, "hint": "On Oct. 18 it went to sewing.", "fact": "On Oct. 18 this one went to the sewing table."}, {"t": "", "item": "Heart-shaped wall clock", "issue": "Not recorded", "st": 2, "tool": "bulbs", "real": true, "hint": "On Oct. 18 it went to appliances.", "fact": "On Oct. 18 this clock went to the appliance table."}], T=[0,2,1].map(k=>T_ALL[k]), S=["check-in", "sewing", "appliances", "mechanical", "electronics", "special skills"];
+const T_ALL=[{"t": "", "item": "Trousers", "issue": "Tear in the inner thigh", "st": 1, "tool": "scissors", "real": true, "hint": "Trousers go to sewing.", "fact": "96% of trousers get fixed", "pct": 96}, {"t": "", "item": "Stereo, made August 2003", "issue": "Control cable between the two boxes", "st": 4, "tool": "iron", "real": true, "hint": "The stereo goes to electronics.", "fact": "This one is my stereo"}, {"t": "1:47 PM", "item": "Portable fan, table top", "issue": "Stopped working", "st": 2, "tool": "plug", "real": true, "hint": "A fan goes to appliances.", "fact": "53% of electrical items get fixed", "pct": 53}, {"t": "", "item": "Bicycle", "issue": "Gears slip", "st": 3, "tool": "tweezers", "real": false, "hint": "Bicycles go to mechanical.", "fact": "At Repair Cafés, more than 80% of bicycles get fixed.", "pct": 80}, {"t": "", "item": "Necklace", "issue": "Clasp broke", "st": 5, "tool": "wire", "real": false, "hint": "Jewelry goes to special skills.", "fact": "Special skills takes the jobs that fit no other table."}, {"t": "11:47 AM", "item": "Sewing machine", "issue": "Needle hits the foot. Misaligned", "st": 1, "tool": "tapemeasure", "real": true, "hint": "On Oct. 18 it went to sewing.", "fact": "On Oct. 18 this one went to the sewing table."}, {"t": "", "item": "Heart-shaped wall clock", "issue": "Not recorded", "st": 2, "tool": "bulbs", "real": true, "hint": "On Oct. 18 it went to appliances.", "fact": "On Oct. 18 this clock went to the appliance table."}], T=[0,2,1].map(k=>T_ALL[k]), S=["check-in", "sewing", "appliances", "mechanical", "electronics", "special skills"];
 const tk=F.querySelector('#tkt'), q=F.querySelector('.dq'), note=F.querySelector('.apnote'), odds=F.querySelector('.apodds'), n=F.querySelector('.apn'), again=F.querySelector('.apagain');
 const tools=[...F.querySelectorAll('.aptool')], toolBy=k=>tools.find(b=>(b.querySelector('img')||{}).src&&b.querySelector('img').src.includes('ap_'+k+'.'));
 let i=0, busy=false;
@@ -2736,7 +2736,7 @@ function show(){
   tk.querySelector('.tt').textContent=t.t||'—'; tk.querySelector('.tn').textContent='#'+(i+1);
   tk.querySelector('.tsv').textContent='STATION ?'; tk.querySelector('.ti').textContent=t.item; tk.querySelector('.tis').textContent=t.issue;
   tk.querySelector('.tkind').textContent=t.real?'SEEN OCT 18':'TYPICAL TICKET'; tk.querySelector('.tstamp').textContent='';
-  n.textContent=i+1; q.textContent=i? 'Where does this one go?':'Drag the ticket to an apron, or tap one.'; q.classList.remove('no');
+  n.textContent=i+1; q.textContent=i? 'Next ticket':'Drag the ticket to an apron, or tap one'; q.classList.remove('no');
   tools.forEach(b=>b.classList.remove('out')); delete tk.dataset.st;
 }
 function pin(st){
@@ -2746,20 +2746,20 @@ function pin(st){
 function pick(st){
   if(busy||ed()||i>=T.length) return; const t=T[i];
   const a=F.querySelector('.aphit[data-st="'+st+'"]');
-  note.textContent=''; odds.classList.remove('on'); if(st===0){ q.textContent='That is the check-in desk. Pick a repair table.'; q.classList.add('no'); return; }
-  if(st!==t.st){ a.classList.remove('shake'); void a.offsetWidth; a.classList.add('shake'); q.textContent=t.hint; q.classList.add('no'); F.dataset.miss=1; return; }
+  note.textContent=''; odds.classList.remove('on'); if(st===0){ q.textContent='Try a repair table'; q.classList.add('no'); return; }
+  if(st!==t.st){ a.classList.remove('shake'); void a.offsetWidth; a.classList.add('shake'); q.textContent='Try again'; q.classList.add('no'); F.dataset.miss=1; return; }
   busy=true; q.classList.remove('no');
   tk.querySelector('.tsv').textContent=S[st].toUpperCase();
   tk.dataset.st=st; tk.querySelector('.tstamp').textContent=S[st].toUpperCase()+(t.fixed?' · FIXED':''); if(!F.dataset.miss) F.dataset.clean=(+F.dataset.clean||0)+1; delete F.dataset.miss;
   tk.classList.add('done');
   const tool=toolBy(t.tool); if(tool) tool.classList.add('out');
-  note.textContent=t.fact; q.textContent='Sent to '+S[st]+'.';
+  note.textContent=t.fact; q.textContent='Correct!';
   if(t.pct!=null){ odds.querySelector('b').textContent=t.pct+'%'; odds.style.setProperty('--p',t.pct+'%'); odds.classList.remove('on'); void odds.offsetWidth; odds.classList.add('on'); }
   setTimeout(()=>{ tk.classList.add('away'); pin(st); }, 1900);
   setTimeout(()=>{ i++; if(i<T.length) show(); else finish(); }, 2560);
 }
 function finish(){
-  tk.classList.remove('in'); tk.classList.add('gone'); F.querySelector('.desk').classList.add('over'); q.textContent='All '+T.length+' sent. You got '+(+F.dataset.clean||0)+' right on the first try.'; n.textContent=T.length; again.hidden=false;
+  tk.classList.remove('in'); tk.classList.add('gone'); F.querySelector('.desk').classList.add('over'); q.textContent=(+F.dataset.clean||0)+' of '+T.length+' right on the first try'; n.textContent=T.length; again.hidden=false;
   note.textContent=''; odds.classList.remove('on'); tools.forEach(b=>b.classList.add('out'));
 }
 again.addEventListener('click',()=>{ if(ed())return; i=0; F.dataset.clean=0; again.hidden=true; tk.classList.remove('gone'); F.querySelector('.desk').classList.remove('over'); F.querySelectorAll('.appins').forEach(p=>p.innerHTML=''); show(); });

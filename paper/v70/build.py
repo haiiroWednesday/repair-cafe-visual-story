@@ -104,6 +104,17 @@ for p in targets:
                 ('<li><a href="https://legiscan.com/CA/text/SB244/2023"','<li><a href="https://www.repaircafe.org/en/meet-mr-glue-volunteer-at-repair-cafe-nunhead-london/" target="_blank" rel="noopener">Repair Caf\u00e9 International, Nov. 2024: \u201cMeet \u2018Mr. Glue\u2019, volunteer at Repair Caf\u00e9 Nunhead, London\u201d</a></li><li><a href="https://www.therecorder.org/post/repair-cafe-in-pound-ridge-gives-new-life-to-old-belongings-builds-community" target="_blank" rel="noopener">The Recorder, Jane Sims, Oct. 2026: \u201cRepair Cafe in Pound Ridge gives new life to old belongings, builds community\u201d</a></li><li><a href="https://legiscan.com/CA/text/SB244/2023"')]:
         if a in b and b in s: continue      # a patch that keeps its own anchor is applied once
         s=s.replace(a,b)
+    # v106: the game talks like a game. No full stops, no "goes to" or "sent to"; a wrong pick just says to try again
+    for a,b in [("q.textContent='That is the check-in desk. Pick a repair table.';","q.textContent='Try a repair table';"),
+                ("q.textContent=t.hint;","q.textContent='Try again';"),
+                ("q.textContent='Sent to '+S[st]+'.';","q.textContent='Correct!';"),
+                ("'Drag the ticket to an apron, or tap one.'","'Drag the ticket to an apron, or tap one'"),
+                ("'Where does this one go?'","'Next ticket'"),
+                ('"fact": "At Repair Caf\u00e9s, 96% of trousers get fixed."','"fact": "96% of trousers get fixed"'),
+                ('"fact": "At Repair Caf\u00e9s, 53% of electrical items get fixed."','"fact": "53% of electrical items get fixed"'),
+                ('"fact": "Jazz soldered all twenty wires back by hand."','"fact": "This one is my stereo"'),
+                ("q.textContent='All '+T.length+' sent. You got '+(+F.dataset.clean||0)+' right on the first try.';","q.textContent=(+F.dataset.clean||0)+' of '+T.length+' right on the first try';")]:
+        if a in s: s=s.replace(a,b)
     s=s.replace('--ml:0%;--mt:4%;--mw:100%" loading="lazy"','--ml:0%;--mt:4%;--mw:100%" loading="eager" fetchpriority="high"',1)
     s=s.replace('img/hc_back.webp','img/hc2_back.webp')
     if 'src="img/hc_explode.webp"' not in s:
