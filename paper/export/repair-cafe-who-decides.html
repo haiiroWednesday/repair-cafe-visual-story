@@ -1671,6 +1671,24 @@ header.hero.titlefirst .herophoto{margin-top:26px}
 }
 .b1word span{font-family:var(--num);font-weight:600;letter-spacing:0}
 
+/* ===== v100: phone. The cake keeps its whole picture and slides across by itself; the stereo keeps its small labels ===== */
+.cakedots{display:none}
+@media (max-width:820px){
+  .cakefig:not(.cakestill) .cakewalk{height:calc(100svh + 190svh)}
+  .cakefig:not(.cakestill) .cakestk{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+  .cakefig:not(.cakestill) .cakepan{overflow:hidden !important;margin:0 !important}
+  .cakefig:not(.cakestill) .cakepan .plbtn{width:min(236vw,calc((100svh - 230px) / .6)) !important;margin-bottom:calc(min(236vw,calc((100svh - 230px) / .6)) * -.125) !important;will-change:transform}
+  .cakefig .cakecard{margin:0 auto 14px !important;flex:none}
+  .cakefig:not(.cakestill) .cakedots{display:flex;justify-content:center;gap:7px;margin-top:10px;flex:none}
+  .cakedots i{width:6px;height:6px;border-radius:50%;background:#8A2A35;opacity:.25;transition:opacity .3s}
+  .cakedots i.on{opacity:.9}
+  .panhint{display:none !important}
+  .st3 .tagl,.st3 .lb small,.st3 .ld g.r{display:block !important}
+  .st3 .ld g.r{display:inline !important}
+  .st3 .lb.r{top:var(--y) !important}
+  .st3 .tagl{transform:translate(-80%,-50%) rotate(-5deg) !important}
+}
+
 </style>
 <script id="v70js">
 addEventListener('DOMContentLoaded',()=>{
@@ -2154,15 +2172,26 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
 })();
 
 
-/* 19. v95 polish: on a phone the cake is wide enough to read and pans sideways */
+/* 19. v100: on a phone the cake is the same picture as on a laptop, large enough to read. It stays on screen while you scroll
+   and slides sideways by itself: the whole cake first, then the notes on its left, then the notes on its right. No swiping. */
 (()=>{
-  const btn=document.querySelector('.cakefig .plbtn'); if(!btn||btn.parentElement.classList.contains('cakepan')) return;
-  const pan=document.createElement('div'); pan.className='cakepan'; btn.before(pan); pan.appendChild(btn);
-  const hint=document.createElement('p'); hint.className='panhint'; hint.setAttribute('aria-hidden','true'); hint.textContent='← swipe →'; pan.after(hint);
-  const mq=matchMedia('(max-width:820px)');
-  const centre=()=>{ if(mq.matches) pan.scrollLeft=(pan.scrollWidth-pan.clientWidth)/2; };
-  centre(); addEventListener('load',centre); mq.addEventListener('change',centre);
-  pan.addEventListener('scroll',()=>{ if(Math.abs(pan.scrollLeft-(pan.scrollWidth-pan.clientWidth)/2)>40) hint.classList.add('gone'); },{passive:true});
+  const fig=document.querySelector('.cakefig'), btn=fig&&fig.querySelector('.plbtn'), card=fig&&fig.querySelector('.cakecard'); if(!btn||btn.parentElement.classList.contains('cakepan')) return;
+  const walk=document.createElement('div'); walk.className='cakewalk'; const stk=document.createElement('div'); stk.className='cakestk'; const pan=document.createElement('div'); pan.className='cakepan';
+  btn.before(walk); walk.appendChild(stk); if(card) stk.appendChild(card); stk.appendChild(pan); pan.appendChild(btn);
+  const dots=document.createElement('div'); dots.className='cakedots'; dots.setAttribute('aria-hidden','true'); dots.innerHTML='<i></i><i></i><i></i>'; stk.appendChild(dots);
+  const mq=matchMedia('(max-width:820px)'), cl=v=>Math.max(0,Math.min(1,v)), ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+  const seg=p=>p<.12?.5:p<.3?.5-.5*ease((p-.12)/.18):p<.5?0:p<.78?ease((p-.5)/.28):1;      /* 0 = left edge, 1 = right edge */
+  const fl=()=>[...btn.querySelectorAll('.fl')]; let lit=false, cur=null, live=false;
+  const light=()=>{ if(lit) return; lit=true; fl().forEach((e,i)=>setTimeout(()=>{e.classList.remove('out'); e.classList.add('on');},350+i*150)); };
+  const set=t=>{ const max=Math.max(0,btn.offsetWidth-pan.clientWidth); btn.style.transform=`translateX(${(-t*max).toFixed(1)}px)`; const k=t<.25?0:t>.75?2:1; [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===k)); };
+  const loop=()=>{ if(!mq.matches){ btn.style.transform=''; live=false; return; }
+    const r=walk.getBoundingClientRect(), span=Math.max(1,r.height-stk.offsetHeight), tgt=seg(cl(-r.top/span));
+    if(cur===null) cur=tgt; cur+=(tgt-cur)*.16; if(Math.abs(tgt-cur)<.0006) cur=tgt; set(cur);
+    if(r.top<innerHeight*.45&&r.bottom>innerHeight*.3) light();
+    if(r.bottom<-200||r.top>innerHeight+200){ live=false; return; } requestAnimationFrame(loop); };
+  const kick=()=>{ if(mq.matches&&!live){ live=true; requestAnimationFrame(loop); } };
+  if(RM){ fig.classList.add('cakestill'); const c=()=>{ if(mq.matches) pan.scrollLeft=(pan.scrollWidth-pan.clientWidth)/2; }; c(); addEventListener('load',c); return; }
+  addEventListener('scroll',kick,{passive:true}); addEventListener('resize',kick); addEventListener('load',kick); mq.addEventListener('change',()=>{ cur=null; btn.style.transform=''; kick(); }); kick();
 })();
 
 

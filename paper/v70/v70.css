@@ -580,3 +580,21 @@ header.hero.titlefirst .herophoto{margin-top:26px}
   .filmhang .ff b{font-size:12px}
 }
 .b1word span{font-family:var(--num);font-weight:600;letter-spacing:0}
+
+/* ===== v100: phone. The cake keeps its whole picture and slides across by itself; the stereo keeps its small labels ===== */
+.cakedots{display:none}
+@media (max-width:820px){
+  .cakefig:not(.cakestill) .cakewalk{height:calc(100svh + 190svh)}
+  .cakefig:not(.cakestill) .cakestk{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+  .cakefig:not(.cakestill) .cakepan{overflow:hidden !important;margin:0 !important}
+  .cakefig:not(.cakestill) .cakepan .plbtn{width:min(236vw,calc((100svh - 230px) / .6)) !important;margin-bottom:calc(min(236vw,calc((100svh - 230px) / .6)) * -.125) !important;will-change:transform}
+  .cakefig .cakecard{margin:0 auto 14px !important;flex:none}
+  .cakefig:not(.cakestill) .cakedots{display:flex;justify-content:center;gap:7px;margin-top:10px;flex:none}
+  .cakedots i{width:6px;height:6px;border-radius:50%;background:#8A2A35;opacity:.25;transition:opacity .3s}
+  .cakedots i.on{opacity:.9}
+  .panhint{display:none !important}
+  .st3 .tagl,.st3 .lb small,.st3 .ld g.r{display:block !important}
+  .st3 .ld g.r{display:inline !important}
+  .st3 .lb.r{top:var(--y) !important}
+  .st3 .tagl{transform:translate(-80%,-50%) rotate(-5deg) !important}
+}
