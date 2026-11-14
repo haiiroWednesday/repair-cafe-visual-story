@@ -102,6 +102,7 @@ for p in targets:
                 ('"img": "screws", "a": "Bill Wall, retired repairman, 2018"','"img": "spools", "a": "Amy Handler, who brought a bag of clothes to mend, Pound Ridge, N.Y., 2026"'),
                 ('<p class="enc">Quotes: Verde Magazine, Alta Journal and Stanford Magazine, 2012 to 2020. Survey:','<p class="enc">Quotes: Verde Magazine, Alta Journal, Stanford Magazine, Repair Caf\u00e9 International and The Recorder, 2012 to 2026. Survey:'),
                 ('<li><a href="https://legiscan.com/CA/text/SB244/2023"','<li><a href="https://www.repaircafe.org/en/meet-mr-glue-volunteer-at-repair-cafe-nunhead-london/" target="_blank" rel="noopener">Repair Caf\u00e9 International, Nov. 2024: \u201cMeet \u2018Mr. Glue\u2019, volunteer at Repair Caf\u00e9 Nunhead, London\u201d</a></li><li><a href="https://www.therecorder.org/post/repair-cafe-in-pound-ridge-gives-new-life-to-old-belongings-builds-community" target="_blank" rel="noopener">The Recorder, Jane Sims, Oct. 2026: \u201cRepair Cafe in Pound Ridge gives new life to old belongings, builds community\u201d</a></li><li><a href="https://legiscan.com/CA/text/SB244/2023"')]:
+        if a in b and b in s: continue      # a patch that keeps its own anchor is applied once
         s=s.replace(a,b)
     s=s.replace('--ml:0%;--mt:4%;--mw:100%" loading="lazy"','--ml:0%;--mt:4%;--mw:100%" loading="eager" fetchpriority="high"',1)
     s=s.replace('img/hc_back.webp','img/hc2_back.webp')
