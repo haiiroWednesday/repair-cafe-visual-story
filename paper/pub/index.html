@@ -1671,22 +1671,75 @@ header.hero.titlefirst .herophoto{margin-top:26px}
 }
 .b1word span{font-family:var(--num);font-weight:600;letter-spacing:0}
 
-/* ===== v100: phone. The cake keeps its whole picture and slides across by itself; the stereo keeps its small labels ===== */
-.cakedots{display:none}
+/* ===== v100: phone. The stereo keeps its small labels ===== */
 @media (max-width:820px){
-  .cakefig:not(.cakestill) .cakewalk{height:calc(100svh + 190svh)}
-  .cakefig:not(.cakestill) .cakestk{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
-  .cakefig:not(.cakestill) .cakepan{overflow:hidden !important;margin:0 !important}
-  .cakefig:not(.cakestill) .cakepan .plbtn{width:min(236vw,calc((100svh - 230px) / .6)) !important;margin-bottom:calc(min(236vw,calc((100svh - 230px) / .6)) * -.125) !important;will-change:transform}
-  .cakefig .cakecard{margin:0 auto 14px !important;flex:none}
-  .cakefig:not(.cakestill) .cakedots{display:flex;justify-content:center;gap:7px;margin-top:10px;flex:none}
-  .cakedots i{width:6px;height:6px;border-radius:50%;background:#8A2A35;opacity:.25;transition:opacity .3s}
-  .cakedots i.on{opacity:.9}
-  .panhint{display:none !important}
-  .st3 .tagl,.st3 .lb small,.st3 .ld g.r{display:block !important}
+  .st3 .tagl,.st3 .lb small{display:block !important}
   .st3 .ld g.r{display:inline !important}
   .st3 .lb.r{top:var(--y) !important}
   .st3 .tagl{transform:translate(-80%,-50%) rotate(-5deg) !important}
+}
+
+/* ===== v101: phone placement follows the laptop. The two volunteer photographs sit side by side; the teacup stays in a left column beside its reasons ===== */
+@media (max-width:820px){
+  .volfig .stage{--mar:1/.513 !important}
+  .volfig img[src*="fr_stitch"]{--ml:0% !important;--mt:0% !important;--mw:56.4% !important;--r:-.5deg !important}
+  .volfig img[src*="fr_volunteer"]{--ml:59.4% !important;--mt:0% !important;--mw:40.6% !important;--r:.5deg !important}
+  .whyone{display:grid !important;grid-template-columns:37% minmax(0,1fr) !important;gap:0 10px !important}
+  .whyone .wo-g{position:sticky;top:24vh;z-index:auto;margin:0;padding:0;background:none}
+  .whyone .wo-cup{width:124%;margin:30% 0 0 -16%}
+  .whyone .wo-l{padding:8vh 0 6vh}
+}
+
+/* ===== v101: the cake is a turntable; the scroll is time ===== */
+.cakefig .cakewalk{height:calc(100svh + 310svh)}
+.cakefig .cakestk{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.cakefig.cakestill .cakewalk{height:auto}
+.cakefig.cakestill .cakestk{position:relative;height:auto;padding:20px 0;overflow:visible}
+.cakefig .cakestk .cakecard{margin:0 auto 10px !important;flex:none}
+.ck{display:grid;grid-template-columns:minmax(120px,220px) auto minmax(200px,290px);align-items:center;justify-content:center;gap:0 26px;width:100%;max-width:1140px}
+.ckcake{position:relative;width:min(640px,46vw,calc((100svh - 215px) * 1.074));aspect-ratio:580/540;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.ckcake.grab{cursor:grabbing}
+.ckbody{position:absolute;inset:0;background:url(img/ck_turn.webp) 0 0/500% 300% no-repeat}
+.ckov{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ckyear{text-align:right}
+.ckyear b{display:block;font:400 clamp(54px,6.6vw,96px)/1 'Androgy',var(--title);color:#8A2A35;letter-spacing:.01em;font-variant-numeric:lining-nums}
+.ckyear span{display:block;margin-top:6px;font:400 13.5px/1.3 var(--brew);letter-spacing:.1em;text-transform:lowercase;font-variant:small-caps;color:#6A3A35}
+.cknote{min-height:170px;display:flex;align-items:center;filter:drop-shadow(0 10px 9px rgba(60,40,20,.22)) drop-shadow(0 1px 0 rgba(90,60,30,.12))}
+.cktag{position:relative;width:100%;padding:15px 16px 17px 32px;background:#FBF6EA;clip-path:polygon(17px 0,100% 0,100% 100%,17px 100%,0 calc(100% - 17px),0 17px);opacity:0;transform:translateX(16px) rotate(1.4deg);transition:opacity .2s,transform .2s}
+.cktag::before{content:'';position:absolute;left:10px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:#DDD0B4;box-shadow:inset 0 1px 1.5px rgba(60,40,20,.45)}
+.cktag.on{opacity:1;transform:rotate(1.4deg);transition:opacity .4s .05s,transform .55s cubic-bezier(.3,1.5,.5,1) .05s}
+.cktag b{display:block;font:400 14px/1.3 var(--brew);letter-spacing:.09em;font-variant:small-caps;text-transform:lowercase;color:#8A2A35;margin-bottom:6px}
+.cktag span{display:block;font:400 15.5px/1.38 var(--num),Georgia,serif;color:#4A3328}
+.ckall{display:grid;gap:12px;width:100%}
+.ckhint{margin:8px 0 0;font:400 12.5px/1 var(--brew);letter-spacing:.14em;font-variant:small-caps;text-transform:lowercase;color:#8A2A35;opacity:0;transition:opacity .5s}
+.ckhint.on{opacity:.9}
+.ckov .pqo{fill:#FBF6EA;stroke:#7A2E33;stroke-width:2}
+.ckov .pqd{fill:none;stroke:#7A2E33;stroke-width:.9;stroke-dasharray:1.5 3}
+.ckov .pq text{font:italic 500 18px var(--num),Georgia,serif;fill:#7A2E33}
+.ckov .pq.t .pqo,.ckov .pq.t .pqd{stroke:#2E5A4B}
+.ckov .pq.t text{fill:#2E5A4B;font-size:14.5px}
+.ckov .pqi{transform:scale(.2);opacity:0;transition:transform .45s cubic-bezier(.3,1.7,.5,1),opacity .2s}
+.ckov .pq.in .pqi{transform:none;opacity:1}
+.ckov .pq.front .pqo{stroke-width:3;filter:drop-shadow(0 0 5px rgba(255,214,120,.95))}
+.ckov .cni{transform:translateY(-46px);opacity:0;transition:transform .4s cubic-bezier(.3,1.3,.5,1),opacity .18s}
+.ckov .cn.set .cni{transform:none;opacity:1}
+.ckov .cst{stroke:#6E5340;stroke-width:.7}
+.ckov .cwk{stroke:#3A2A22;stroke-width:1.1}
+.ckov .cfl,.ckov .cgl{opacity:0;transition:opacity .25s}
+.ckov .cn.lit .cfl,.ckov .cn.lit .cgl,.ckov .mfl{opacity:1}
+.ckov .cfl path{animation:ckflick 1.1s ease-in-out infinite alternate;animation-delay:inherit;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes ckflick{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.08) rotate(2deg)}100%{transform:scale(1.05,.94) rotate(4deg)}}
+.ckov .mst{stroke:#C89A5B;stroke-width:4.6;stroke-linecap:round}
+.ckov .mhd{fill:#7A2E2E}
+.ckov .ckmatch{transition:opacity .5s;filter:drop-shadow(-3px 5px 3px rgba(60,40,20,.25))}
+@media (prefers-reduced-motion:reduce){.ckov .cfl path{animation:none}.ckov .cni,.ckov .pqi,.cktag{transition:none}}
+@media (max-width:820px){
+  .ck{grid-template-columns:1fr;gap:0;justify-items:center}
+  .ckyear{display:flex;align-items:baseline;gap:12px;text-align:left;justify-self:start;padding-left:6px}
+  .ckyear b{font-size:46px}
+  .ckcake{width:min(100%,calc((100svh - 356px) * 1.074))}
+  .cknote{min-height:132px;width:min(100%,340px);align-items:flex-start}
+  .cktag span{font-size:14.5px}
 }
 
 </style>
@@ -2172,26 +2225,88 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
 })();
 
 
-/* 19. v100: on a phone the cake is the same picture as on a laptop, large enough to read. It stays on screen while you scroll
-   and slides sideways by itself: the whole cake first, then the notes on its left, then the notes on its right. No swiping. */
+/* 19. v101: the cake is a turntable and the scroll is time. One turn runs from 2009 to 2026: each year a candle is set at the front
+   and the match lights it; in the nine years with a note, that year's plaque comes round to the front and its note shows alone on a tag.
+   The cake can be dragged round afterwards. The same on a laptop and a phone. The old picture stays in the page, hidden. */
 (()=>{
-  const fig=document.querySelector('.cakefig'), btn=fig&&fig.querySelector('.plbtn'), card=fig&&fig.querySelector('.cakecard'); if(!btn||btn.parentElement.classList.contains('cakepan')) return;
-  const walk=document.createElement('div'); walk.className='cakewalk'; const stk=document.createElement('div'); stk.className='cakestk'; const pan=document.createElement('div'); pan.className='cakepan';
-  btn.before(walk); walk.appendChild(stk); if(card) stk.appendChild(card); stk.appendChild(pan); pan.appendChild(btn);
-  const dots=document.createElement('div'); dots.className='cakedots'; dots.setAttribute('aria-hidden','true'); dots.innerHTML='<i></i><i></i><i></i>'; stk.appendChild(dots);
-  const mq=matchMedia('(max-width:820px)'), cl=v=>Math.max(0,Math.min(1,v)), ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-  const seg=p=>p<.12?.5:p<.3?.5-.5*ease((p-.12)/.18):p<.5?0:p<.78?ease((p-.5)/.28):1;      /* 0 = left edge, 1 = right edge */
-  const fl=()=>[...btn.querySelectorAll('.fl')]; let lit=false, cur=null, live=false;
-  const light=()=>{ if(lit) return; lit=true; fl().forEach((e,i)=>setTimeout(()=>{e.classList.remove('out'); e.classList.add('on');},350+i*150)); };
-  const set=t=>{ const max=Math.max(0,btn.offsetWidth-pan.clientWidth); btn.style.transform=`translateX(${(-t*max).toFixed(1)}px)`; const k=t<.25?0:t>.75?2:1; [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===k)); };
-  const loop=()=>{ if(!mq.matches){ btn.style.transform=''; live=false; return; }
-    const r=walk.getBoundingClientRect(), span=Math.max(1,r.height-stk.offsetHeight), tgt=seg(cl(-r.top/span));
-    if(cur===null) cur=tgt; cur+=(tgt-cur)*.16; if(Math.abs(tgt-cur)<.0006) cur=tgt; set(cur);
-    if(r.top<innerHeight*.45&&r.bottom>innerHeight*.3) light();
-    if(r.bottom<-200||r.top>innerHeight+200){ live=false; return; } requestAnimationFrame(loop); };
-  const kick=()=>{ if(mq.matches&&!live){ live=true; requestAnimationFrame(loop); } };
-  if(RM){ fig.classList.add('cakestill'); const c=()=>{ if(mq.matches) pan.scrollLeft=(pan.scrollWidth-pan.clientWidth)/2; }; c(); addEventListener('load',c); return; }
-  addEventListener('scroll',kick,{passive:true}); addEventListener('resize',kick); addEventListener('load',kick); mq.addEventListener('change',()=>{ cur=null; btn.style.transform=''; kick(); }); kick();
+  const hide=e=>{if(e){e.style.display='none';e.dataset.v7hidden=1;}};
+  const fig=document.querySelector('.cakefig'), btn=fig&&fig.querySelector('.plbtn'), card=fig&&fig.querySelector('.cakecard'); if(!btn||fig.querySelector('.cakewalk')) return;
+  const EV=[[2009,'18 Oct 2009 · Amsterdam','Martine Postma opens the first Repair Café in the foyer of the Fijnhout Theater.'],[2010,'2 Mar 2010 · Amsterdam','The Repair Café Foundation forms to help other towns start their own.'],
+    [2012,'14 Oct 2012 · Palo Alto','Peter Skinner opens the first one in the U.S., behind the Museum of American Heritage. About 100 people come.'],[2013,'2013 · Mountain View','Maia and Greg Coladonato start a second café a few miles south.'],
+    [2017,'2017 · worldwide','Cafés begin logging every repair in RepairMonitor. By late 2025 the count passes 305,000.'],[2023,'2023 · Silicon Valley','The Palo Alto and Mountain View cafés merge into Repair Café Silicon Valley.'],
+    [2024,'1 Jul 2024 · California','A right-to-repair law takes effect. Makers must keep parts and manuals available for up to seven years.'],[2025,'Oct 2025 · worldwide','3,818 Repair Cafés are registered around the world.'],
+    [2026,'18 Oct 2026 · San José','Repair Café Silicon Valley sets up at the Billy DeFrank Center for the first time.']];
+  /* the camera the frames were drawn with, so things on the page sit exactly on the cake */
+  const CW=820, CH=640, OX=120, OY=40, VW=580, VH=540, DIST=3.5, EL=.36, TY=.27, FOV=26, R1=.4, R2=.27, Y1=.3, Y2=.56, RC=.15, STEP=360/17, D2R=Math.PI/180;
+  const C=[0,Math.sin(EL)*DIST+TY,Math.cos(EL)*DIST], F=(()=>{const f=[0-C[0],TY-C[1],0-C[2]],n=Math.hypot(...f);return f.map(v=>v/n);})(), RT=[-F[2],0,F[0]].map((v,i,a)=>v/Math.hypot(a[0],a[2])), UP=[RT[1]*F[2]-RT[2]*F[1],RT[2]*F[0]-RT[0]*F[2],RT[0]*F[1]-RT[1]*F[0]], TAN=Math.tan(FOV*D2R/2);
+  const pr=(x,y,z)=>{ const v=[x-C[0],y-C[1],z-C[2]], xc=v[0]*RT[0]+v[1]*RT[1]+v[2]*RT[2], yc=v[0]*UP[0]+v[1]*UP[1]+v[2]*UP[2], zc=v[0]*F[0]+v[1]*F[1]+v[2]*F[2]; return [(xc/(zc*TAN*CW/CH)+1)/2*CW-OX,(1-yc/(zc*TAN))/2*CH-OY]; };
+  const mk=(tag,at,par,txt)=>{ const e=document.createElementNS(NS,tag); for(const k in at) e.setAttribute(k,at[k]); if(txt!=null) e.textContent=txt; if(par) par.appendChild(e); return e; };
+  /* build */
+  const walk=document.createElement('div'); walk.className='cakewalk'; const stk=document.createElement('div'); stk.className='cakestk';
+  btn.before(walk); walk.appendChild(stk); if(card) stk.appendChild(card); hide(btn); hide(fig.querySelector('.cakepan')); hide(fig.querySelector('.panhint'));
+  const ck=document.createElement('div'); ck.className='ck';
+  ck.innerHTML='<div class="ckyear"><b>2009</b><span></span></div><div class="ckcake" role="img" aria-label="A two-tier birthday cake on a turntable. A candle is lit for each year from 2010 to 2026, and nine plaques on its sides carry the years in the timeline."><div class="ckbody"></div></div><div class="cknote" aria-live="polite"><div class="cktag"><b></b><span></span></div></div>';
+  stk.appendChild(ck); const hint=document.createElement('p'); hint.className='ckhint'; hint.textContent='Drag the cake to turn it.'; stk.appendChild(hint);
+  const cake=ck.querySelector('.ckcake'), body=ck.querySelector('.ckbody'), yb=ck.querySelector('.ckyear b'), ys=ck.querySelector('.ckyear span'), tag=ck.querySelector('.cktag'), tb=tag.querySelector('b'), tt=tag.querySelector('span');
+  const sv=mk('svg',{class:'ckov',viewBox:`0 0 ${VW} ${VH}`,'aria-hidden':'true'},null); cake.appendChild(sv);
+  sv.innerHTML='<defs><radialGradient id="ckfg" cx="50%" cy="70%" r="62%"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#FFE08A"/><stop offset="1" stop-color="#F2A03C"/></radialGradient><radialGradient id="ckgl"><stop offset="0" stop-color="#FFE9A8" stop-opacity=".75"/><stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/></radialGradient><pattern id="ckst" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><rect width="2.2" height="6" fill="#fff" opacity=".55"/></pattern></defs>';
+  const gP=mk('g',{class:'ckpl'},sv), gC=mk('g',{class:'ckcd'},sv), gM=mk('g',{class:'ckmatch'},sv);
+  const FL='M0 -17 C 2.6 -10 6.4 -6.5 6.4 -1.5 A 6.4 6.6 0 0 1 -6.4 -1.5 C -6.4 -6.5 -2.6 -10 0 -17Z';
+  /* plaques: five on the bottom tier, four on the top */
+  const pl=EV.map(([yr],i)=>{ const top=i>=5, g=mk('g',{class:'pq'+(top?' t':'')},gP), inner=mk('g',{class:'pqi'},g);
+    mk('ellipse',{class:'pqo',rx:1,ry:1},inner); mk('ellipse',{class:'pqd',rx:1,ry:1},inner); const tx=mk('text',{'text-anchor':'middle','dominant-baseline':'central'},inner,yr);
+    return {yr,g,inner,tx,o:inner.children[0],d:inner.children[1],r:top?R2:R1,y:top?Y1+.112:.122,rx:top?.049:.063,ry:top?.043:.052,a:-(yr-2010)*STEP}; });
+  /* candles: 2010 to 2026 */
+  const COL=['#C8553D','#E0B04A','#7FB79A','#5F7FC0','#D9A9A0'];
+  const cd=Array.from({length:17},(_,i)=>{ const g=mk('g',{class:'cn'},gC), inn=mk('g',{class:'cni'},g); mk('circle',{class:'cgl',r:20,cy:-1,fill:'url(#ckgl)'},inn);
+    const st=mk('rect',{class:'cst',rx:2.2,fill:COL[i%5]},inn), sp=mk('rect',{class:'csp',rx:2.2,fill:'url(#ckst)'},inn), wk=mk('line',{class:'cwk'},inn), fl=mk('g',{class:'cfl'},inn); mk('path',{d:FL,fill:'url(#ckfg)'},fl);
+    fl.style.animationDelay=(-(i*53%17)/10)+'s'; return {yr:2010+i,g,inn,st,sp,wk,fl,gl:inn.children[0],a:-i*STEP,out:0}; });
+  /* the match */
+  mk('line',{class:'mst',x1:0,y1:0,x2:150,y2:74},gM); mk('ellipse',{class:'mhd',rx:5.2,ry:4.2,transform:'rotate(26)'},gM); { const f=mk('g',{class:'cfl mfl'},gM); mk('path',{d:FL,fill:'url(#ckfg)',transform:'scale(1.25)'},f); }
+  /* scroll to year: it rests on the nine years and runs through the others */
+  const SEG=[]; { let t=0; EV.forEach(([yr],i)=>{ SEG.push([t,t+.8,yr,yr]); t+=.8; if(i<EV.length-1){ const n=EV[i+1][0], w=.42+.12*(n-yr); SEG.push([t,t+w,yr,n]); t+=w; } }); SEG.forEach(s=>{s[0]/=t;s[1]/=t;}); }
+  const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, cl=v=>Math.max(0,Math.min(1,v));
+  const yearAt=p=>{ for(const [a,b,y0,y1] of SEG) if(p<=b) return y0+(y1-y0)*ease(cl((p-a)/(b-a))); return 2026; };
+  let off=0, drag=null, lastP=-1, shown=null, lastFrame=-1;
+  const draw=(Y,done)=>{ const th=Math.round(((Y-2010)*STEP+off)/2)*2, fr=(((th%30)+30)%30)/2;
+    if(fr!==lastFrame){ lastFrame=fr; body.style.backgroundPosition=`${(fr%5)*25}% ${Math.floor(fr/5)*50}%`; }
+    /* plaques */
+    pl.forEach(q=>{ const a=(q.a+th)*D2R, c=Math.cos(a), sn=Math.sin(a), on=Y>=q.yr-.32; q.g.classList.toggle('in',on);
+      if(c<.34){ q.g.style.display='none'; return; } q.g.style.display='';
+      const P=[q.r*sn,q.y,q.r*c], p0=pr(...P), p1=pr(P[0]+c*q.rx,P[1],P[2]-sn*q.rx), p2=pr(P[0]-c*q.rx,P[1],P[2]+sn*q.rx), pu=pr(P[0],P[1]+q.ry,P[2]);
+      const rx=Math.hypot(p1[0]-p2[0],p1[1]-p2[1])/2, ry=p0[1]-pu[1], rot=Math.atan2(p1[1]-p2[1],p1[0]-p2[0])/D2R, rf=pr(q.rx,q.y,q.r)[0]-pr(0,q.y,q.r)[0];
+      q.g.setAttribute('transform',`translate(${p0[0].toFixed(1)} ${p0[1].toFixed(1)}) rotate(${rot.toFixed(1)})`); q.o.setAttribute('rx',rx.toFixed(1)); q.o.setAttribute('ry',ry.toFixed(1)); q.d.setAttribute('rx',Math.max(.5,rx-5*rx/rf).toFixed(1)); q.d.setAttribute('ry',Math.max(.5,ry-5).toFixed(1));
+      q.tx.setAttribute('transform',`scale(${(rx/rf).toFixed(3)} 1)`); q.g.style.opacity=cl((c-.34)/.3); q.g.classList.toggle('front',c>.985&&on); });
+    /* candles, far ones first */
+    const now=performance.now(); let lit=0;
+    cd.map(k=>{ const a=(k.a+th)*D2R; k.c=Math.cos(a); k.s=Math.sin(a); return k; }).sort((p,q)=>p.c-q.c).forEach(k=>{ gC.appendChild(k.g);
+      const b=pr(RC*k.s,Y2,RC*k.c), t=pr(RC*k.s,Y2+.15,RC*k.c), h=b[1]-t[1], w=7.2*(h/50), set=Y>=k.yr-.55, on=Y>=k.yr-.1; if(on) lit++;
+      k.g.setAttribute('transform',`translate(${b[0].toFixed(1)} ${b[1].toFixed(1)})`); k.g.classList.toggle('set',set); k.g.classList.toggle('lit',on&&now>k.out);
+      if(k.h!==h){ k.h=h; [k.st,k.sp].forEach(r=>{ r.setAttribute('x',(-w/2).toFixed(2)); r.setAttribute('y',(-h).toFixed(2)); r.setAttribute('width',w.toFixed(2)); r.setAttribute('height',h.toFixed(2)); });
+        k.wk.setAttribute('y1',(-h).toFixed(1)); k.wk.setAttribute('y2',(-h-4).toFixed(1)); k.fl.setAttribute('transform',`translate(0 ${(-h-4).toFixed(1)}) scale(${(h/50).toFixed(2)})`); k.gl.setAttribute('cy',(-h-10).toFixed(1)); } });
+    /* the match rests beside the front candle and dips to light it */
+    const tip=pr(0,Y2+.15,RC), near=Math.round(Y), dip=(near>=2010&&!drag&&off===0)?Math.max(0,1-Math.abs(Y-near+.1)/.2):0, away=done?1:0;
+    gM.setAttribute('transform',`translate(${(tip[0]+24-22*dip+away*120).toFixed(1)} ${(tip[1]-34+24*dip+away*40).toFixed(1)})`); gM.style.opacity=done?0:1;
+    /* the year and the note */
+    const yr=Math.max(2009,Math.min(2026,Math.round(Y))); if(yb.textContent!=yr) yb.textContent=yr; const cnt=lit===0?'no candles yet':lit===1?'1 candle':lit+' candles'; if(ys.textContent!==cnt) ys.textContent=cnt;
+    let ev=null; if(off!==0||drag){ const f=pl.filter(q=>q.g.classList.contains('front'))[0]; if(f) ev=EV.find(e=>e[0]===f.yr); } else ev=EV.find(e=>Math.abs(Y-e[0])<=.42)||null;
+    if(ev!==shown){ shown=ev; if(ev){ tag.classList.remove('on'); void tag.offsetWidth; tb.textContent=ev[1]; tt.textContent=ev[2]; tag.classList.add('on'); } else tag.classList.remove('on'); }
+    hint.classList.toggle('on',done||off!==0); };
+  /* drive */
+  let cur=null, live=false;
+  const prog=()=>{ const r=walk.getBoundingClientRect(), span=Math.max(1,r.height-stk.offsetHeight); return cl(-r.top/span); };
+  const loop=()=>{ const p=prog(); if(lastP>=0&&Math.abs(p-lastP)>.0015&&!drag) off*=.86; if(Math.abs(off)<.6&&!drag) off=0; lastP=p;
+    const Y=yearAt(p); if(cur===null) cur=Y; cur+=(Y-cur)*.14; if(Math.abs(Y-cur)<.004) cur=Y; draw(cur,p>.985);
+    const r=walk.getBoundingClientRect(); if(r.bottom<-200||r.top>innerHeight+200){ live=false; return; } requestAnimationFrame(loop); };
+  const kick=()=>{ if(!live){ live=true; requestAnimationFrame(loop); } };
+  /* drag to turn; a pointer over a flame blows it out for a moment */
+  cake.addEventListener('pointerdown',e=>{ drag={x:e.clientX,o:off}; cake.setPointerCapture(e.pointerId); cake.classList.add('grab'); });
+  cake.addEventListener('pointermove',e=>{ if(drag){ off=drag.o+(e.clientX-drag.x)*.4; if(off===0) off=.01; return; }
+    const r=sv.getBoundingClientRect(), x=(e.clientX-r.left)/r.width*VW, y=(e.clientY-r.top)/r.height*VH;
+    cd.forEach(k=>{ if(!k.g.classList.contains('lit')) return; const m=k.g.transform.baseVal[0].matrix; if(Math.abs(m.e-x)<7&&Math.abs(m.f-k.h-12-y)<13) k.out=performance.now()+900; }); });
+  const up=()=>{ if(drag){ drag=null; cake.classList.remove('grab'); } }; cake.addEventListener('pointerup',up); cake.addEventListener('pointercancel',up);
+  if(RM){ fig.classList.add('cakestill'); draw(2026,true); const all=document.createElement('div'); all.className='ckall'; EV.forEach(e=>{ const t=document.createElement('div'); t.className='cktag on'; t.innerHTML='<b></b><span></span>'; t.children[0].textContent=e[1]; t.children[1].textContent=e[2]; all.appendChild(t); }); ck.querySelector('.cknote').replaceChildren(all); return; }
+  addEventListener('scroll',kick,{passive:true}); addEventListener('resize',kick); addEventListener('load',kick); kick();
 })();
 
 

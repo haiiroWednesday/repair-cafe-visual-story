@@ -479,26 +479,88 @@ document.querySelectorAll('.plbtn').forEach(b=>{b.setAttribute('tabindex','-1');
 })();
 
 
-/* 19. v100: on a phone the cake is the same picture as on a laptop, large enough to read. It stays on screen while you scroll
-   and slides sideways by itself: the whole cake first, then the notes on its left, then the notes on its right. No swiping. */
+/* 19. v101: the cake is a turntable and the scroll is time. One turn runs from 2009 to 2026: each year a candle is set at the front
+   and the match lights it; in the nine years with a note, that year's plaque comes round to the front and its note shows alone on a tag.
+   The cake can be dragged round afterwards. The same on a laptop and a phone. The old picture stays in the page, hidden. */
 (()=>{
-  const fig=document.querySelector('.cakefig'), btn=fig&&fig.querySelector('.plbtn'), card=fig&&fig.querySelector('.cakecard'); if(!btn||btn.parentElement.classList.contains('cakepan')) return;
-  const walk=document.createElement('div'); walk.className='cakewalk'; const stk=document.createElement('div'); stk.className='cakestk'; const pan=document.createElement('div'); pan.className='cakepan';
-  btn.before(walk); walk.appendChild(stk); if(card) stk.appendChild(card); stk.appendChild(pan); pan.appendChild(btn);
-  const dots=document.createElement('div'); dots.className='cakedots'; dots.setAttribute('aria-hidden','true'); dots.innerHTML='<i></i><i></i><i></i>'; stk.appendChild(dots);
-  const mq=matchMedia('(max-width:820px)'), cl=v=>Math.max(0,Math.min(1,v)), ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-  const seg=p=>p<.12?.5:p<.3?.5-.5*ease((p-.12)/.18):p<.5?0:p<.78?ease((p-.5)/.28):1;      /* 0 = left edge, 1 = right edge */
-  const fl=()=>[...btn.querySelectorAll('.fl')]; let lit=false, cur=null, live=false;
-  const light=()=>{ if(lit) return; lit=true; fl().forEach((e,i)=>setTimeout(()=>{e.classList.remove('out'); e.classList.add('on');},350+i*150)); };
-  const set=t=>{ const max=Math.max(0,btn.offsetWidth-pan.clientWidth); btn.style.transform=`translateX(${(-t*max).toFixed(1)}px)`; const k=t<.25?0:t>.75?2:1; [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===k)); };
-  const loop=()=>{ if(!mq.matches){ btn.style.transform=''; live=false; return; }
-    const r=walk.getBoundingClientRect(), span=Math.max(1,r.height-stk.offsetHeight), tgt=seg(cl(-r.top/span));
-    if(cur===null) cur=tgt; cur+=(tgt-cur)*.16; if(Math.abs(tgt-cur)<.0006) cur=tgt; set(cur);
-    if(r.top<innerHeight*.45&&r.bottom>innerHeight*.3) light();
-    if(r.bottom<-200||r.top>innerHeight+200){ live=false; return; } requestAnimationFrame(loop); };
-  const kick=()=>{ if(mq.matches&&!live){ live=true; requestAnimationFrame(loop); } };
-  if(RM){ fig.classList.add('cakestill'); const c=()=>{ if(mq.matches) pan.scrollLeft=(pan.scrollWidth-pan.clientWidth)/2; }; c(); addEventListener('load',c); return; }
-  addEventListener('scroll',kick,{passive:true}); addEventListener('resize',kick); addEventListener('load',kick); mq.addEventListener('change',()=>{ cur=null; btn.style.transform=''; kick(); }); kick();
+  const hide=e=>{if(e){e.style.display='none';e.dataset.v7hidden=1;}};
+  const fig=document.querySelector('.cakefig'), btn=fig&&fig.querySelector('.plbtn'), card=fig&&fig.querySelector('.cakecard'); if(!btn||fig.querySelector('.cakewalk')) return;
+  const EV=[[2009,'18 Oct 2009 · Amsterdam','Martine Postma opens the first Repair Café in the foyer of the Fijnhout Theater.'],[2010,'2 Mar 2010 · Amsterdam','The Repair Café Foundation forms to help other towns start their own.'],
+    [2012,'14 Oct 2012 · Palo Alto','Peter Skinner opens the first one in the U.S., behind the Museum of American Heritage. About 100 people come.'],[2013,'2013 · Mountain View','Maia and Greg Coladonato start a second café a few miles south.'],
+    [2017,'2017 · worldwide','Cafés begin logging every repair in RepairMonitor. By late 2025 the count passes 305,000.'],[2023,'2023 · Silicon Valley','The Palo Alto and Mountain View cafés merge into Repair Café Silicon Valley.'],
+    [2024,'1 Jul 2024 · California','A right-to-repair law takes effect. Makers must keep parts and manuals available for up to seven years.'],[2025,'Oct 2025 · worldwide','3,818 Repair Cafés are registered around the world.'],
+    [2026,'18 Oct 2026 · San José','Repair Café Silicon Valley sets up at the Billy DeFrank Center for the first time.']];
+  /* the camera the frames were drawn with, so things on the page sit exactly on the cake */
+  const CW=820, CH=640, OX=120, OY=40, VW=580, VH=540, DIST=3.5, EL=.36, TY=.27, FOV=26, R1=.4, R2=.27, Y1=.3, Y2=.56, RC=.15, STEP=360/17, D2R=Math.PI/180;
+  const C=[0,Math.sin(EL)*DIST+TY,Math.cos(EL)*DIST], F=(()=>{const f=[0-C[0],TY-C[1],0-C[2]],n=Math.hypot(...f);return f.map(v=>v/n);})(), RT=[-F[2],0,F[0]].map((v,i,a)=>v/Math.hypot(a[0],a[2])), UP=[RT[1]*F[2]-RT[2]*F[1],RT[2]*F[0]-RT[0]*F[2],RT[0]*F[1]-RT[1]*F[0]], TAN=Math.tan(FOV*D2R/2);
+  const pr=(x,y,z)=>{ const v=[x-C[0],y-C[1],z-C[2]], xc=v[0]*RT[0]+v[1]*RT[1]+v[2]*RT[2], yc=v[0]*UP[0]+v[1]*UP[1]+v[2]*UP[2], zc=v[0]*F[0]+v[1]*F[1]+v[2]*F[2]; return [(xc/(zc*TAN*CW/CH)+1)/2*CW-OX,(1-yc/(zc*TAN))/2*CH-OY]; };
+  const mk=(tag,at,par,txt)=>{ const e=document.createElementNS(NS,tag); for(const k in at) e.setAttribute(k,at[k]); if(txt!=null) e.textContent=txt; if(par) par.appendChild(e); return e; };
+  /* build */
+  const walk=document.createElement('div'); walk.className='cakewalk'; const stk=document.createElement('div'); stk.className='cakestk';
+  btn.before(walk); walk.appendChild(stk); if(card) stk.appendChild(card); hide(btn); hide(fig.querySelector('.cakepan')); hide(fig.querySelector('.panhint'));
+  const ck=document.createElement('div'); ck.className='ck';
+  ck.innerHTML='<div class="ckyear"><b>2009</b><span></span></div><div class="ckcake" role="img" aria-label="A two-tier birthday cake on a turntable. A candle is lit for each year from 2010 to 2026, and nine plaques on its sides carry the years in the timeline."><div class="ckbody"></div></div><div class="cknote" aria-live="polite"><div class="cktag"><b></b><span></span></div></div>';
+  stk.appendChild(ck); const hint=document.createElement('p'); hint.className='ckhint'; hint.textContent='Drag the cake to turn it.'; stk.appendChild(hint);
+  const cake=ck.querySelector('.ckcake'), body=ck.querySelector('.ckbody'), yb=ck.querySelector('.ckyear b'), ys=ck.querySelector('.ckyear span'), tag=ck.querySelector('.cktag'), tb=tag.querySelector('b'), tt=tag.querySelector('span');
+  const sv=mk('svg',{class:'ckov',viewBox:`0 0 ${VW} ${VH}`,'aria-hidden':'true'},null); cake.appendChild(sv);
+  sv.innerHTML='<defs><radialGradient id="ckfg" cx="50%" cy="70%" r="62%"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#FFE08A"/><stop offset="1" stop-color="#F2A03C"/></radialGradient><radialGradient id="ckgl"><stop offset="0" stop-color="#FFE9A8" stop-opacity=".75"/><stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/></radialGradient><pattern id="ckst" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><rect width="2.2" height="6" fill="#fff" opacity=".55"/></pattern></defs>';
+  const gP=mk('g',{class:'ckpl'},sv), gC=mk('g',{class:'ckcd'},sv), gM=mk('g',{class:'ckmatch'},sv);
+  const FL='M0 -17 C 2.6 -10 6.4 -6.5 6.4 -1.5 A 6.4 6.6 0 0 1 -6.4 -1.5 C -6.4 -6.5 -2.6 -10 0 -17Z';
+  /* plaques: five on the bottom tier, four on the top */
+  const pl=EV.map(([yr],i)=>{ const top=i>=5, g=mk('g',{class:'pq'+(top?' t':'')},gP), inner=mk('g',{class:'pqi'},g);
+    mk('ellipse',{class:'pqo',rx:1,ry:1},inner); mk('ellipse',{class:'pqd',rx:1,ry:1},inner); const tx=mk('text',{'text-anchor':'middle','dominant-baseline':'central'},inner,yr);
+    return {yr,g,inner,tx,o:inner.children[0],d:inner.children[1],r:top?R2:R1,y:top?Y1+.112:.122,rx:top?.049:.063,ry:top?.043:.052,a:-(yr-2010)*STEP}; });
+  /* candles: 2010 to 2026 */
+  const COL=['#C8553D','#E0B04A','#7FB79A','#5F7FC0','#D9A9A0'];
+  const cd=Array.from({length:17},(_,i)=>{ const g=mk('g',{class:'cn'},gC), inn=mk('g',{class:'cni'},g); mk('circle',{class:'cgl',r:20,cy:-1,fill:'url(#ckgl)'},inn);
+    const st=mk('rect',{class:'cst',rx:2.2,fill:COL[i%5]},inn), sp=mk('rect',{class:'csp',rx:2.2,fill:'url(#ckst)'},inn), wk=mk('line',{class:'cwk'},inn), fl=mk('g',{class:'cfl'},inn); mk('path',{d:FL,fill:'url(#ckfg)'},fl);
+    fl.style.animationDelay=(-(i*53%17)/10)+'s'; return {yr:2010+i,g,inn,st,sp,wk,fl,gl:inn.children[0],a:-i*STEP,out:0}; });
+  /* the match */
+  mk('line',{class:'mst',x1:0,y1:0,x2:150,y2:74},gM); mk('ellipse',{class:'mhd',rx:5.2,ry:4.2,transform:'rotate(26)'},gM); { const f=mk('g',{class:'cfl mfl'},gM); mk('path',{d:FL,fill:'url(#ckfg)',transform:'scale(1.25)'},f); }
+  /* scroll to year: it rests on the nine years and runs through the others */
+  const SEG=[]; { let t=0; EV.forEach(([yr],i)=>{ SEG.push([t,t+.8,yr,yr]); t+=.8; if(i<EV.length-1){ const n=EV[i+1][0], w=.42+.12*(n-yr); SEG.push([t,t+w,yr,n]); t+=w; } }); SEG.forEach(s=>{s[0]/=t;s[1]/=t;}); }
+  const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, cl=v=>Math.max(0,Math.min(1,v));
+  const yearAt=p=>{ for(const [a,b,y0,y1] of SEG) if(p<=b) return y0+(y1-y0)*ease(cl((p-a)/(b-a))); return 2026; };
+  let off=0, drag=null, lastP=-1, shown=null, lastFrame=-1;
+  const draw=(Y,done)=>{ const th=Math.round(((Y-2010)*STEP+off)/2)*2, fr=(((th%30)+30)%30)/2;
+    if(fr!==lastFrame){ lastFrame=fr; body.style.backgroundPosition=`${(fr%5)*25}% ${Math.floor(fr/5)*50}%`; }
+    /* plaques */
+    pl.forEach(q=>{ const a=(q.a+th)*D2R, c=Math.cos(a), sn=Math.sin(a), on=Y>=q.yr-.32; q.g.classList.toggle('in',on);
+      if(c<.34){ q.g.style.display='none'; return; } q.g.style.display='';
+      const P=[q.r*sn,q.y,q.r*c], p0=pr(...P), p1=pr(P[0]+c*q.rx,P[1],P[2]-sn*q.rx), p2=pr(P[0]-c*q.rx,P[1],P[2]+sn*q.rx), pu=pr(P[0],P[1]+q.ry,P[2]);
+      const rx=Math.hypot(p1[0]-p2[0],p1[1]-p2[1])/2, ry=p0[1]-pu[1], rot=Math.atan2(p1[1]-p2[1],p1[0]-p2[0])/D2R, rf=pr(q.rx,q.y,q.r)[0]-pr(0,q.y,q.r)[0];
+      q.g.setAttribute('transform',`translate(${p0[0].toFixed(1)} ${p0[1].toFixed(1)}) rotate(${rot.toFixed(1)})`); q.o.setAttribute('rx',rx.toFixed(1)); q.o.setAttribute('ry',ry.toFixed(1)); q.d.setAttribute('rx',Math.max(.5,rx-5*rx/rf).toFixed(1)); q.d.setAttribute('ry',Math.max(.5,ry-5).toFixed(1));
+      q.tx.setAttribute('transform',`scale(${(rx/rf).toFixed(3)} 1)`); q.g.style.opacity=cl((c-.34)/.3); q.g.classList.toggle('front',c>.985&&on); });
+    /* candles, far ones first */
+    const now=performance.now(); let lit=0;
+    cd.map(k=>{ const a=(k.a+th)*D2R; k.c=Math.cos(a); k.s=Math.sin(a); return k; }).sort((p,q)=>p.c-q.c).forEach(k=>{ gC.appendChild(k.g);
+      const b=pr(RC*k.s,Y2,RC*k.c), t=pr(RC*k.s,Y2+.15,RC*k.c), h=b[1]-t[1], w=7.2*(h/50), set=Y>=k.yr-.55, on=Y>=k.yr-.1; if(on) lit++;
+      k.g.setAttribute('transform',`translate(${b[0].toFixed(1)} ${b[1].toFixed(1)})`); k.g.classList.toggle('set',set); k.g.classList.toggle('lit',on&&now>k.out);
+      if(k.h!==h){ k.h=h; [k.st,k.sp].forEach(r=>{ r.setAttribute('x',(-w/2).toFixed(2)); r.setAttribute('y',(-h).toFixed(2)); r.setAttribute('width',w.toFixed(2)); r.setAttribute('height',h.toFixed(2)); });
+        k.wk.setAttribute('y1',(-h).toFixed(1)); k.wk.setAttribute('y2',(-h-4).toFixed(1)); k.fl.setAttribute('transform',`translate(0 ${(-h-4).toFixed(1)}) scale(${(h/50).toFixed(2)})`); k.gl.setAttribute('cy',(-h-10).toFixed(1)); } });
+    /* the match rests beside the front candle and dips to light it */
+    const tip=pr(0,Y2+.15,RC), near=Math.round(Y), dip=(near>=2010&&!drag&&off===0)?Math.max(0,1-Math.abs(Y-near+.1)/.2):0, away=done?1:0;
+    gM.setAttribute('transform',`translate(${(tip[0]+24-22*dip+away*120).toFixed(1)} ${(tip[1]-34+24*dip+away*40).toFixed(1)})`); gM.style.opacity=done?0:1;
+    /* the year and the note */
+    const yr=Math.max(2009,Math.min(2026,Math.round(Y))); if(yb.textContent!=yr) yb.textContent=yr; const cnt=lit===0?'no candles yet':lit===1?'1 candle':lit+' candles'; if(ys.textContent!==cnt) ys.textContent=cnt;
+    let ev=null; if(off!==0||drag){ const f=pl.filter(q=>q.g.classList.contains('front'))[0]; if(f) ev=EV.find(e=>e[0]===f.yr); } else ev=EV.find(e=>Math.abs(Y-e[0])<=.42)||null;
+    if(ev!==shown){ shown=ev; if(ev){ tag.classList.remove('on'); void tag.offsetWidth; tb.textContent=ev[1]; tt.textContent=ev[2]; tag.classList.add('on'); } else tag.classList.remove('on'); }
+    hint.classList.toggle('on',done||off!==0); };
+  /* drive */
+  let cur=null, live=false;
+  const prog=()=>{ const r=walk.getBoundingClientRect(), span=Math.max(1,r.height-stk.offsetHeight); return cl(-r.top/span); };
+  const loop=()=>{ const p=prog(); if(lastP>=0&&Math.abs(p-lastP)>.0015&&!drag) off*=.86; if(Math.abs(off)<.6&&!drag) off=0; lastP=p;
+    const Y=yearAt(p); if(cur===null) cur=Y; cur+=(Y-cur)*.14; if(Math.abs(Y-cur)<.004) cur=Y; draw(cur,p>.985);
+    const r=walk.getBoundingClientRect(); if(r.bottom<-200||r.top>innerHeight+200){ live=false; return; } requestAnimationFrame(loop); };
+  const kick=()=>{ if(!live){ live=true; requestAnimationFrame(loop); } };
+  /* drag to turn; a pointer over a flame blows it out for a moment */
+  cake.addEventListener('pointerdown',e=>{ drag={x:e.clientX,o:off}; cake.setPointerCapture(e.pointerId); cake.classList.add('grab'); });
+  cake.addEventListener('pointermove',e=>{ if(drag){ off=drag.o+(e.clientX-drag.x)*.4; if(off===0) off=.01; return; }
+    const r=sv.getBoundingClientRect(), x=(e.clientX-r.left)/r.width*VW, y=(e.clientY-r.top)/r.height*VH;
+    cd.forEach(k=>{ if(!k.g.classList.contains('lit')) return; const m=k.g.transform.baseVal[0].matrix; if(Math.abs(m.e-x)<7&&Math.abs(m.f-k.h-12-y)<13) k.out=performance.now()+900; }); });
+  const up=()=>{ if(drag){ drag=null; cake.classList.remove('grab'); } }; cake.addEventListener('pointerup',up); cake.addEventListener('pointercancel',up);
+  if(RM){ fig.classList.add('cakestill'); draw(2026,true); const all=document.createElement('div'); all.className='ckall'; EV.forEach(e=>{ const t=document.createElement('div'); t.className='cktag on'; t.innerHTML='<b></b><span></span>'; t.children[0].textContent=e[1]; t.children[1].textContent=e[2]; all.appendChild(t); }); ck.querySelector('.cknote').replaceChildren(all); return; }
+  addEventListener('scroll',kick,{passive:true}); addEventListener('resize',kick); addEventListener('load',kick); kick();
 })();
 
 
